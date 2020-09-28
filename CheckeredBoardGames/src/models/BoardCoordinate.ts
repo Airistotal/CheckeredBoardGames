@@ -7,6 +7,10 @@ class BoardCoordinate {
     this.row = row;
   }
 
+  static at(col: string, row: number) {
+    return new BoardCoordinate(col, row);
+  }
+
   public toString() {
     return this.col + this.row;
   }
