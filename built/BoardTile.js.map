@@ -1,1 +1,1 @@
-{"version":3,"file":"BoardTile.js","sourceRoot":"","sources":["../src/models/BoardTile.ts"],"names":[],"mappings":";;AAAA,MAAM,SAAS;IAGb,YAAY,KAAU;QACpB,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;IACrB,CAAC;CACF;AAED,kBAAe,SAAS,CAAC"}
+{"version":3,"file":"BoardTile.js","sourceRoot":"","sources":["../src/models/BoardTile.ts"],"names":[],"mappings":";;AAEA,MAAM,SAAS;IAGb,YAAY,KAAiB;QAC3B,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;IACrB,CAAC;IAEM,QAAQ;QACb,OAAO,IAAI,CAAC,KAAK,CAAC;IACpB,CAAC;IAEM,QAAQ,CAAC,KAAiB;QAC/B,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;IACrB,CAAC;CACF;AAED,kBAAe,SAAS,CAAC"}
