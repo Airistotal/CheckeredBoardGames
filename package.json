@@ -1,0 +1,34 @@
+{
+  "name": "checkered-board-games",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "mocha --require ts-node/register tests/**/*.ts",
+    "build": "npm test && tsc"
+  },
+  "description": "CheckeredBoardGames",
+  "author": {
+    "name": "Daniel Bouchard"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/chai": "^4.2.12",
+    "@types/expect": "^24.3.0",
+    "@types/mocha": "^8.0.3",
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3",
+    "ts-mocha": "^7.0.0",
+    "typescript": "^3.9.7"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings":
+  {
+      "tab_size": 2
+  },
+  "build_systems":
+  [
+    {
+      "name": "npm run build",
+      "shell_cmd": "npm run build",
+    }
+  ]
+}

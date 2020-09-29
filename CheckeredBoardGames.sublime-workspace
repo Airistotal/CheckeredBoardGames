@@ -1,0 +1,377 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"stock",
+				"stockSymbol"
+			],
+			[
+				"back",
+				"backToSelector"
+			],
+			[
+				"group",
+				"grouped_leads"
+			],
+			[
+				"leads",
+				"leads_per_form"
+			],
+			[
+				"leads_per",
+				"leads_per_form_paged"
+			],
+			[
+				"get",
+				"get_leads_from_form"
+			],
+			[
+				"click",
+				"clickEnabled"
+			],
+			[
+				"EXP",
+				"expToLevel"
+			],
+			[
+				"add",
+				"addExp"
+			],
+			[
+				"anima",
+				"animation-play-state\tproperty"
+			],
+			[
+				"inlin",
+				"inline-block\tdisplay"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "npm run build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"npm run build",
+					""
+				],
+				[
+					"Packages/TypeScript/TypeScript.sublime-build",
+					""
+				]
+			],
+			[
+				"npm run build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"cpi",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 157.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames"
+	],
+	"file_history":
+	[
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tsconfig.json",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/package.json",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/CheckeredBoardGames.sublime-project",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/env.bat",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/.sublime-project.sublime-workspace",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/.sublime-project",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/tests/models/BoardCoordinate.test.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/tests/models/BoardTile.test.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/tests/models/Board.test.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/BoardCoordinate.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/BoardCoordinate.js",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/README.md",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/.gitignore",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/CheckeredBoardGames/tsconfig.json",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/CheckeredBoardGames/src/models/BoardTile.js",
+		"/C/Users/Daniel/source/repos/Airistotal.github.io/pages/stock-ticker.html",
+		"/C/Users/Daniel/source/repos/Airistotal.github.io/js/links.js",
+		"/C/Users/Daniel/source/repos/Airistotal.github.io/pages/portfolio.html",
+		"/C/Users/Daniel/source/repos/Airistotal.github.io/js/stock-ticker.js",
+		"/C/Users/Daniel/source/repos/Airistotal.github.io/pages/ticker/ticker.html",
+		"/C/Users/Daniel/source/repos/Airistotal.github.io/pages/ticker/js/keyboard.js",
+		"/C/Users/Daniel/source/repos/Airistotal.github.io/web.config",
+		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/src/ticker.html",
+		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/src/js/stockselector.js",
+		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/fs_installer",
+		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/autostart",
+		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/src/js/keyboard.js",
+		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/src/css/keyboard.css",
+		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/src/css/ticker.css",
+		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/ticker.html",
+		"/C/Users/Daniel/Desktop/testing.html",
+		"/C/Users/Daniel/AppData/Roaming/.technic/modpacks/blightfall/config/InvTweaksRules.txt",
+		"/C/Users/Daniel/Downloads/stg24api.txt",
+		"/C/Users/Daniel/Desktop/2020065AzN-Artifacts/appsettings.Development.json",
+		"/C/Users/Daniel/AppData/Local/Temp/Temp1_Artifacts.zip/aws-windows-deployment-manifest.json",
+		"/C/Users/Daniel/Desktop/2020065AzN-Artifacts/aws-windows-deployment-manifest.json",
+		"/C/Users/Daniel/Desktop/2020065AzN-Artifacts/appsettings.json",
+		"/C/Users/Daniel/Desktop/2020065AzN-Artifacts/appsettings.Production.json",
+		"/C/Users/Daniel/Desktop/2020096vcn-Artifacts/appsettings.Development.json",
+		"/C/Users/Daniel/Desktop/2020096vcn-Artifacts/appsettings.json",
+		"/C/Users/Daniel/Desktop/2020096vcn-Artifacts/aws-windows-deployment-manifest.json",
+		"/C/Users/Daniel/Desktop/2020096vcn-Artifacts/Api.deps.json",
+		"/C/Users/Daniel/Desktop/2020096vcn-Artifacts/Api.runtimeconfig.json",
+		"/C/Users/Daniel/AppData/Local/Temp/Temp1_2020096vcn-Artifacts.zip/appsettings.Development.json",
+		"/C/Users/Daniel/source/repos/Engage.io/README.md",
+		"/C/Users/Daniel/AppData/Local/Temp/Temp1_2020096vcn-Artifacts.zip/appsettings.json",
+		"/C/Users/Daniel/Documents/My Games/Neopets",
+		"/C/Users/Daniel/Documents/My Games/IF needs",
+		"/C/Users/Daniel/Documents/My Games/mine/MonsterMusume_game.txt",
+		"/C/Users/Daniel/Documents/Minecraft Servers/Blightfall_Server_v2.1.5/PerfectSpawn.json",
+		"/C/Users/Daniel/Documents/Minecraft Servers/Blightfall_Server_v2.1.5/eula.txt",
+		"/C/Users/Daniel/Documents/Minecraft Servers/Blightfall_Server_v2.1.5/server.properties",
+		"/C/Users/Daniel/Desktop/livestream.html",
+		"/C/Users/Daniel/Desktop/FB Lead Poller.py",
+		"/C/Users/Daniel/Desktop/dosshell-portable/apps.txt",
+		"/C/Users/Daniel/AppData/Local/Temp/Temp1_Artifacts.zip/appsettings.Production.json",
+		"/C/Users/Daniel/Desktop/appsettings.Production.json",
+		"/C/Users/Daniel/source/repos/Engage.io/Build/build.ps1",
+		"/C/Users/Daniel/Desktop/appsettings.json",
+		"/C/Users/Daniel/source/repos/Engage.io/Source/API/appsettings.json",
+		"/C/Users/Daniel/.ssh/aws-eb.pub",
+		"/C/Users/Daniel/.ssh/aws-eb",
+		"/C/Users/Daniel/source/repos/Engage.io/.circleci/config.yml",
+		"/C/Users/Daniel/AppData/Local/Temp/Temp2_Artifacts.zip/wwwroot/js/app.3d250afb.js",
+		"/C/Users/Daniel/AppData/Local/Temp/Temp2_Artifacts.zip/wwwroot/js/app.ede3b820.js",
+		"/C/Users/Daniel/AppData/Local/Temp/Temp2_Artifacts.zip/aws-windows-deployment-manifest.json",
+		"/C/Users/Daniel/source/repos/Engage.io/Build/aws-windows-deployment-manifest.json",
+		"/C/Users/Daniel/Desktop/ip.txt",
+		"/C/Users/Daniel/Desktop/Blightfall_Server_v2.1.5/eula.txt",
+		"/C/Users/Daniel/Desktop/Logs/www38.csv",
+		"/C/Users/Daniel/Desktop/Logs/Log formatting.txt",
+		"/C/Users/Daniel/Desktop/Logs/www28/Service/20200102.txt",
+		"/C/Users/Daniel/Desktop/Logs/www28/Service/20200101.txt",
+		"/C/Users/Daniel/Desktop/Logs/www24/Service/20200101.txt",
+		"/C/Users/Daniel/Desktop/Logs/www24/Service/20200102.txt",
+		"/C/Users/Daniel/Desktop/Logs/www24.csv",
+		"/C/Users/Daniel/Desktop/Logs/www24/Service/20191228.txt",
+		"/C/Users/Daniel/Desktop/Logs/20200102.txt",
+		"/C/Users/Daniel/Desktop/Logs/20200101.txt",
+		"/C/Users/Daniel/Desktop/Logs/www23.csv",
+		"/C/Users/Daniel/Desktop/Logs/www23_2.csv",
+		"/C/Users/Daniel/Desktop/Logs/www23_3.csv",
+		"/C/Users/Daniel/Desktop/Logs/www23/Service/20191228.txt",
+		"/C/Users/Daniel/Desktop/Logs/www28/Service/20191231.txt",
+		"/C/Users/Daniel/Desktop/Logs/www23.txt",
+		"/C/Users/Daniel/Downloads/Logs/Log formatting.txt",
+		"/C/Users/Daniel/Downloads/Logs/formatter.txt",
+		"/C/Users/Daniel/Downloads/Logs/Log formatting",
+		"/C/Users/Daniel/Downloads/Logs/www28.csv",
+		"/C/Users/Daniel/Downloads/Logs/www24.csv",
+		"/C/Users/Daniel/Downloads/Logs/www23.txt",
+		"/C/Users/Daniel/Downloads/Logs/www23.csv",
+		"/C/Users/Daniel/Downloads/Logs/www23/Service/20200102.txt",
+		"/C/Users/Daniel/Downloads/Logs/www23/Service/20200101.txt",
+		"/C/Users/Daniel/Downloads/Logs/www23/Service/20191231.txt",
+		"/C/Users/Daniel/Downloads/Logs/www24/Service/20200102.txt",
+		"/C/Users/Daniel/Downloads/Logs/www24/Service/20200101.txt",
+		"/C/Users/Daniel/Downloads/Logs/www24/Service/20191231.txt",
+		"/C/Users/Daniel/Downloads/Logs/www28/Service/20200102.txt",
+		"/C/Users/Daniel/Downloads/Logs/www23/Service/20191228.txt",
+		"/C/Users/Daniel/Downloads/Logs/www28/Service/20200101.txt",
+		"/C/Users/Daniel/Downloads/Logs/www28/Service/20191231.txt",
+		"/C/Users/Daniel/Downloads/Logs/www27/Service/20191005.txt",
+		"/C/Users/Daniel/Downloads/Logs/www23/Service/20200103.txt",
+		"/C/Users/Daniel/Downloads/Logs2/Logs/www24/Service/20200102.txt",
+		"/C/Users/Daniel/Downloads/Logs2/Logs/www23/Service/20200102.txt",
+		"/C/Users/Daniel/Downloads/Logs/www24/Webhook/20200102.txt",
+		"/C/Users/Daniel/source/repos/Beyond Biblical/.circleci/config.yml",
+		"/C/Users/Daniel/.ssh/id_rsa.pub",
+		"/C/Users/Daniel/.ssh/CircleCI_key",
+		"/C/Users/Daniel/Desktop/Bouchard_vs_Nesbit.pgn",
+		"/C/Users/Daniel/Desktop/Bouchardv_vs_Gregoryanz.pgn",
+		"/C/Users/Daniel/Desktop/Bouchardv_vs_Curtis.pgn",
+		"/C/Users/Daniel/Desktop/Bouchardv_vs_Curtis.20191001.pgn",
+		"/C/Users/Daniel/Desktop/Bouchardv_vs_Gregoryanz.20191008.pgn",
+		"/C/Users/Daniel/source/interview_proj/index.html",
+		"/C/Users/Daniel/source/interview_proj/ExpBar.css",
+		"/C/Users/Daniel/source/interview_proj/Utilities.css",
+		"/C/Users/Daniel/source/interview_proj/HabitList.css",
+		"/C/Users/Daniel/source/interview_proj/script.js",
+		"/C/Users/Daniel/source/repos/Beyond Biblical/Build/build.db.ps1",
+		"/C/Users/Daniel/source/repos/Bible-Explorer/Build/build.db.ps1",
+		"/C/Users/Daniel/source/repos/Bible-Explorer/.gitignore",
+		"/C/Users/Daniel/source/repos/Bible-Explorer/README.md",
+		"/C/Users/Daniel/source/repos/Bible-Explorer/.gitmodules"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 296.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "npm run build",
+	"project": "CheckeredBoardGames.sublime-project",
+	"replace":
+	{
+		"height": 106.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\Users\\Daniel\\source\\repos\\CheckeredBoardGames\\.sublime-project.sublime-workspace"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 217.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
