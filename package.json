@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "test": "mocha --require ts-node/register tests/**/*.ts",
-    "build": "npm test && tsc"
+    "build": "tsc && npm test "
   },
   "description": "CheckeredBoardGames",
   "author": {

@@ -3,5 +3,6 @@ bin
 obj
 dist
 .vs
+built
 *.user
 *.js

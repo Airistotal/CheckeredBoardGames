@@ -9,9 +9,8 @@
     "outDir": "./built",
     "sourceMap": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "tests/**/*"],
   "exclude": [
-    "./tests/",
     "./node_modules/",
     "./dist/"
   ]

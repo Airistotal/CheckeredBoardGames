@@ -1,18 +1,25 @@
-import GamePiece from './GamePiece';
+import BoardPiece from './BoardPiece';
+import { Color } from 'three';
 
 class BoardTile {
-  private piece?: GamePiece;
+  private piece?: BoardPiece;
+  private color: Color;
 
-  constructor(piece?: GamePiece) {
+  constructor(color: Color, piece?: BoardPiece) {
     this.piece = piece;
+    this.color = color;
   }
 
-  public GetPiece() {
+  public GetPiece(): BoardPiece | undefined {
     return this.piece;
   }
 
-  public SetPiece(piece?: GamePiece) {
+  public SetPiece(piece?: BoardPiece): void {
     this.piece = piece;
+  }
+
+  public GetColor(): Color {
+    return this.color;
   }
 }
 

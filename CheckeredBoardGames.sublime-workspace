@@ -51,6 +51,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 710,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "npm run build",
 	"build_system_choices":
@@ -112,7 +120,9 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames"
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models"
 	],
 	"file_history":
 	[
@@ -275,8 +285,39 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "package.json",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 710,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								557,
+								557
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
