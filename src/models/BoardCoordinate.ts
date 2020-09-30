@@ -1,6 +1,6 @@
 class BoardCoordinate {
-  private col: number;
-  private row: number;
+  public readonly col: number;
+  public readonly row: number;
 
   constructor(col: number, row: number) {
     BoardCoordinate.validate(col, row);
