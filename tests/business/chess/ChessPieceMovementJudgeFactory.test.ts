@@ -22,7 +22,7 @@ describe("ChessPieceMovementJudgeFactory tests", () => {
   it("Create knight movement judge factory", () => {
     let sut = new ChessPieceMovementJudgeFactory();
 
-    let judge = sut.createPieceMovementJudge(BoardPieceType.Pawn);
+    let judge = sut.createPieceMovementJudge(BoardPieceType.Knight);
 
     expect(judge instanceof KnightMovementJudge).to.be.true;
   });
@@ -30,7 +30,7 @@ describe("ChessPieceMovementJudgeFactory tests", () => {
   it("Create bishop movement judge factory", () => {
     let sut = new ChessPieceMovementJudgeFactory();
 
-    let judge = sut.createPieceMovementJudge(BoardPieceType.Pawn);
+    let judge = sut.createPieceMovementJudge(BoardPieceType.Bishop);
 
     expect(judge instanceof BishopMovementJudge).to.be.true;
   });
@@ -38,7 +38,7 @@ describe("ChessPieceMovementJudgeFactory tests", () => {
   it("Create rook movement judge factory", () => {
     let sut = new ChessPieceMovementJudgeFactory();
 
-    let judge = sut.createPieceMovementJudge(BoardPieceType.Pawn);
+    let judge = sut.createPieceMovementJudge(BoardPieceType.Rook);
 
     expect(judge instanceof RookMovementJudge).to.be.true;
   });
@@ -46,7 +46,7 @@ describe("ChessPieceMovementJudgeFactory tests", () => {
   it("Create queen movement judge factory", () => {
     let sut = new ChessPieceMovementJudgeFactory();
 
-    let judge = sut.createPieceMovementJudge(BoardPieceType.Pawn);
+    let judge = sut.createPieceMovementJudge(BoardPieceType.Queen);
 
     expect(judge instanceof QueenMovementJudge).to.be.true;
   });
@@ -54,7 +54,7 @@ describe("ChessPieceMovementJudgeFactory tests", () => {
   it("Create king movement judge factory", () => {
     let sut = new ChessPieceMovementJudgeFactory();
 
-    let judge = sut.createPieceMovementJudge(BoardPieceType.Pawn);
+    let judge = sut.createPieceMovementJudge(BoardPieceType.King);
 
     expect(judge instanceof KingMovementJudge).to.be.true;
   });

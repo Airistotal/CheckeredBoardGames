@@ -1,3 +1,5 @@
+import { Vector2 } from 'three';
+
 class BoardCoordinate {
   public readonly col: number;
   public readonly row: number;
@@ -9,8 +11,15 @@ class BoardCoordinate {
     this.row = row;
   }
 
-  static at(col: number, row: number) {
+  public static at(col: number, row: number) {
     return new BoardCoordinate(col, row);
+  }
+
+  public static getVector(origin: BoardCoordinate, destination: BoardCoordinate): Vector2 {
+    let x = destination.col - origin.col;
+    let y = destination.row - origin.row;
+
+    return new Vector2(x, y);
   }
 
   public toString() {
