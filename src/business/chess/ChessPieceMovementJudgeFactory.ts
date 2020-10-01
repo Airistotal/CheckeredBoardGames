@@ -28,7 +28,7 @@ class ChessPieceMovementJudgeFactory implements PieceMovementJudgeFactory {
         break;
       
       case BoardPieceType.Queen:
-        return new QueenMovementJudge();
+        return new QueenMovementJudge(new BishopMovementJudge(), new RookMovementJudge());
         break;
       
       case BoardPieceType.King:

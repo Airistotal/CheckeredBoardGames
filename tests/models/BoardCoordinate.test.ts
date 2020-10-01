@@ -23,7 +23,7 @@ describe('BoardCoordinate tests', () => {
     expect(BoardCoordinate.at(1, row).IsInRow(row)).to.be.true;
   });
 
-  it('column must be over 1', () => {
+  it('column must be 0 or more', () => {
     var err = new Error();
 
     try {
@@ -36,7 +36,7 @@ describe('BoardCoordinate tests', () => {
     expect(err.message).to.be.equal('Invalid column <-1>');
   });
 
-  it('row must be over 1', () => {
+  it('row must be 0 or more', () => {
     var err = new Error();
 
     try {
@@ -49,7 +49,7 @@ describe('BoardCoordinate tests', () => {
     expect(err.message).to.be.equal('Invalid row <-1>');
   });
 
-  it('row and column must be over 1', () => {
+  it('row and column must be 0 or more', () => {
     var err = new Error();
 
     try {

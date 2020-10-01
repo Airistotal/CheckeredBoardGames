@@ -45,16 +45,16 @@ class BoardCoordinate {
     let errorMsg = 'Invalid ';
     let throwErr = false;
 
-    if(col < 1) {
+    if(col < 0) {
       throwErr = true;
       errorMsg += 'column <' + col + '>';
 
-      if(row < 1) {
+      if(row < 0) {
         errorMsg += ' and ';
       }
     }
 
-    if(row < 1) {
+    if(row < 0) {
       throwErr = true;
 
       errorMsg += 'row <' + row + '>';

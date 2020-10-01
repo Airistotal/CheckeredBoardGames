@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "test": "mocha --require ts-node/register tests/**/*.ts",
-    "build": "tsc && npm test "
+    "build": "tsc && npm test ",
+    "deploy": "npm run build && webpack"
   },
   "description": "CheckeredBoardGames",
   "author": {
@@ -20,10 +21,13 @@
     "chai": "^4.2.0",
     "mocha": "^8.1.3",
     "three": "^0.120.1",
+    "ts-loader": "^8.0.4",
     "ts-mocha": "^7.0.0",
     "ts-node": "^9.0.0",
     "typescript": "^3.9.7",
-    "uuid": "^8.3.0"
+    "uuid": "^8.3.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   },
   "postcss": {
     "plugins": {

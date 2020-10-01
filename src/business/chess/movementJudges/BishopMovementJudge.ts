@@ -13,7 +13,7 @@ class BishopMovementJudge implements MovementJudge {
   	let moveVector = BoardCoordinate.getVector(origin, destination);
   	let destinationPiece = board.get(destination).GetPiece();
 
-    return BishopMovementJudge.BishopMove.equals(this.normalizeVectorForBishop(moveVector)) &&
+    return BishopMovementJudge.BishopMove.equals(this.getAbsoluteVectorForBishop(moveVector)) &&
     			 this.missOtherPieces(origin, destination, board) &&
     			 (destinationPiece === undefined || originPiece.team !== destinationPiece.team);
   }
@@ -23,22 +23,24 @@ class BishopMovementJudge implements MovementJudge {
   }
 
   private missOtherPieces(origin: BoardCoordinate, destination: BoardCoordinate, board: Board): boolean {
-  	var i = origin.col;
-  	var j = origin.row;
-  	let moveVector = BoardCoordinate.getVector(origin, destination);
+    let moveVector = BoardCoordinate.getVector(origin, destination).clampScalar(-1, 1);
+    let originVector = BoardCoordinate.getVector(BoardCoordinate.at(0, 0), origin);
+    let destinationVector = BoardCoordinate.getVector(BoardCoordinate.at(0, 0), destination);
 
-  	if(moveVector.x < 0) {
-  		for(;i > destination.col; i--) {
-  			
-  		}
-  	} else {
-  		for(;i < destination.col; i++) {
+    originVector = originVector.add(moveVector);
+    while (!originVector.equals(destinationVector)) {
+      let targetPiece = board.get(BoardCoordinate.at(originVector.x, originVector.y)).GetPiece();
+      if (targetPiece !== undefined) {
+        return false;
+      }
 
-  		}
-  	}
+      originVector = originVector.add(moveVector);
+    }
+
+    return true;
   }
 
-  private normalizeVectorForBishop(moveVector: Vector2) {
+  private getAbsoluteVectorForBishop(moveVector: Vector2) {
   	return new Vector2(Math.abs(moveVector.x / moveVector.x), Math.abs(moveVector.y / moveVector.x));
   }
 }

@@ -1,6 +1,6 @@
 import BoardCoordinate from '../../models/BoardCoordinate';
 import Board from '../../models/Board';
-import BoardFactory from '../BoardFactory';
+import BoardBuilder from '../BoardBuilder';
 import GameType from '../../models/enums/GameType';
 import GameMediator from '../GameMediator';
 import MovementJudge from '../MovementJudge';
@@ -10,8 +10,8 @@ class ChessMediator implements GameMediator {
   private readonly movementJudge: MovementJudge;
   private readonly movedPieces: Array<string>;
 
-	constructor(boardFactory: BoardFactory, movementJudge: MovementJudge) {
-		this.board = boardFactory.createBoard(GameType.Chess);
+	constructor(boardFactory: BoardBuilder, movementJudge: MovementJudge) {
+		this.board = boardFactory.createBoard();
     this.movementJudge = movementJudge;
     this.movedPieces = new Array<string>();
 	}

@@ -36,7 +36,7 @@ class PawnMovementJudge implements MovementJudge {
   }
 
   private isValidPawnMove(moveVector: Vector2, destinationTile: BoardTile): boolean {
-  	let normalizedVector = PawnMovementJudge.normalizeVectorForPawn(moveVector);
+  	let normalizedVector = PawnMovementJudge.getAbsoluteVectorForPawn(moveVector);
 
   	return PawnMovementJudge.PawnMove.equals(normalizedVector) && 
   				 destinationTile.GetPiece() === undefined;
@@ -44,7 +44,7 @@ class PawnMovementJudge implements MovementJudge {
 
   private isValidPawnAttack(moveVector: Vector2, originPiece: BoardPiece, destinationTile: BoardTile): boolean {
   	let destinationPiece = destinationTile.GetPiece();
-  	let normalizedVector = PawnMovementJudge.normalizeVectorForPawn(moveVector);
+  	let normalizedVector = PawnMovementJudge.getAbsoluteVectorForPawn(moveVector);
 
   	return PawnMovementJudge.PawnAttack.equals(normalizedVector) &&
   				 destinationPiece !== undefined &&
@@ -52,7 +52,7 @@ class PawnMovementJudge implements MovementJudge {
   }
 
   private isValidFirstPawnMove(moveVector: Vector2, skippedTile: BoardTile, destinationTile: BoardTile): boolean {
-  	let normalizedVector = PawnMovementJudge.normalizeVectorForPawn(moveVector);
+  	let normalizedVector = PawnMovementJudge.getAbsoluteVectorForPawn(moveVector);
 
   	return PawnMovementJudge.PawnInitialMove.equals(normalizedVector) &&
   				 skippedTile.GetPiece() === undefined &&
@@ -80,7 +80,7 @@ class PawnMovementJudge implements MovementJudge {
 		return BoardCoordinate.at(origin.col, origin.row + offset);
   }
 
-  private static normalizeVectorForPawn(moveVector: Vector2): Vector2 {
+  private static getAbsoluteVectorForPawn(moveVector: Vector2): Vector2 {
     return new Vector2(Math.abs(moveVector.x), Math.abs(moveVector.y));
   }
 }
