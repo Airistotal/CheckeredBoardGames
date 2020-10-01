@@ -29,7 +29,7 @@ describe('RookMovementJudge tests', () => {
     it(`rook can move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
       let origin = BoardCoordinate.at(4, 4);
-      board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Rook));
+      board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Rook));
 
       expect(new RookMovementJudge().isLegalMove(origin, destination, board)).to.be.true;
       expect(new RookMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;
@@ -48,7 +48,7 @@ describe('RookMovementJudge tests', () => {
     it(`rook cannot move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
       let origin = BoardCoordinate.at(4, 4);
-      board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Rook));
+      board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Rook));
 
       expect(new RookMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
       expect(new RookMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -59,9 +59,9 @@ describe('RookMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(4, 4);
     let destination = BoardCoordinate.at(4, 1);
-    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Rook));
-    board.get(BoardCoordinate.at(4, 2)).SetPiece(new BoardPiece("white", BoardPieceType.Rook));
-    board.get(BoardCoordinate.at(4, 3)).SetPiece(new BoardPiece("black", BoardPieceType.Rook));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Rook));
+    board.get(BoardCoordinate.at(4, 2)).setPiece(new BoardPiece("white", BoardPieceType.Rook));
+    board.get(BoardCoordinate.at(4, 3)).setPiece(new BoardPiece("black", BoardPieceType.Rook));
 
     expect(new RookMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
     expect(new RookMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -71,8 +71,8 @@ describe('RookMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(4, 4);
     let destination = BoardCoordinate.at(4, 1);
-    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Rook));
-    board.get(destination).SetPiece(new BoardPiece("white", BoardPieceType.Rook));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Rook));
+    board.get(destination).setPiece(new BoardPiece("white", BoardPieceType.Rook));
 
     expect(new RookMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
     expect(new RookMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -82,8 +82,8 @@ describe('RookMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(4, 4);
     let destination = BoardCoordinate.at(4, 1);
-    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Rook));
-    board.get(destination).SetPiece(new BoardPiece("black", BoardPieceType.Rook));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Rook));
+    board.get(destination).setPiece(new BoardPiece("black", BoardPieceType.Rook));
 
     expect(new RookMovementJudge().isLegalMove(origin, destination, board)).to.be.true;
     expect(new RookMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;

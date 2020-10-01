@@ -10,8 +10,8 @@ class ChessMediator implements GameMediator {
   private readonly movementJudge: MovementJudge;
   private readonly movedPieces: Array<string>;
 
-	constructor(boardFactory: BoardBuilder, movementJudge: MovementJudge) {
-		this.board = boardFactory.createBoard();
+	constructor(boardBuilder: BoardBuilder, movementJudge: MovementJudge) {
+		this.board = boardBuilder.createBoard();
     this.movementJudge = movementJudge;
     this.movedPieces = new Array<string>();
 	}
@@ -19,8 +19,8 @@ class ChessMediator implements GameMediator {
   public move(origin: BoardCoordinate, destination: BoardCoordinate): boolean {
     if (this.isLegalMove(origin, destination)) {
       let originTile = this.board.get(origin);
-      this.board.get(destination).SetPiece(originTile.GetPiece());
-      originTile.SetPiece(undefined);
+      this.board.get(destination).setPiece(originTile.getPiece());
+      originTile.setPiece(undefined);
 
       return true;
     }
@@ -29,7 +29,7 @@ class ChessMediator implements GameMediator {
   }
 
   private isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate) {
-    let originPiece = this.board.get(origin).GetPiece();
+    let originPiece = this.board.get(origin).getPiece();
     if (originPiece === undefined) return;
 
     if (this.movedPieces.some((v) => { return originPiece !== undefined && v === originPiece.id})) {

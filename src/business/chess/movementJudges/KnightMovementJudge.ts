@@ -9,11 +9,11 @@ class KnightMovementJudge implements MovementJudge {
 	private static KnightMoves = [new Vector2(2, 1), new Vector2(1, 2)];
 
   public isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board): boolean {
-  	let originPiece = board.get(origin).GetPiece();
+  	let originPiece = board.get(origin).getPiece();
   	if (originPiece === undefined) return false;
 
   	let moveVector = BoardCoordinate.getVector(origin, destination);
-  	let destinationPiece = board.get(destination).GetPiece();
+  	let destinationPiece = board.get(destination).getPiece();
 
     return KnightMovementJudge.KnightMoves.some((v) => v.equals(this.normalizeVectorForKnight(moveVector))) &&
   				 (destinationPiece === undefined || destinationPiece.team !== originPiece.team);

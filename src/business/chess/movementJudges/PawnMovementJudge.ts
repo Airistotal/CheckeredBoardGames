@@ -12,7 +12,7 @@ class PawnMovementJudge implements MovementJudge {
   private static PawnAttack = new Vector2(1, 1);
 
   public isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean {
-    let originPiece = board.get(origin).GetPiece();
+    let originPiece = board.get(origin).getPiece();
     if (originPiece === undefined) return false;
 
     let movementVector = BoardCoordinate.getVector(origin, destination);
@@ -23,7 +23,7 @@ class PawnMovementJudge implements MovementJudge {
   }
 
   public isLegalFirstMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean {
-    let originPiece = board.get(origin).GetPiece();
+    let originPiece = board.get(origin).getPiece();
     if (originPiece === undefined) return false;
 
     let movementVector = BoardCoordinate.getVector(origin, destination);
@@ -39,11 +39,11 @@ class PawnMovementJudge implements MovementJudge {
   	let normalizedVector = PawnMovementJudge.getAbsoluteVectorForPawn(moveVector);
 
   	return PawnMovementJudge.PawnMove.equals(normalizedVector) && 
-  				 destinationTile.GetPiece() === undefined;
+  				 destinationTile.getPiece() === undefined;
   }
 
   private isValidPawnAttack(moveVector: Vector2, originPiece: BoardPiece, destinationTile: BoardTile): boolean {
-  	let destinationPiece = destinationTile.GetPiece();
+  	let destinationPiece = destinationTile.getPiece();
   	let normalizedVector = PawnMovementJudge.getAbsoluteVectorForPawn(moveVector);
 
   	return PawnMovementJudge.PawnAttack.equals(normalizedVector) &&
@@ -55,8 +55,8 @@ class PawnMovementJudge implements MovementJudge {
   	let normalizedVector = PawnMovementJudge.getAbsoluteVectorForPawn(moveVector);
 
   	return PawnMovementJudge.PawnInitialMove.equals(normalizedVector) &&
-  				 skippedTile.GetPiece() === undefined &&
-  				 destinationTile.GetPiece() === undefined;
+  				 skippedTile.getPiece() === undefined &&
+  				 destinationTile.getPiece() === undefined;
   }
 
   private isMovingInCorrectDirection(originPiece: BoardPiece, moveVector: Vector2): boolean {

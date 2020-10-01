@@ -28,7 +28,7 @@ describe('BishopMovementJudge tests', () => {
   	it(`bishop can move from (4, 4) to destination ${destination.toString()}`, () => {
 	    let board = new Board(8, 8);
 	    let origin = BoardCoordinate.at(4, 4);
-	    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Bishop));
+	    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Bishop));
 
 	    expect(new BishopMovementJudge().isLegalMove(origin, destination, board)).to.be.true;
 	    expect(new BishopMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;
@@ -47,7 +47,7 @@ describe('BishopMovementJudge tests', () => {
   	it(`bishop cannot move from (4, 4) to destination ${destination.toString()}`, () => {
 	    let board = new Board(8, 8);
 	    let origin = BoardCoordinate.at(4, 4);
-	    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Bishop));
+	    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Bishop));
 
 	    expect(new BishopMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
 	    expect(new BishopMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -58,8 +58,8 @@ describe('BishopMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(4, 4);
     let destination = BoardCoordinate.at(1, 1);
-    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Bishop));
-    board.get(BoardCoordinate.at(2, 2)).SetPiece(new BoardPiece("white", BoardPieceType.Bishop));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Bishop));
+    board.get(BoardCoordinate.at(2, 2)).setPiece(new BoardPiece("white", BoardPieceType.Bishop));
 
     expect(new BishopMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
     expect(new BishopMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -69,8 +69,8 @@ describe('BishopMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(4, 4);
     let destination = BoardCoordinate.at(1, 1);
-    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Bishop));
-    board.get(destination).SetPiece(new BoardPiece("white", BoardPieceType.Bishop));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Bishop));
+    board.get(destination).setPiece(new BoardPiece("white", BoardPieceType.Bishop));
 
     expect(new BishopMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
     expect(new BishopMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -80,8 +80,8 @@ describe('BishopMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(4, 4);
     let destination = BoardCoordinate.at(1, 1);
-    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Bishop));
-    board.get(destination).SetPiece(new BoardPiece("black", BoardPieceType.Bishop));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Bishop));
+    board.get(destination).setPiece(new BoardPiece("black", BoardPieceType.Bishop));
 
     expect(new BishopMovementJudge().isLegalMove(origin, destination, board)).to.be.true;
     expect(new BishopMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;

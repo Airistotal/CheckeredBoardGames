@@ -25,7 +25,7 @@ describe('KingMovementJudge tests', () => {
     it(`king can move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
       let origin = BoardCoordinate.at(4, 4);
-      board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.King));
+      board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.King));
 
       expect(kingMovementJudge.isLegalMove(origin, destination, board)).to.be.true;
       expect(kingMovementJudge.isLegalFirstMove(origin, destination, board)).to.be.true;
@@ -44,7 +44,7 @@ describe('KingMovementJudge tests', () => {
     it(`king cannot move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
       let origin = BoardCoordinate.at(4, 4);
-      board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.King));
+      board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.King));
 
       expect(kingMovementJudge.isLegalMove(origin, destination, board)).to.be.false;
       expect(kingMovementJudge.isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -55,7 +55,7 @@ describe('KingMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(4, 1);
     let destination = BoardCoordinate.at(2, 1);
-    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.King));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.King));
 
     expect(kingMovementJudge.isLegalMove(origin, destination, board)).to.be.false;
     expect(kingMovementJudge.isLegalFirstMove(origin, destination, board)).to.be.true;
@@ -65,8 +65,8 @@ describe('KingMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(4, 1);
     let destination = BoardCoordinate.at(2, 1);
-    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.King));
-    board.get(destination).SetPiece(new BoardPiece("black", BoardPieceType.Bishop));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.King));
+    board.get(destination).setPiece(new BoardPiece("black", BoardPieceType.Bishop));
 
     expect(kingMovementJudge.isLegalMove(origin, destination, board)).to.be.false;
     expect(kingMovementJudge.isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -76,8 +76,8 @@ describe('KingMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(4, 4);
     let destination = BoardCoordinate.at(3, 4);
-    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.King));
-    board.get(destination).SetPiece(new BoardPiece("white", BoardPieceType.Bishop));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.King));
+    board.get(destination).setPiece(new BoardPiece("white", BoardPieceType.Bishop));
 
     expect(kingMovementJudge.isLegalMove(origin, destination, board)).to.be.false;
     expect(kingMovementJudge.isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -87,8 +87,8 @@ describe('KingMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(4, 4);
     let destination = BoardCoordinate.at(3, 4);
-    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.King));
-    board.get(destination).SetPiece(new BoardPiece("black", BoardPieceType.Bishop));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.King));
+    board.get(destination).setPiece(new BoardPiece("black", BoardPieceType.Bishop));
 
     expect(kingMovementJudge.isLegalMove(origin, destination, board)).to.be.true;
     expect(kingMovementJudge.isLegalFirstMove(origin, destination, board)).to.be.true;

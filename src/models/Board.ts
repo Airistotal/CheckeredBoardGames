@@ -1,18 +1,30 @@
 import BoardTile from './BoardTile';
 import BoardCoordinate from './BoardCoordinate';
-import { Color } from 'three';
+import { Color, Group } from 'three';
 
 class Board {
   private boardmap: Map<BoardCoordinate, BoardTile> = new Map<BoardCoordinate, BoardTile>();
+  private renderableBoard: Group = new Group();
 
   constructor(height: number, length: number) {
     for (var i = 0; i < height; i++) {
       for (var j = 0; j < length; j++) {
-        this.boardmap.set(
-          new BoardCoordinate(j + 1, i + 1),
-          new BoardTile(Board.getTileColor(i, j), undefined));
+        let boardTile =  new BoardTile(Board.getTileColor(i, j), undefined);
+        let boardCoord = new BoardCoordinate(j + 1, i + 1);
+
+        this.boardmap.set(boardCoord, boardTile);
+
+        this.addTileToRenderableBoard(boardTile, boardCoord);
       }
     }
+  }
+
+  private addTileToRenderableBoard(boardTile: BoardTile, tileCoordinate: BoardCoordinate) {
+    let renderableTile = boardTile.getRenderableTile();
+    renderableTile.translateY(tileCoordinate.row);
+    renderableTile.translateX(tileCoordinate.col);
+
+    this.renderableBoard.add(renderableTile);
   }
 
   public get(coord: BoardCoordinate): BoardTile {
@@ -30,8 +42,12 @@ class Board {
     }
   }
 
+  public getRenderableBoard() {
+    return this.renderableBoard;
+  }
+
   private static getTileColor(row: number, col: number) {
-    if (row + col % 2 === 0) {
+    if ((row + col) % 2 === 0) {
       return new Color("black");
     } else {
       return new Color("white");

@@ -23,7 +23,7 @@ describe('KnightMovementJudge tests', () => {
   	it(`knight can move from (4, 4) to destination ${destination.toString()}`, () => {
 	    let board = new Board(8, 8);
 	    let origin = BoardCoordinate.at(4, 4);
-	    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Knight));
+	    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Knight));
 
 	    expect(new KnightMovementJudge().isLegalMove(origin, destination, board)).to.be.true;
 	    expect(new KnightMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;
@@ -43,7 +43,7 @@ describe('KnightMovementJudge tests', () => {
   	it(`knight cannot move from (4, 4) to destination ${destination.toString()}`, () => {
 	    let board = new Board(8, 8);
 	    let origin = BoardCoordinate.at(4, 4);
-	    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Knight));
+	    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Knight));
 
 	    expect(new KnightMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
 	    expect(new KnightMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -54,8 +54,8 @@ describe('KnightMovementJudge tests', () => {
 	    let board = new Board(8, 8);
 	    let origin = BoardCoordinate.at(4, 4);
 	    let destination = BoardCoordinate.at(3, 2);
-	    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Knight));
-	    board.get(destination).SetPiece(new BoardPiece("black", BoardPieceType.Knight));
+	    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Knight));
+	    board.get(destination).setPiece(new BoardPiece("black", BoardPieceType.Knight));
 
 	    expect(new KnightMovementJudge().isLegalMove(origin, destination, board)).to.be.true;
 	    expect(new KnightMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;
@@ -65,8 +65,8 @@ describe('KnightMovementJudge tests', () => {
 	    let board = new Board(8, 8);
 	    let origin = BoardCoordinate.at(4, 4);
 	    let destination = BoardCoordinate.at(3, 2);
-	    board.get(origin).SetPiece(new BoardPiece("white", BoardPieceType.Knight));
-	    board.get(destination).SetPiece(new BoardPiece("white", BoardPieceType.Knight));
+	    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Knight));
+	    board.get(destination).setPiece(new BoardPiece("white", BoardPieceType.Knight));
 
 	    expect(new KnightMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
 	    expect(new KnightMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;

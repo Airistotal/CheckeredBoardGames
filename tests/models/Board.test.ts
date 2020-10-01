@@ -24,4 +24,10 @@ describe("Board tests", () => {
 
       expect(err.message).to.be.equal("(9, 1) is not a coordinate on the board.");
     });
+
+    it("get renderable board map", () => {
+      let renderableBoard = new Board(8, 8).getRenderableBoard();
+
+      expect(renderableBoard).to.not.be.undefined;
+    });
 });

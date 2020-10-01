@@ -16,7 +16,7 @@ class ChessMovementJudge implements MovementJudge {
   }
 
   public isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean {
-    let originPiece = board.get(origin).GetPiece();
+    let originPiece = board.get(origin).getPiece();
     if (originPiece === undefined) return false;
 
     let movementJudge = this.getMovementJudge(originPiece.type);
@@ -25,7 +25,7 @@ class ChessMovementJudge implements MovementJudge {
   }
 
   public isLegalFirstMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean {
-    let originPiece = board.get(origin).GetPiece();
+    let originPiece = board.get(origin).getPiece();
     if (originPiece === undefined) return false;
 
     let movementJudge = this.getMovementJudge(originPiece.type);

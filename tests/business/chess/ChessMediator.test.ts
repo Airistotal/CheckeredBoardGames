@@ -14,12 +14,12 @@ describe('ChessMediator tests', () => {
 	it('moves board pieces', () => {
 		let mediator = new ChessMediator(new MockBoardBuilder(), new MovementJudgeAlwaysTrue());
 
-		let piece = mediator.lookAtBoard().get(BoardCoordinate.at(1, 2)).GetPiece();
+		let piece = mediator.lookAtBoard().get(BoardCoordinate.at(1, 2)).getPiece();
 		mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
-		let pieceAtDestination = mediator.lookAtBoard().get(BoardCoordinate.at(1, 3)).GetPiece();
+		let pieceAtDestination = mediator.lookAtBoard().get(BoardCoordinate.at(1, 3)).getPiece();
 
 		expect(piece).to.not.be.undefined;
-		expect(mediator.lookAtBoard().get(BoardCoordinate.at(1, 2)).GetPiece()).to.be.undefined;
+		expect(mediator.lookAtBoard().get(BoardCoordinate.at(1, 2)).getPiece()).to.be.undefined;
 		expect(pieceAtDestination).to.not.be.undefined;
 		if(piece === undefined || pieceAtDestination === undefined) return;
 		expect(piece.id).to.eql(pieceAtDestination.id);
@@ -39,7 +39,7 @@ describe('ChessMediator tests', () => {
 class MockBoardBuilder implements BoardBuilder {
 	public createBoard() {
 		let board = new Board(8, 8);
-		board.get(BoardCoordinate.at(1, 2)).SetPiece(new BoardPiece("white", BoardPieceType.Pawn));
+		board.get(BoardCoordinate.at(1, 2)).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
 
 		return board;
 	}

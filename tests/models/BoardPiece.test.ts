@@ -18,4 +18,11 @@ describe('BoardPiece tests', () => {
 
     expect(boardPiece.id).to.not.equal(boardPiece2.id);
   });
+
+  it('create with mesh', () => {
+    let boardPiece = new BoardPiece("team", BoardPieceType.Pawn);
+
+    expect(boardPiece.getRenderablePiece()).to.not.be.null;
+    expect(boardPiece.getRenderablePiece()).to.not.be.undefined;
+  });
 });

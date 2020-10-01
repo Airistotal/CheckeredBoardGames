@@ -7,11 +7,11 @@ class BishopMovementJudge implements MovementJudge {
 	private static BishopMove = new Vector2(1, 1);
 
   public isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board): boolean {
-  	let originPiece = board.get(origin).GetPiece();
+  	let originPiece = board.get(origin).getPiece();
   	if (originPiece === undefined) return false;
 
   	let moveVector = BoardCoordinate.getVector(origin, destination);
-  	let destinationPiece = board.get(destination).GetPiece();
+  	let destinationPiece = board.get(destination).getPiece();
 
     return BishopMovementJudge.BishopMove.equals(this.getAbsoluteVectorForBishop(moveVector)) &&
     			 this.missOtherPieces(origin, destination, board) &&
@@ -29,7 +29,7 @@ class BishopMovementJudge implements MovementJudge {
 
     originVector = originVector.add(moveVector);
     while (!originVector.equals(destinationVector)) {
-      let targetPiece = board.get(BoardCoordinate.at(originVector.x, originVector.y)).GetPiece();
+      let targetPiece = board.get(BoardCoordinate.at(originVector.x, originVector.y)).getPiece();
       if (targetPiece !== undefined) {
         return false;
       }

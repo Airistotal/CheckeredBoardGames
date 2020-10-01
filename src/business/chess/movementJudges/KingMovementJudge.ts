@@ -8,11 +8,11 @@ class KingMovementJudge implements MovementJudge {
   private static Castling = new Vector2(2,  0);
 
   public isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board): boolean {
-    let originPiece = board.get(origin).GetPiece()
+    let originPiece = board.get(origin).getPiece()
     if (originPiece === undefined) return false;
 
     let moveVector = BoardCoordinate.getVector(origin, destination);
-    let destinationPiece = board.get(destination).GetPiece();
+    let destinationPiece = board.get(destination).getPiece();
 
     return KingMovementJudge.KingMoves.some((v) => v.equals(this.getAbsoluteVectorForKing(moveVector))) &&
            (destinationPiece === undefined || destinationPiece.team !== originPiece.team);
@@ -24,9 +24,9 @@ class KingMovementJudge implements MovementJudge {
 
   private isLegalCastle(origin: BoardCoordinate, destination: BoardCoordinate, board: Board): boolean {
     let moveVector = BoardCoordinate.getVector(origin, destination);
-    let destinationPiece = board.get(destination).GetPiece();
+    let destinationPiece = board.get(destination).getPiece();
     let adjacentMovement = moveVector.x < 0 ? -1 : 1;
-    let adjacentPiece = board.get(BoardCoordinate.at(origin.col + adjacentMovement, origin.row)).GetPiece()
+    let adjacentPiece = board.get(BoardCoordinate.at(origin.col + adjacentMovement, origin.row)).getPiece()
 
     return KingMovementJudge.Castling.equals(this.getAbsoluteVectorForKing(moveVector)) &&
            destinationPiece === undefined &&
