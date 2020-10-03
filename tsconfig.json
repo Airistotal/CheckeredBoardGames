@@ -2,13 +2,17 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "esnext",
+    "lib": ["esnext", "dom"],
+    "types": ["reflect-metadata"],
     "strict": true,
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "outDir": "./built",
     "sourceMap": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["src/**/*", "tests/**/*"],
   "exclude": [

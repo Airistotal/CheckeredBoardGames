@@ -1,5 +1,5 @@
 import BoardPiece from './BoardPiece';
-import { Color, Mesh, MeshPhongMaterial, BoxGeometry, Group } from 'three';
+import { Color, Mesh, MeshPhongMaterial, BoxGeometry, Group, Layers } from 'three';
 
 class BoardTile {
   private piece?: BoardPiece;
@@ -17,6 +17,7 @@ class BoardTile {
     let geometry = new BoxGeometry(1, 1, 0.25);
     let material = new MeshPhongMaterial({color: this.color});
     this.tileMesh = new Mesh(geometry, material);
+    this.tileMesh.layers.enable(1);
     this.tileMeshGroup.add(this.tileMesh);
 
     this.updateMeshGroupWithPiece(this.piece);
@@ -46,10 +47,7 @@ class BoardTile {
     }
 
     if (piece !== undefined) {
-      let renderablePiece = piece.getRenderablePiece();
-      renderablePiece.translateY(0.625);
-      
-      this.tileMeshGroup.add(renderablePiece);
+      this.tileMeshGroup.add(piece.getRenderablePiece());
     }
   }
 }

@@ -25,7 +25,7 @@ describe('BoardTile tests', () => {
 
 	it('can change piece', () => {
 		let boardTile = new BoardTile(new Color("white"), undefined);
-		let boardPiece = new BoardPiece("team a", BoardPieceType.Knight);
+		let boardPiece = new BoardPiece("team a", BoardPieceType.Knight, new Mesh());
 
 		boardTile.setPiece(boardPiece);
 		let piece = boardTile.getPiece();

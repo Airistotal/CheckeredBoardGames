@@ -23,6 +23,7 @@ class Board {
     let renderableTile = boardTile.getRenderableTile();
     renderableTile.translateY(tileCoordinate.row);
     renderableTile.translateX(tileCoordinate.col);
+    renderableTile.userData = tileCoordinate;
 
     this.renderableBoard.add(renderableTile);
   }

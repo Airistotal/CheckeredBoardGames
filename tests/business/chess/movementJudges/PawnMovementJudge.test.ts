@@ -3,11 +3,15 @@ import BoardCoordinate from '../../../../src/models/BoardCoordinate';
 import BoardPiece from '../../../../src/models/BoardPiece';
 import BoardPieceType from '../../../../src/models/enums/BoardPieceType';
 import Board from '../../../../src/models/Board';
+import TestBoardPieceGeometryFactory from '../../../mocks/TestBoardPieceGeometryFactory';
 
 import { expect } from 'chai';
 import 'mocha';
 
 describe('PawnMovementJudge tests', () => {
+  let testBoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
+  let pieceGeometry = testBoardPieceGeometryFactory.createGeometryFor(BoardPieceType.Pawn);
+
   it('pawn can move forward one', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(1, 2);
@@ -15,7 +19,7 @@ describe('PawnMovementJudge tests', () => {
 
     debugger;
 
-    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(origin, destination, board)).to.be.true;
     expect(new PawnMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;
@@ -25,8 +29,8 @@ describe('PawnMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(1, 2);
     let destination = BoardCoordinate.at(1, 3);
-    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
-    board.get(destination).setPiece(new BoardPiece("black", BoardPieceType.Pawn));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
+    board.get(destination).setPiece(new BoardPiece("black", BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
     expect(new PawnMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -36,7 +40,7 @@ describe('PawnMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(1, 2);
     let destination = BoardCoordinate.at(1, 4);
-    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;
   });
@@ -46,7 +50,7 @@ describe('PawnMovementJudge tests', () => {
     let origin = BoardCoordinate.at(1, 3);
     let destination = BoardCoordinate.at(1, 5);
 
-    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
   });
@@ -55,8 +59,8 @@ describe('PawnMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(1, 2);
     let destination = BoardCoordinate.at(1, 4);
-    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
-    board.get(BoardCoordinate.at(1, 3)).setPiece(new BoardPiece("black", BoardPieceType.Pawn));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
+    board.get(BoardCoordinate.at(1, 3)).setPiece(new BoardPiece("black", BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
   });
@@ -65,8 +69,8 @@ describe('PawnMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(1, 2);
     let destination = BoardCoordinate.at(2, 3);
-    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
-    board.get(destination).setPiece(new BoardPiece("black", BoardPieceType.Pawn));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
+    board.get(destination).setPiece(new BoardPiece("black", BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(origin, destination, board)).to.be.true;
     expect(new PawnMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;
@@ -76,8 +80,8 @@ describe('PawnMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(1, 2);
     let destination = BoardCoordinate.at(2, 3);
-    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
-    board.get(destination).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
+    board.get(destination).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
     expect(new PawnMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -87,7 +91,7 @@ describe('PawnMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(1, 2);
     let destination = BoardCoordinate.at(2, 3);
-    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
     expect(new PawnMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -97,7 +101,7 @@ describe('PawnMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(1, 2);
     let destination = BoardCoordinate.at(1, 1);
-    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn));
+    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
     expect(new PawnMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
@@ -107,7 +111,7 @@ describe('PawnMovementJudge tests', () => {
     let board = new Board(8, 8);
     let origin = BoardCoordinate.at(1, 2);
     let destination = BoardCoordinate.at(1, 3);
-    board.get(origin).setPiece(new BoardPiece("black", BoardPieceType.Pawn));
+    board.get(origin).setPiece(new BoardPiece("black", BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
     expect(new PawnMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;

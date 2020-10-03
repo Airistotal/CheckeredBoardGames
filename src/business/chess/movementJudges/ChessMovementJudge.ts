@@ -7,12 +7,12 @@ import PieceMovementJudgeFactory from '../../PieceMovementJudgeFactory';
 import { Vector2 } from 'three';
 
 class ChessMovementJudge implements MovementJudge {
-  private readonly chessPieceMovementJudgeFactory: PieceMovementJudgeFactory;
-  private readonly chessPieceMovementJudges: Map<BoardPieceType, MovementJudge>;
+  private readonly pieceMovementJudgeFactory: PieceMovementJudgeFactory;
+  private readonly pieceMovementJudges: Map<BoardPieceType, MovementJudge>;
 
-  constructor(chessPieceMovementJudgeFactory: PieceMovementJudgeFactory) {
-    this.chessPieceMovementJudgeFactory = chessPieceMovementJudgeFactory;
-    this.chessPieceMovementJudges = new Map<BoardPieceType, MovementJudge>();
+  constructor(pieceMovementJudgeFactory: PieceMovementJudgeFactory) {
+    this.pieceMovementJudgeFactory = pieceMovementJudgeFactory;
+    this.pieceMovementJudges = new Map<BoardPieceType, MovementJudge>();
   }
 
   public isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean {
@@ -34,10 +34,10 @@ class ChessMovementJudge implements MovementJudge {
   }
 
   private getMovementJudge(pieceType: BoardPieceType) {
-    let movementJudge = this.chessPieceMovementJudges.get(pieceType);
+    let movementJudge = this.pieceMovementJudges.get(pieceType);
     if (movementJudge === undefined) {
-      movementJudge = this.chessPieceMovementJudgeFactory.createPieceMovementJudge(pieceType);
-      this.chessPieceMovementJudges.set(pieceType, movementJudge);
+      movementJudge = this.pieceMovementJudgeFactory.createPieceMovementJudge(pieceType);
+      this.pieceMovementJudges.set(pieceType, movementJudge);
     }
 
     return movementJudge;

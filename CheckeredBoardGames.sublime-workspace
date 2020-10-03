@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"d",
+				"degreesToRadians\tmethod"
+			],
+			[
+				"rot",
+				"rotateX\tmethod"
+			],
+			[
+				"degree",
+				"degrees_to_radians"
+			],
+			[
+				"ro",
+				"rotateX\tmethod"
+			],
+			[
+				"trans",
+				"translateY\tmethod"
+			],
+			[
+				"add",
+				"addTileToRenderableBoard\tmethod"
+			],
+			[
+				"get",
+				"getRenderableBoard\tmethod"
+			],
+			[
+				"tileMes",
+				"tileMeshGroup\tproperty"
+			],
+			[
+				"tilem",
+				"tileMeshGroup\tproperty"
+			],
+			[
+				"Ches",
+				"ChessPieceMovementJudgeFactory\talias"
+			],
+			[
 				"ad",
 				"addLight\tmethod"
 			],
@@ -160,20 +200,12 @@
 				"destinationPiece"
 			],
 			[
-				"get",
-				"GetPiece\tmethod"
-			],
-			[
 				"norm",
 				"normalizeVectorForPiece"
 			],
 			[
 				"movement",
 				"movementVector\tlet"
-			],
-			[
-				"Ches",
-				"ChessMovementJudge"
 			],
 			[
 				"bard",
@@ -236,10 +268,6 @@
 				"expToLevel"
 			],
 			[
-				"add",
-				"addExp"
-			],
-			[
 				"anima",
 				"animation-play-state\tproperty"
 			],
@@ -252,40 +280,39 @@
 	"buffers":
 	[
 		{
-			"file": "src/presentation/WebGlSceneRenderer.ts",
-			"settings":
-			{
-				"buffer_size": 1015,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/Main.ts",
-			"settings":
-			{
-				"buffer_size": 259,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/presentation/BoardGameControls.ts",
-			"settings":
-			{
-				"buffer_size": 504,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "src/presentation/BoardGameScene.ts",
 			"settings":
 			{
-				"buffer_size": 1276,
+				"buffer_size": 2161,
 				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "class BoardGameScene {"
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/danie/Documents/Repositories/Airistotal.github.io/pages/portfolio.html",
+			"settings":
+			{
+				"buffer_size": 1374,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/models/BoardPiece.ts",
+			"settings":
+			{
+				"buffer_size": 883,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/models/BoardTile.ts",
+			"settings":
+			{
+				"buffer_size": 1390,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -364,40 +391,49 @@
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/dist",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess"
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation"
 	],
 	"file_history":
 	[
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/BoardTile.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/Board.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/Board.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/Utilities.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation/WebGlSceneRenderer.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/PawnMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/BoardPiece.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation/BoardGameScene.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/BoardTile.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/BoardPiece.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessMediator.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessBoardFactory.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessMediator.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/BishopMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/BishopMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/ChessMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/KingMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/KnightMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/PawnMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/RookMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessBoardBuilder.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/KingMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/KnightMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/QueenMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/RookMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation/BoardGameControls.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/Main.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/webpack.config.js",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tsconfig.json",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/dist/bundle.js",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/Main.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/package.json",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessMediator.test.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessMediator.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessBoardFactory.test.ts",
 		"/C/Users/danie/AppData/Roaming/Sublime Text 3/Packages/TypeScript/tsserver/lib.dom.d.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation/WebGlSceneRenderer.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation/BoardGameControls.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessBoardBuilder.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/KingMovementJudge.test.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/ChessMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/BoardBuilder.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/KingMovementJudge.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/KnightMovementJudge.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/BishopMovementJudge.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessPieceMovementJudgeFactory.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/QueenMovementJudge.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/RookMovementJudge.test.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/QueenMovementJudge.test.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/BishopMovementJudge.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/RookMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/BoardCoordinate.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/BoardCoordinate.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/PawnMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessMovementJudge.Pawn.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessPieceMovementJudgeFactory.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/PieceMovementJudgeFactory.ts",
@@ -410,17 +446,11 @@
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/ChessBoardFactory.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/MovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/@types/uuid/index.d.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/BoardPiece.test.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/BoardPiece.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/BoardTile.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/ChessMovementJudge.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/ChessMediator.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/ChessMediator.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/PieceFactory.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/BoardTile.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/enums/BoardPieceType.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/Board.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/Board.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/GamePiece.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tsconfig.json",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/package.json",
@@ -494,15 +524,11 @@
 		"/C/Users/Daniel/Desktop/Logs/www38.csv",
 		"/C/Users/Daniel/Desktop/Logs/Log formatting.txt",
 		"/C/Users/Daniel/Desktop/Logs/www28/Service/20200102.txt",
-		"/C/Users/Daniel/Desktop/Logs/www28/Service/20200101.txt",
-		"/C/Users/Daniel/Desktop/Logs/www24/Service/20200101.txt",
-		"/C/Users/Daniel/Desktop/Logs/www24/Service/20200102.txt",
-		"/C/Users/Daniel/Desktop/Logs/www24.csv",
-		"/C/Users/Daniel/Desktop/Logs/www24/Service/20191228.txt"
+		"/C/Users/Daniel/Desktop/Logs/www28/Service/20200101.txt"
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -516,6 +542,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"GetPiece",
+			"setPiece",
+			"GetPiece",
+			"();\n",
 			"render(",
 			"three",
 			"\"],\n",
@@ -529,6 +559,9 @@
 		"regex": false,
 		"replace_history":
 		[
+			"getPiece",
+			"setPiece",
+			"getPiece",
 			"kingMovementJudge"
 		],
 		"reverse": false,
@@ -540,24 +573,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/presentation/WebGlSceneRenderer.ts",
+					"file": "src/presentation/BoardGameScene.ts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1015,
+						"buffer_size": 2161,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1015,
-								1015
+								1348,
+								1348
 							]
 						],
 						"settings":
@@ -574,7 +607,7 @@
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 216.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -582,48 +615,47 @@
 				},
 				{
 					"buffer": 1,
-					"file": "src/Main.ts",
+					"file": "/C/Users/danie/Documents/Repositories/Airistotal.github.io/pages/portfolio.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 259,
+						"buffer_size": 1374,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								142,
-								142
+								1333,
+								1333
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"use_tab_stops": false
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "src/presentation/BoardGameControls.ts",
+					"file": "src/models/BoardPiece.ts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 504,
+						"buffer_size": 883,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								504,
-								504
+								778,
+								774
 							]
 						],
 						"settings":
@@ -634,46 +666,41 @@
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 80.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "src/presentation/BoardGameScene.ts",
+					"file": "src/models/BoardTile.ts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1276,
+						"buffer_size": 1390,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								535,
-								535
+								1362,
+								1362
 							]
 						],
 						"settings":
 						{
-							"auto_name": "class BoardGameScene {",
 							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"typescript_plugin_format_options":
-							{
-								"convertTabsToSpaces": true,
-								"indentSize": 2,
-								"tabSize": 2
-							},
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 378.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -726,7 +753,7 @@
 	"project": "CheckeredBoardGames.sublime-project",
 	"replace":
 	{
-		"height": 70.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":

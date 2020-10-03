@@ -2,8 +2,9 @@ import WebGlSceneRenderer from './presentation/WebGlSceneRenderer';
 
 class Main {
   public static Run() {
-    WebGlSceneRenderer.initialize();
-    WebGlSceneRenderer.render(Date.now());
+    const renderer = WebGlSceneRenderer.getInstance();
+
+    renderer.render(Date.now());
 
     requestAnimationFrame(WebGlSceneRenderer.render);
   }
