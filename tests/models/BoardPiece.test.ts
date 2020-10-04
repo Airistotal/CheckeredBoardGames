@@ -3,12 +3,12 @@ import BoardPieceType from '../../src/models/enums/BoardPieceType';
 import TestBoardPieceGeometryFactory from '../mocks/TestBoardPieceGeometryFactory';
 
 import { expect } from 'chai';
-import { Vec2 } from 'three';
+import { Vec2, Mesh } from 'three';
 import 'mocha';
 
 describe('BoardPiece tests', () => {
   let testBoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
-  let pieceGeometry = testBoardPieceGeometryFactory.createGeometryFor(BoardPieceType.Pawn);
+  let pieceGeometry = new Mesh();
 
 	it('create with correct properties', () => {
 		let boardPiece = new BoardPiece("team", BoardPieceType.Pawn, pieceGeometry);

@@ -5,12 +5,13 @@ import BoardPieceType from '../../../../src/models/enums/BoardPieceType';
 import Board from '../../../../src/models/Board';
 import TestBoardPieceGeometryFactory from '../../../mocks/TestBoardPieceGeometryFactory';
 
+import { Mesh } from 'three';
 import { expect } from 'chai';
 import 'mocha';
 
 describe('PawnMovementJudge tests', () => {
   let testBoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
-  let pieceGeometry = testBoardPieceGeometryFactory.createGeometryFor(BoardPieceType.Pawn);
+  let pieceGeometry = new Mesh();
 
   it('pawn can move forward one', () => {
     let board = new Board(8, 8);

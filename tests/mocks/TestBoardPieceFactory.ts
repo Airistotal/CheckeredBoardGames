@@ -4,13 +4,19 @@ import BoardPieceType from '../../src/models/enums/BoardPieceType';
 import BoardPieceGeometryFactory from '../../src/business/BoardPieceGeometryFactory';
 import TestBoardPieceGeometryFactory from '../mocks/testBoardPieceGeometryFactory';
 
+import { Mesh } from 'three';
+
 class TestBoardPieceFactory implements BoardPieceFactory {
   private testBoardPieceGeometryFactory: BoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
 
   createBoardPiece(team: string, type: BoardPieceType): BoardPiece {
-    let geometry = this.testBoardPieceGeometryFactory.createGeometryFor(type);
+  	let piece = new BoardPiece(team, type, new Mesh())
+    
+    this.testBoardPieceGeometryFactory.createGeometryFor(type, (x) => {
+    	piece.setRenderablePiece(x);
+    });
 
-    return new BoardPiece(team, type, geometry);
+    return piece;
   }
 }
 

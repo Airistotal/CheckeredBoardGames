@@ -2,15 +2,14 @@ import BoardPieceGeometryFactory from '../../src/business/BoardPieceGeometryFact
 import BoardPieceType from '../../src/models/enums/BoardPieceType';
 import BoardPiece from '../../src/models/BoardPiece';
 
-import { Mesh, ConeGeometry, MeshPhongMaterial } from 'three';
+import { Mesh, ConeGeometry, MeshPhongMaterial, Object3D } from 'three';
 
 class TestBoardPieceGeometryFactory implements BoardPieceGeometryFactory {
-  public createGeometryFor(type: BoardPieceType): Mesh {
-    var geometry = new ConeGeometry( 0.35, 1, 16 );
-    var material = new MeshPhongMaterial( {color: 0xffff00} );
-    let mesh = new Mesh( geometry, material );
+  public createGeometryFor(type: BoardPieceType, callback: (x: Object3D) => void): void {
+    var geometry = new ConeGeometry(0.35, 1, 16);
+    var material = new MeshPhongMaterial({color: 0xffff00});
 
-    return mesh;
+    callback(new Mesh(geometry, material));
   }
 }
 

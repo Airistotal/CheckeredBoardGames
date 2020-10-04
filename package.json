@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "mocha --require ts-node/register tests/**/*.ts",
-    "build": "tsc && npm test ",
-    "deploy": "npm run build && webpack"
+    "deploy": "npm run build && webpack",
+    "build": "tsc && npm test",
+    "test": "mocha built/tests/**/*.test.js"
   },
   "description": "CheckeredBoardGames",
   "author": {

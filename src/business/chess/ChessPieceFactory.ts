@@ -3,6 +3,8 @@ import BoardPiece from '../../models/BoardPiece';
 import BoardPieceType from '../../models/enums/BoardPieceType';
 import BoardPieceGeometryFactory from '../BoardPieceGeometryFactory';
 
+import { Mesh } from 'three';
+
 import { IOCTypes } from '../initialization/IOCTypes';
 import { injectable, inject } from "inversify";
 import "reflect-metadata";
@@ -25,8 +27,13 @@ class ChessPieceFactory implements BoardPieceFactory {
 
   createBoardPiece(name: string, type: BoardPieceType): BoardPiece {
     if (ChessPieceFactory.knownPieces.some((v) => v === type)) {
-      let pieceMesh = this.boardPieceGeometryFactory.createGeometryFor(type);
-      return new BoardPiece(name, type, pieceMesh);
+      let piece = new BoardPiece(name, type, new Mesh());
+
+      this.boardPieceGeometryFactory.createGeometryFor(type, (x) => {
+        piece.setRenderablePiece(x);
+      });
+
+      return piece;
     } else {
       throw new Error(`I don't know how to make ${BoardPieceType[type]}`);
     }

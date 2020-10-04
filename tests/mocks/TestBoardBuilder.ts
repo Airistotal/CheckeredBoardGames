@@ -4,6 +4,7 @@ import BoardCoordinate from '../../src/models/BoardCoordinate';
 import BoardPiece from '../../src/models/BoardPiece';
 import BoardPieceType from '../../src/models/enums/BoardPieceType';
 import TestBoardPieceGeometryFactory from '../mocks/TestBoardPieceGeometryFactory';
+import { Mesh } from 'three';
 
 class TestBoardBuilder implements BoardBuilder {
   private piecesAt: Array<BoardCoordinate>;
@@ -18,8 +19,13 @@ class TestBoardBuilder implements BoardBuilder {
     let board = new Board(8, 8);
 
     this.piecesAt.forEach((coord) => {
-      let pieceGeometry = this.testBoardPieceGeometryFactory.createGeometryFor(BoardPieceType.Pawn);
-      board.get(coord).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
+      let piece = new BoardPiece("white", BoardPieceType.Pawn, new Mesh());
+      
+      this.testBoardPieceGeometryFactory.createGeometryFor(BoardPieceType.Pawn, (x) => {
+        piece.setRenderablePiece(x);
+      });
+
+      board.get(coord).setPiece(piece);
     })
 
     return board;

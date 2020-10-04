@@ -8,9 +8,9 @@ class BoardPiece {
   public readonly id = uuidv4();
   public readonly team: string;
   public readonly type: BoardPieceType;
-  private pieceMesh: Mesh;
+  private pieceMesh: Object3D;
 
-  constructor(team: string, type: BoardPieceType, pieceMesh: Mesh) {
+  constructor(team: string, type: BoardPieceType, pieceMesh: Object3D) {
   	this.team = team;
     this.type = type;
     this.pieceMesh = pieceMesh;
@@ -18,6 +18,10 @@ class BoardPiece {
 
   public getRenderablePiece(): Object3D {
     return this.pieceMesh;
+  }
+  
+  public setRenderablePiece(piece: Object3D) {
+    this.pieceMesh = piece;
   }
 }
 

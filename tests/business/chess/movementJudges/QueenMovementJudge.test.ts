@@ -7,12 +7,13 @@ import BoardPieceType from '../../../../src/models/enums/BoardPieceType';
 import Board from '../../../../src/models/Board';
 import TestBoardPieceGeometryFactory from '../../../mocks/TestBoardPieceGeometryFactory';
 
+import { Mesh } from 'three';
 import { expect } from 'chai';
 import 'mocha';
 
 describe('QueenMovementJudge tests', () => {
   let testBoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
-  let pieceGeometry = testBoardPieceGeometryFactory.createGeometryFor(BoardPieceType.Pawn);
+  let pieceGeometry = new Mesh();
 
   let queenMovementJudge = new QueenMovementJudge(new BishopMovementJudge(), new RookMovementJudge());
 
