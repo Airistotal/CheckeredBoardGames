@@ -31,10 +31,10 @@ class ChessPieceGeometryFactory implements BoardPieceGeometryFactory {
   private LoadSTL(url: string, callback: (x: Object3D) => void): void {
     new STLLoader().load(
       url, 
-      function ( geometry ) {
-        var material = new MeshPhongMaterial( { color: 0xFFFFFF, specular: 0x111111, shininess: 200 } );
-        var mesh = new Mesh( geometry, material );
-        mesh.position.set( 0, 0, 0);
+      function (geometry) {
+        var material = new MeshPhongMaterial({ color: 0xFFFFFF, specular: 0x111111, shininess: 200 });
+        var mesh = new Mesh(geometry, material);
+        mesh.position.set(0, 0, 0);
         
         callback(mesh);
     });

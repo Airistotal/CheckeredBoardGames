@@ -1,12 +1,12 @@
-import WebGlSceneRenderer from './presentation/WebGlSceneRenderer';
+import SceneMediator from './presentation/SceneMediator';
 
 class Main {
   public static Run() {
-    const renderer = WebGlSceneRenderer.getInstance();
+    const renderer = SceneMediator.getInstance();
 
     renderer.render(Date.now());
 
-    requestAnimationFrame(WebGlSceneRenderer.render);
+    requestAnimationFrame(SceneMediator.render);
   }
 }
 

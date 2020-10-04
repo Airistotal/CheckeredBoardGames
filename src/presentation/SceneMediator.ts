@@ -12,8 +12,8 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-class WebGlSceneRenderer {
-  private static instance: WebGlSceneRenderer | null = null;
+class SceneMediator {
+  private static instance: SceneMediator | null = null;
   private boardGameScene: BoardGameScene;
   private renderer: WebGLRenderer = new WebGLRenderer();
   private gameMediator!: GameMediator;
@@ -27,29 +27,29 @@ class WebGlSceneRenderer {
     this.boardGameScene.addGroup(this.gameMediator.lookAtBoard().getRenderableBoard());
 
     BoardGameControls.getInstance().addRaycasterMouseControl(this.boardGameScene.camera, this.boardGameScene.scene);
-    BoardGameControls.getInstance().setOnClickCallback(WebGlSceneRenderer.sendMoveCommand);
+    BoardGameControls.getInstance().setOnClickCallback(SceneMediator.sendMoveCommand);
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
   }
 
-  public static getInstance(): WebGlSceneRenderer {
-    if(WebGlSceneRenderer.instance === null) {
+  public static getInstance(): SceneMediator {
+    if(SceneMediator.instance === null) {
       const boardGameScene = Bootstrapper.getContainer().get<BoardGameScene>(IOCTypes.BoardGameScene);
       const gameMediatorFactory = Bootstrapper.getContainer().get<IGameMediatorFactory>(IOCTypes.GameMediatorFactory);
 
-      WebGlSceneRenderer.instance = new WebGlSceneRenderer(boardGameScene, gameMediatorFactory);
+      SceneMediator.instance = new SceneMediator(boardGameScene, gameMediatorFactory);
     }
 
-    return WebGlSceneRenderer.instance;
+    return SceneMediator.instance;
   }
 
   public static render(time: number) {
     time *= 0.001;
 
-    WebGlSceneRenderer.getInstance().render(time);
+    SceneMediator.getInstance().render(time);
 
-    requestAnimationFrame(WebGlSceneRenderer.render);
+    requestAnimationFrame(SceneMediator.render);
   }
 
   public render(time: number) {
@@ -58,7 +58,7 @@ class WebGlSceneRenderer {
   }
 
   public static sendMoveCommand(clicked: BoardCoordinate): void {
-    let self = WebGlSceneRenderer.getInstance();
+    let self = SceneMediator.getInstance();
 
     if (self.lastClicked === null) {
       if (self.gameMediator.lookAtBoard().get(clicked).getPiece() !== undefined) {
@@ -71,4 +71,4 @@ class WebGlSceneRenderer {
   }
 }
 
-export default WebGlSceneRenderer;
+export default SceneMediator;
