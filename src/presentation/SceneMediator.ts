@@ -24,7 +24,9 @@ class SceneMediator {
     this.boardGameScene = boardGameScene;
 
     this.gameMediator = gameMediatorFactory.createGameMediator(GameType.Chess);
-    this.boardGameScene.addGroup(this.gameMediator.lookAtBoard().getRenderableBoard());
+    this.gameMediator.loadBoard((board) =>{
+      this.boardGameScene.addGroup(board);
+    });
 
     BoardGameControls.getInstance().addRaycasterMouseControl(this.boardGameScene.camera, this.boardGameScene.scene);
     BoardGameControls.getInstance().setOnClickCallback(SceneMediator.sendMoveCommand);

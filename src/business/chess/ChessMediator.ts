@@ -5,16 +5,28 @@ import GameType from '../../models/enums/GameType';
 import GameMediator from '../GameMediator';
 import MovementJudge from '../MovementJudge';
 
+import { Group } from 'three';
+
 class ChessMediator implements GameMediator {
+  private readonly boardBuilder: BoardBuilder;
 	private readonly board: Board;
   private readonly movementJudge: MovementJudge;
   private readonly movedPieces: Array<string>;
 
 	constructor(boardBuilder: BoardBuilder, movementJudge: MovementJudge) {
+    this.boardBuilder = boardBuilder;
 		this.board = boardBuilder.createBoard();
     this.movementJudge = movementJudge;
     this.movedPieces = new Array<string>();
 	}
+
+  public lookAtBoard(): Board {
+    return this.board;
+  }
+
+  public loadBoard(callback: (x: Group) => void) {
+      
+  }
 
   public move(origin: BoardCoordinate, destination: BoardCoordinate): boolean {
     if (this.isLegalMove(origin, destination)) {
@@ -38,10 +50,6 @@ class ChessMediator implements GameMediator {
       this.movedPieces.push(originPiece.id);
       return this.movementJudge.isLegalFirstMove(origin, destination, this.board);
     }
-  }
-
-  public lookAtBoard(): Board {
-    return this.board;
   }
 }
 

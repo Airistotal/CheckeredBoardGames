@@ -4,6 +4,7 @@ import GameType from '../../../src/models/enums/GameType';
 import TestMovementJudge from '../../mocks/TestMovementJudge';
 import TestBoardBuilder from '../../mocks/TestBoardBuilder';
 
+import { Group } from 'three'
 import { expect } from 'chai';
 import 'mocha';
 
@@ -30,5 +31,13 @@ describe('ChessMediator tests', () => {
 
 		expect(firstmove).to.be.true;
 		expect(secondmove).to.be.false;
+	});
+
+	it('load board', () => {
+		let mediator = new ChessMediator(new TestBoardBuilder([BoardCoordinate.at(1, 2)]), new TestMovementJudge(false, true));
+
+		mediator.loadBoard((x: Group) => {
+			expect(x).to.not.be.undefined;
+		})
 	});
 });

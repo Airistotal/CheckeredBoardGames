@@ -48,12 +48,15 @@ class BoardGameControls {
 
   private getRaycasterIntersects(): void {
     let intersects = this.raycaster.intersectObjects(this.scene.children, true);
-    let tile = intersects[0].object;
-    if (tile === null || tile.parent === null) { return; }
 
-    let coordinate = <BoardCoordinate>tile.parent.userData;
+    if (intersects !== undefined && intersects[0] !== undefined) {
+      let tile = intersects[0].object;
+      if (tile === null || tile.parent === null) { return; }
 
-    this.onClickCallback(coordinate);
+      let coordinate = <BoardCoordinate>tile.parent.userData;
+
+      this.onClickCallback(coordinate);
+    }
   }
 }
 
