@@ -25,18 +25,18 @@ class ChessPieceFactory implements BoardPieceFactory {
     this.boardPieceGeometryFactory = boardPieceGeometryFactory;
   }
 
-  createBoardPiece(name: string, type: BoardPieceType): BoardPiece {
-    if (ChessPieceFactory.knownPieces.some((v) => v === type)) {
-      let piece = new BoardPiece(name, type, new Mesh());
+  createBoardPiece(team: string, type: BoardPieceType): Promise<BoardPiece> {
+    return new Promise((resolve, reject) => {
+      if (ChessPieceFactory.knownPieces.some((v) => v === type)) {
+        this.boardPieceGeometryFactory.createGeometryFor(type).then((g) => {
+          resolve(new BoardPiece(team, type, g));
+        });
+      } else {
+        reject(`I don't know how to make ${BoardPieceType[type]}`);
+      }
+    });
 
-      this.boardPieceGeometryFactory.createGeometryFor(type, (x) => {
-        piece.setRenderablePiece(x);
-      });
-
-      return piece;
-    } else {
-      throw new Error(`I don't know how to make ${BoardPieceType[type]}`);
-    }
+    
   }
 }
 

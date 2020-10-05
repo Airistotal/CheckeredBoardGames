@@ -14,6 +14,8 @@ class BoardPiece {
   	this.team = team;
     this.type = type;
     this.pieceMesh = pieceMesh;
+
+    this.setTeamSpecifics();
   }
 
   public getRenderablePiece(): Object3D {
@@ -22,6 +24,20 @@ class BoardPiece {
   
   public setRenderablePiece(piece: Object3D) {
     this.pieceMesh = piece;
+
+    this.setTeamSpecifics();
+  }
+
+  private setTeamSpecifics() {
+    (<MeshPhongMaterial>(<Mesh>this.pieceMesh).material).color.set(this.team);
+
+    if (this.type === BoardPieceType.Knight && this.team === "white") {
+      this.pieceMesh.rotateY(Utilities.degreesToRadians(180));
+      this.pieceMesh.position.set(0, 0, 0);
+      this.pieceMesh.translateY(0.4);
+      this.pieceMesh.translateX(-0.35);
+      this.pieceMesh.translateZ(-0.4);
+    }
   }
 }
 

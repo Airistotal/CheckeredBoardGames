@@ -20,10 +20,14 @@ describe('ChessPieceFactory tests', () => {
     it(`make a ${BoardPieceType[pieceType]}`, () => {
       let sut = new ChessPieceFactory(new TestBoardPieceGeometryFactory());
 
-      let piece = sut.createBoardPiece("white", pieceType);
-
-      expect(piece.team).to.be.eql("white");
-      expect(piece.type).to.be.eql(pieceType);
+      sut.createBoardPiece("white", pieceType)
+         .then((piece) => {
+          expect(piece.team).to.be.eql("white");
+          expect(piece.type).to.be.eql(pieceType);
+         })
+         .catch((e) => {
+           expect(false).to.be.true;
+         });
     });
   });
 });

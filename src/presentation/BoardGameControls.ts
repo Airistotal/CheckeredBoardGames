@@ -2,12 +2,14 @@ import BoardCoordinate from '../models/BoardCoordinate';
 
 import * as $ from 'jquery';
 import { Vector2, Raycaster, PerspectiveCamera, Scene } from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 class BoardGameControls {
   private static instance: BoardGameControls | null = null;
   private raycaster: Raycaster;
   private camera!: PerspectiveCamera;
   private scene!: Scene;
+  private orbitControls!: OrbitControls;
   private onClickCallback!: (x: BoardCoordinate) => void;
 
   private constructor() {
@@ -21,6 +23,10 @@ class BoardGameControls {
     }
 
     return BoardGameControls.instance;
+  }
+
+  public addOrbitControls(camera: PerspectiveCamera, elem: HTMLElement) {
+    this.orbitControls = new OrbitControls(camera, elem);
   }
 
   public addRaycasterMouseControl(camera: PerspectiveCamera, scene: Scene): void {

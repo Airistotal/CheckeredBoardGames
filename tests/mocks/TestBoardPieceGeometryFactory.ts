@@ -5,11 +5,13 @@ import BoardPiece from '../../src/models/BoardPiece';
 import { Mesh, ConeGeometry, MeshPhongMaterial, Object3D } from 'three';
 
 class TestBoardPieceGeometryFactory implements BoardPieceGeometryFactory {
-  public createGeometryFor(type: BoardPieceType, callback: (x: Object3D) => void): void {
-    var geometry = new ConeGeometry(0.35, 1, 16);
-    var material = new MeshPhongMaterial({color: 0xffff00});
+  public createGeometryFor(type: BoardPieceType): Promise<Object3D> {
+    return new Promise((resolve, reject) => {
+      var geometry = new ConeGeometry(0.35, 1, 16);
+      var material = new MeshPhongMaterial({color: 0xffff00});
 
-    callback(new Mesh(geometry, material));
+      resolve(new Mesh(geometry, material));
+    });
   }
 }
 

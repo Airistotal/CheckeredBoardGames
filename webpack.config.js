@@ -1,4 +1,6 @@
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
+
 module.exports = {
   entry: "./src/Main.ts",
   output: {
@@ -13,5 +15,12 @@ module.exports = {
   },
   module: {
     rules: [{ test: /\.ts$/, loader: "ts-loader" }]
-  }
+  },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: 'public', to: '' }
+      ],
+    })
+  ],
 }

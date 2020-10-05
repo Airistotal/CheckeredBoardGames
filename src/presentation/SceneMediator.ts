@@ -5,6 +5,7 @@ import IGameMediatorFactory from '../business/IGameMediatorFactory';
 import GameMediator from '../business/GameMediator';
 import GameType from '../models/enums/GameType';
 import BoardCoordinate from '../models/BoardCoordinate';
+import Board from '../models/Board';
 import Bootstrapper from '../business/initialization/Bootstrapper';
 
 import { IOCTypes } from '../business/initialization/IOCTypes';
@@ -24,12 +25,14 @@ class SceneMediator {
     this.boardGameScene = boardGameScene;
 
     this.gameMediator = gameMediatorFactory.createGameMediator(GameType.Chess);
-    this.gameMediator.loadBoard((board) =>{
-      this.boardGameScene.addGroup(board);
+    let boardLoadPromise = this.gameMediator.loadBoard();
+    boardLoadPromise.then((board: Board) =>{
+      this.boardGameScene.addGroup(board.getRenderableBoard());
     });
 
     BoardGameControls.getInstance().addRaycasterMouseControl(this.boardGameScene.camera, this.boardGameScene.scene);
     BoardGameControls.getInstance().setOnClickCallback(SceneMediator.sendMoveCommand);
+    //BoardGameControls.getInstance().addOrbitControls(this.boardGameScene.camera, this.renderer.domElement);
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);

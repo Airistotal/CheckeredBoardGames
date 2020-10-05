@@ -3,7 +3,7 @@ import BoardPieceType from '../models/enums/BoardPieceType';
 import { Mesh, Object3D } from 'three';
 
 interface BoardPieceGeometryFactory {
-  createGeometryFor(type: BoardPieceType, callback: (x: Object3D) => void): void;
+  createGeometryFor(type: BoardPieceType): Promise<Object3D>;
 }
 
 export default BoardPieceGeometryFactory;

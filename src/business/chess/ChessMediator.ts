@@ -9,13 +9,12 @@ import { Group } from 'three';
 
 class ChessMediator implements GameMediator {
   private readonly boardBuilder: BoardBuilder;
-	private readonly board: Board;
+	private board!: Board;
   private readonly movementJudge: MovementJudge;
   private readonly movedPieces: Array<string>;
 
 	constructor(boardBuilder: BoardBuilder, movementJudge: MovementJudge) {
     this.boardBuilder = boardBuilder;
-		this.board = boardBuilder.createBoard();
     this.movementJudge = movementJudge;
     this.movedPieces = new Array<string>();
 	}
@@ -24,8 +23,14 @@ class ChessMediator implements GameMediator {
     return this.board;
   }
 
-  public loadBoard(callback: (x: Group) => void) {
-      
+  public loadBoard(): Promise<Board> {
+    let self = this;
+    let boardPromise = this.boardBuilder.createBoard();
+    boardPromise.then((board: Board) => {
+      self.board = board;
+    });
+
+    return boardPromise;
   }
 
   public move(origin: BoardCoordinate, destination: BoardCoordinate): boolean {

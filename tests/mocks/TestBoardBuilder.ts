@@ -15,20 +15,16 @@ class TestBoardBuilder implements BoardBuilder {
     this.testBoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
   }
 
-  public createBoard() {
-    let board = new Board(8, 8);
+  public createBoard(): Promise<Board> {
+    return new Promise<Board>((resolve, reject) => {
+      let board = new Board(8, 8);
 
-    this.piecesAt.forEach((coord) => {
-      let piece = new BoardPiece("white", BoardPieceType.Pawn, new Mesh());
-      
-      this.testBoardPieceGeometryFactory.createGeometryFor(BoardPieceType.Pawn, (x) => {
-        piece.setRenderablePiece(x);
-      });
+      this.piecesAt.forEach((coord) => {
+        board.get(coord).setPiece(new BoardPiece("white", BoardPieceType.Pawn, new Mesh()));
+      })
 
-      board.get(coord).setPiece(piece);
-    })
-
-    return board;
+      resolve(board);
+    });
   }
 }
 

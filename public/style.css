@@ -1,0 +1,26 @@
+html {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#overlay {
+    position: absolute;
+    z-index: 1;
+}
+
+#button {
+    height: 100px;
+    width: 200px;
+    background-color: #808080;
+}

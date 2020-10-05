@@ -11,7 +11,6 @@ import IAbstractBoardPieceFactory from '../IAbstractBoardPieceFactory';
 import AbstractBoardPieceGeometryFactory from '../AbstractBoardPieceGeometryFactory';
 import IAbstractBoardPieceGeometryFactory from '../IAbstractBoardPieceGeometryFactory';
 import BoardGameScene from '../../presentation/BoardGameScene';
-import WebGlSceneRenderer from '../../presentation/WebGlSceneRenderer';
 import { Container } from "inversify";
 import { IOCTypes } from "./IOCTypes";
 
