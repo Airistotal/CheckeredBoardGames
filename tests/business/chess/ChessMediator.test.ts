@@ -1,45 +1,89 @@
 import ChessMediator from '../../../src/business/chess/ChessMediator';
 import BoardCoordinate from '../../../src/models/BoardCoordinate';
+import BoardPiece from '../../../src/models/BoardPiece';
+import BoardPieceType from '../../../src/models/enums/BoardPieceType';
 import GameType from '../../../src/models/enums/GameType';
 import TestMovementJudge from '../../mocks/TestMovementJudge';
 import TestBoardBuilder from '../../mocks/TestBoardBuilder';
 
-import { Group } from 'three'
+import { Group, Mesh } from 'three'
 import { expect } from 'chai';
 import 'mocha';
 
 describe('ChessMediator tests', () => {
-	it('moves board pieces', () => {
-		let mediator = new ChessMediator(new TestBoardBuilder([BoardCoordinate.at(1, 2)]), new TestMovementJudge(true, true));
-		mediator.loadBoard()
-					  .then((board) => {
-							let piece = mediator.lookAtBoard().get(BoardCoordinate.at(1, 2)).getPiece();
-							mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
-							let pieceAtDestination = mediator.lookAtBoard().get(BoardCoordinate.at(1, 3)).getPiece();
+	it('moves board pieces', async () => {
+		let mediator = new ChessMediator(
+			new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece | undefined>([
+				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())]
+			])),
+			new TestMovementJudge(true, true));
 
-							expect(piece).to.not.be.undefined;
-							expect(mediator.lookAtBoard().get(BoardCoordinate.at(1, 2)).getPiece()).to.be.undefined;
-							expect(pieceAtDestination).to.not.be.undefined;
-							if(piece === undefined || pieceAtDestination === undefined) return;
-							expect(piece.id).to.eql(pieceAtDestination.id);
-					  })
-					  .catch((e) => {
-					  	expect(true).to.be.false;
-					  });
+		await mediator.loadBoard();
+
+		let piece = mediator.lookAtBoard().get(BoardCoordinate.at(1, 2)).getPiece();
+		mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
+		let pieceAtDestination = mediator.lookAtBoard().get(BoardCoordinate.at(1, 3)).getPiece();
+
+		expect(piece).to.not.be.undefined;
+		expect(mediator.lookAtBoard().get(BoardCoordinate.at(1, 2)).getPiece()).to.be.undefined;
+		expect(pieceAtDestination).to.not.be.undefined;
+		if(piece === undefined || pieceAtDestination === undefined) return;
+		expect(piece.id).to.eql(pieceAtDestination.id);
 	});
 
-	it('moves board pieces track first move', () => {
-		let mediator = new ChessMediator(new TestBoardBuilder([BoardCoordinate.at(1, 2)]), new TestMovementJudge(false, true));
-		mediator.loadBoard()
-					  .then((board) => {
-							let firstmove = mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
-							let secondmove = mediator.move(BoardCoordinate.at(1, 3), BoardCoordinate.at(1, 4));
+	it('moves board pieces track first move', async () => {
+		let mediator = new ChessMediator(
+			new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece | undefined>([
+				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())]
+			])),
+			new TestMovementJudge(false, true));
 
-							expect(firstmove).to.be.true;
-							expect(secondmove).to.be.false;
-					  })
-					  .catch((e) => {
-					  	expect(true).to.be.false;
-					  });
+		await mediator.loadBoard();
+
+		debugger;
+
+		let firstmove = mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
+		let secondmove = mediator.move(BoardCoordinate.at(1, 3), BoardCoordinate.at(1, 4));
+
+		expect(firstmove).to.be.true;
+		expect(secondmove).to.be.false;
+	});
+
+	it('moves board pieces alternate team moves', async () => {
+		let mediator = new ChessMediator(
+			new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece | undefined>([
+				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())],
+				[BoardCoordinate.at(2, 2), new BoardPiece("black", BoardPieceType.Pawn, new Mesh())]
+			])),
+			new TestMovementJudge(true, true));
+
+		await mediator.loadBoard()
+
+		let firstmove = mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
+		let secondmove = mediator.move(BoardCoordinate.at(2, 2), BoardCoordinate.at(2, 3));
+		let thirdmove = mediator.move(BoardCoordinate.at(2, 3), BoardCoordinate.at(2, 4));
+
+		expect(firstmove).to.be.true;
+		expect(secondmove).to.be.true;
+		expect(thirdmove).to.be.false;
+	});
+
+	it('when castling moves king and rook', async () => {
+		let mediator = new ChessMediator(
+			new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece | undefined>([
+				[BoardCoordinate.at(5, 1), new BoardPiece("white", BoardPieceType.King, new Mesh())],
+				[BoardCoordinate.at(8, 1), new BoardPiece("black", BoardPieceType.Rook, new Mesh())]
+			])),
+			new TestMovementJudge(true, true));
+
+		await mediator.loadBoard();
+
+		let castleResult = mediator.move(BoardCoordinate.at(5, 1), BoardCoordinate.at(7, 1));
+		let kingDest = mediator.lookAtBoard().get(BoardCoordinate.at(7, 1)).getPiece();
+		let rookDest = mediator.lookAtBoard().get(BoardCoordinate.at(6, 1)).getPiece();
+
+		expect(rookDest).to.not.be.undefined;
+		expect(kingDest).to.not.be.undefined;
+		expect(castleResult).to.be.true;
 	});
 });

@@ -7,10 +7,10 @@ import TestBoardPieceGeometryFactory from '../mocks/TestBoardPieceGeometryFactor
 import { Mesh } from 'three';
 
 class TestBoardBuilder implements BoardBuilder {
-  private piecesAt: Array<BoardCoordinate>;
+  private piecesAt: Map<BoardCoordinate, BoardPiece | undefined>;
   private testBoardPieceGeometryFactory: TestBoardPieceGeometryFactory;
 
-  constructor(piecesAt: Array<BoardCoordinate>) {
+  constructor(piecesAt: Map<BoardCoordinate, BoardPiece | undefined>) {
     this.piecesAt = piecesAt;
     this.testBoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
   }
@@ -19,8 +19,11 @@ class TestBoardBuilder implements BoardBuilder {
     return new Promise<Board>((resolve, reject) => {
       let board = new Board(8, 8);
 
-      this.piecesAt.forEach((coord) => {
-        board.get(coord).setPiece(new BoardPiece("white", BoardPieceType.Pawn, new Mesh()));
+      this.piecesAt.forEach((piece, coord) => {
+        board.get(coord).setPiece(
+          piece === undefined ?
+          new BoardPiece("white", BoardPieceType.Pawn, new Mesh()) :
+          piece);
       })
 
       resolve(board);

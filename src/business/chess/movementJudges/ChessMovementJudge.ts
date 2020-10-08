@@ -2,6 +2,7 @@ import MovementJudge from '../../MovementJudge';
 import BoardCoordinate from '../../../models/BoardCoordinate';
 import BoardPiece from '../../../models/BoardPiece';
 import Board from '../../../models/Board';
+import MovementData from '../../../models/MovementData';
 import BoardPieceType from '../../../models/enums/BoardPieceType';
 import PieceMovementJudgeFactory from '../../PieceMovementJudgeFactory';
 import { Vector2 } from 'three';
@@ -15,22 +16,18 @@ class ChessMovementJudge implements MovementJudge {
     this.pieceMovementJudges = new Map<BoardPieceType, MovementJudge>();
   }
 
-  public isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean {
-    let originPiece = board.get(origin).getPiece();
-    if (originPiece === undefined) return false;
+  public isLegalMove(movementData: MovementData) : boolean {
+    try {
+      let originPiece = movementData.board.get(movementData.origin).getPiece();
+      if (originPiece === undefined) return false;
 
-    let movementJudge = this.getMovementJudge(originPiece.type);
+      let movementJudge = this.getMovementJudge(originPiece.type);
 
-    return movementJudge.isLegalMove(origin, destination, board);
-  }
-
-  public isLegalFirstMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean {
-    let originPiece = board.get(origin).getPiece();
-    if (originPiece === undefined) return false;
-
-    let movementJudge = this.getMovementJudge(originPiece.type);
-
-    return movementJudge.isLegalFirstMove(origin, destination, board);
+      return movementJudge.isLegalMove(movementData);
+    } catch(e) {
+      console.log(e);
+      return false;
+    }
   }
 
   private getMovementJudge(pieceType: BoardPieceType) {

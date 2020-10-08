@@ -8,6 +8,8 @@ import BoardCoordinate from '../models/BoardCoordinate';
 import Board from '../models/Board';
 import Bootstrapper from '../business/initialization/Bootstrapper';
 
+import { Color } from 'three';
+
 import { IOCTypes } from '../business/initialization/IOCTypes';
 import { injectable, inject } from "inversify";
 import "reflect-metadata";
@@ -16,7 +18,7 @@ import "reflect-metadata";
 class SceneMediator {
   private static instance: SceneMediator | null = null;
   private boardGameScene: BoardGameScene;
-  private renderer: WebGLRenderer = new WebGLRenderer();
+  private renderer: WebGLRenderer = new WebGLRenderer({antialias: true});
   private gameMediator!: GameMediator;
   private lastClicked: BoardCoordinate | null = null;
 
@@ -35,6 +37,7 @@ class SceneMediator {
     //BoardGameControls.getInstance().addOrbitControls(this.boardGameScene.camera, this.renderer.domElement);
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setClearColor(new Color().setHex(0xb3b3b3));
     document.body.appendChild(this.renderer.domElement);
   }
 
@@ -70,8 +73,8 @@ class SceneMediator {
         self.lastClicked = clicked;
       }
     } else {
-      self.gameMediator.move(self.lastClicked, clicked);
-      self.lastClicked = null;
+      let moveResult = self.gameMediator.move(self.lastClicked, clicked);
+      !moveResult ? self.lastClicked = clicked : self.lastClicked = null;
     }
   }
 }

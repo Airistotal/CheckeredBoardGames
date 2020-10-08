@@ -1,6 +1,8 @@
 import GameMediatorFactory from '../../src/business/GameMediatorFactory';
 import ChessMediator from '../../src/business/chess/ChessMediator';
 import GameType from '../../src/models/enums/GameType';
+import BoardCoordinate from '../../src/models/BoardCoordinate';
+import BoardPiece from '../../src/models/BoardPiece';
 import TestMovementJudgeFactory from '../mocks/TestMovementJudgeFactory';
 import TestBoardBuilderFactory from '../mocks/TestBoardBuilderFactory';
 
@@ -10,7 +12,7 @@ import 'mocha';
 describe('GameMediatorFactory tests', () => {
   it('Creates chessMediator', () => {
     let testMovementJudgeFactory = new TestMovementJudgeFactory(true, true);
-    let testBoardBuilderFactory = new TestBoardBuilderFactory([]);
+    let testBoardBuilderFactory = new TestBoardBuilderFactory(new Map<BoardCoordinate, BoardPiece>());
 
     let sut = new GameMediatorFactory(testBoardBuilderFactory, testMovementJudgeFactory);
 

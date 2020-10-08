@@ -3,6 +3,7 @@ import BoardCoordinate from '../../../../src/models/BoardCoordinate';
 import BoardPiece from '../../../../src/models/BoardPiece';
 import BoardPieceType from '../../../../src/models/enums/BoardPieceType';
 import Board from '../../../../src/models/Board';
+import MovementData from '../../../../src/models/MovementData';
 import TestBoardPieceGeometryFactory from '../../../mocks/TestBoardPieceGeometryFactory';
 
 import { Mesh } from 'three';
@@ -26,12 +27,14 @@ describe('KnightMovementJudge tests', () => {
 
   validKnightMoves.forEach((destination) => {
   	it(`knight can move from (4, 4) to destination ${destination.toString()}`, () => {
-	    let board = new Board(8, 8);
-	    let origin = BoardCoordinate.at(4, 4);
-	    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Knight, pieceGeometry));
+      let board = new Board(8, 8);
+      let knight = new BoardPiece("white", BoardPieceType.Knight, pieceGeometry);
+      let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board);
+      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<string>(knight.id));
+      board.get(mvDta.origin).setPiece(knight);
 
-	    expect(new KnightMovementJudge().isLegalMove(origin, destination, board)).to.be.true;
-	    expect(new KnightMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;
+	    expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.true;
+      expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.true;
   	})
   });
 
@@ -46,34 +49,38 @@ describe('KnightMovementJudge tests', () => {
 
   invalidKnightMoves.forEach((destination) => {
   	it(`knight cannot move from (4, 4) to destination ${destination.toString()}`, () => {
-	    let board = new Board(8, 8);
-	    let origin = BoardCoordinate.at(4, 4);
-	    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Knight, pieceGeometry));
+      let board = new Board(8, 8);
+      let knight = new BoardPiece("white", BoardPieceType.Knight, pieceGeometry);
+      let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board);
+      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<string>(knight.id));
+      board.get(mvDta.origin).setPiece(knight);
 
-	    expect(new KnightMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
-	    expect(new KnightMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
+      expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.false;
+      expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
   	})
   });
 
   it('knight can capture opposite color piece', () => {
-	    let board = new Board(8, 8);
-	    let origin = BoardCoordinate.at(4, 4);
-	    let destination = BoardCoordinate.at(3, 2);
-	    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Knight, pieceGeometry));
-	    board.get(destination).setPiece(new BoardPiece("black", BoardPieceType.Knight, pieceGeometry));
+      let board = new Board(8, 8);
+      let knight = new BoardPiece("white", BoardPieceType.Knight, pieceGeometry);
+      let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board);
+      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board, new Array<string>(knight.id));
+      board.get(mvDta.origin).setPiece(knight);
+      board.get(mvDta.destination).setPiece(new BoardPiece("black", BoardPieceType.Bishop, pieceGeometry));
 
-	    expect(new KnightMovementJudge().isLegalMove(origin, destination, board)).to.be.true;
-	    expect(new KnightMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.true;
+      expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.true;
+      expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.true;
   })
 
   it('knight cannot capture same color piece', () => {
-	    let board = new Board(8, 8);
-	    let origin = BoardCoordinate.at(4, 4);
-	    let destination = BoardCoordinate.at(3, 2);
-	    board.get(origin).setPiece(new BoardPiece("white", BoardPieceType.Knight, pieceGeometry));
-	    board.get(destination).setPiece(new BoardPiece("white", BoardPieceType.Knight, pieceGeometry));
+      let board = new Board(8, 8);
+      let knight = new BoardPiece("white", BoardPieceType.Knight, pieceGeometry);
+      let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board);
+      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board, new Array<string>(knight.id));
+      board.get(mvDta.origin).setPiece(knight);
+      board.get(mvDta.destination).setPiece(new BoardPiece("white", BoardPieceType.Bishop, pieceGeometry));
 
-	    expect(new KnightMovementJudge().isLegalMove(origin, destination, board)).to.be.false;
-	    expect(new KnightMovementJudge().isLegalFirstMove(origin, destination, board)).to.be.false;
+      expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.false;
+      expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
   })
 });

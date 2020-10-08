@@ -4,6 +4,7 @@ import BoardPiece from '../../../models/BoardPiece';
 import BoardPieceType from '../../../models/enums/BoardPieceType';
 import BoardTile from '../../../models/BoardTile';
 import Board from '../../../models/Board';
+import MovementData from '../../../models/MovementData';
 import { Vector2 } from 'three';
 
 class PawnMovementJudge implements MovementJudge {
@@ -11,28 +12,27 @@ class PawnMovementJudge implements MovementJudge {
   private static PawnInitialMove = new Vector2(0, 2);
   private static PawnAttack = new Vector2(1, 1);
 
-  public isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean {
+  public isLegalMove(movementData: MovementData) : boolean {
+    let board = movementData.board;
+    let origin = movementData.origin;
+    let dest = movementData.destination;
+
     let originPiece = board.get(origin).getPiece();
     if (originPiece === undefined) return false;
 
-    let movementVector = BoardCoordinate.getVector(origin, destination);
+    let movementVector = BoardCoordinate.getVector(origin, dest);
+    let adjCoord = this.getInBetweenCoordinate(origin, dest);
 
-    return this.isMovingInCorrectDirection(originPiece, movementVector) && 
-    			 (this.isValidPawnMove(movementVector, board.get(destination)) ||
-    			 this.isValidPawnAttack(movementVector, originPiece, board.get(destination)));
-  }
+    let isFirstMove = !movementData.movedPieces.some((v) => originPiece !== undefined && v === originPiece.id);
 
-  public isLegalFirstMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean {
-    let originPiece = board.get(origin).getPiece();
-    if (originPiece === undefined) return false;
-
-    let movementVector = BoardCoordinate.getVector(origin, destination);
-    let adjCoord = this.getInBetweenCoordinate(origin, destination);
-
-    return this.isMovingInCorrectDirection(originPiece, movementVector) && 
-    			 (this.isValidPawnMove(movementVector, board.get(destination)) ||
-    			 this.isValidPawnAttack(movementVector, originPiece, board.get(destination)) ||
-    			 this.isValidFirstPawnMove(movementVector, board.get(adjCoord), board.get(destination)));
+    return (
+             this.isMovingInCorrectDirection(originPiece, movementVector) && 
+      			 (
+               this.isValidPawnMove(movementVector, board.get(dest)) ||
+    			     this.isValidPawnAttack(movementVector, originPiece, board.get(dest))
+             )
+           ) ||
+           (isFirstMove ? this.isValidFirstPawnMove(movementVector, board.get(adjCoord), board.get(dest)) : false);
   }
 
   private isValidPawnMove(moveVector: Vector2, destinationTile: BoardTile): boolean {

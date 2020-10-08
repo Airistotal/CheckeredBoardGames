@@ -1,9 +1,7 @@
-import BoardCoordinate from '../models/BoardCoordinate';
-import Board from '../models/Board';
+import MovementData from '../models/MovementData';
 
 interface MovementJudge {
-  isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean;
-  isLegalFirstMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board) : boolean;
+  isLegalMove(movementData: MovementData) : boolean;
 }
 
 export default MovementJudge;

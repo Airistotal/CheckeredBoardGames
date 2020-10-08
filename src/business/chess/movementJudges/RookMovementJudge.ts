@@ -1,25 +1,25 @@
 import MovementJudge from '../../MovementJudge';
 import BoardCoordinate from '../../../models/BoardCoordinate';
 import Board from '../../../models/Board';
+import MovementData from '../../../models/MovementData';
 import { Vector2 } from 'three';
 
 class RookMovementJudge implements MovementJudge {
   private static RookMoves = [new Vector2(0, 1), new Vector2(1, 0)];
 
-  public isLegalMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board): boolean {
+  public isLegalMove(movementData: MovementData): boolean {
+    let board = movementData.board;
+    let origin = movementData.origin;
+    let dest = movementData.destination;
     let originPiece = board.get(origin).getPiece();
     if (originPiece === undefined) return false;
 
-    let moveVector = BoardCoordinate.getVector(origin, destination);
-    let destinationPiece = board.get(destination).getPiece();
+    let moveVector = BoardCoordinate.getVector(origin, dest);
+    let destinationPiece = board.get(dest).getPiece();
 
     return RookMovementJudge.RookMoves.some((v) => v.equals(this.getAbsoluteVectorForRook(moveVector))) &&
-           this.missOtherPieces(origin, destination, board) &&
+           this.missOtherPieces(origin, dest, board) &&
            (destinationPiece === undefined || originPiece.team !== destinationPiece.team);
-  }
-
-  public isLegalFirstMove(origin: BoardCoordinate, destination: BoardCoordinate, board: Board): boolean {
-    return this.isLegalMove(origin, destination, board);
   }
 
   private missOtherPieces(origin: BoardCoordinate, destination: BoardCoordinate, board: Board): boolean {
