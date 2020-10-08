@@ -3,12 +3,14 @@ import Board from '../../models/Board';
 import MovementData from '../../models/MovementData';
 import BoardPieceType from '../../models/enums/BoardPieceType';
 import BoardBuilder from '../BoardBuilder';
+import BoardPiece from '../../models/BoardPiece';
 import GameType from '../../models/enums/GameType';
 import GameMediator from '../GameMediator';
 import MovementJudge from '../MovementJudge';
 import KingMovementJudge from '../chess/movementJudges/KingMovementJudge';
+import PawnMovementJudge from '../chess/movementJudges/PawnMovementJudge';
 
-import { Group } from 'three';
+import { Group, Mesh } from 'three';
 
 class ChessMediator implements GameMediator {
   private readonly boardBuilder: BoardBuilder;
@@ -16,6 +18,8 @@ class ChessMediator implements GameMediator {
   private readonly movementJudge: MovementJudge;
   private readonly movedPieces: Array<string>;
   private currentTeamTurn: string = "white";
+  private enPassantGhost = new BoardPiece("gray", BoardPieceType.Pawn, new Mesh());
+  private enPassantGhostCoord: BoardCoordinate | undefined;
 
 	constructor(boardBuilder: BoardBuilder, movementJudge: MovementJudge) {
     this.boardBuilder = boardBuilder;
@@ -42,7 +46,7 @@ class ChessMediator implements GameMediator {
 
     if (this.isLegalMove(mvDta)) {
       this.processCastling(mvDta);
-      this.processEnPassant();
+      this.processEnPassant(mvDta);
       this.executeMove(origin, destination);
       this.rotateTeam();
 
@@ -60,8 +64,22 @@ class ChessMediator implements GameMediator {
     }
   }
 
-  private processEnPassant() {
-
+  private processEnPassant(mvDta: MovementData): void {
+    if (PawnMovementJudge.isMoveTwoForward(mvDta)) {
+      if (this.enPassantGhostCoord !== undefined) {
+        this.board.get(this.enPassantGhostCoord).setPiece(undefined);
+      }
+      this.enPassantGhostCoord = PawnMovementJudge.getEnPassantGhostCoordinate(mvDta);
+      this.board.get(this.enPassantGhostCoord)
+                .setPiece(this.enPassantGhost);
+    } else if (PawnMovementJudge.isEnPassantAttack(mvDta, this.enPassantGhost.id)) {
+      this.board.get(PawnMovementJudge.getEnPassantCoordinate(mvDta))
+                .setPiece(undefined);
+    } else {
+      if (this.enPassantGhostCoord !== undefined) {
+        this.board.get(this.enPassantGhostCoord).setPiece(undefined);
+      }
+    }
   }
 
   private executeMove(origin: BoardCoordinate, destination: BoardCoordinate) {

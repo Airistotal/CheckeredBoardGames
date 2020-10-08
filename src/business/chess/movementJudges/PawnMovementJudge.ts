@@ -12,6 +12,44 @@ class PawnMovementJudge implements MovementJudge {
   private static PawnInitialMove = new Vector2(0, 2);
   private static PawnAttack = new Vector2(1, 1);
 
+  public static isMoveTwoForward(movementData: MovementData): boolean {
+    let mvVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
+    let originPiece = movementData.board.get(movementData.origin).getPiece();
+    let absVector = PawnMovementJudge.getAbsoluteVectorForPawn(mvVector);
+
+    return originPiece !== undefined &&
+           originPiece.type === BoardPieceType.Pawn &&
+           PawnMovementJudge.PawnInitialMove.equals(absVector);
+  }
+
+  public static isEnPassantAttack(movementData: MovementData, ghostId: string): boolean {
+    let originPiece = movementData.board.get(movementData.origin).getPiece();
+    let attackedPiece = movementData.board.get(movementData.destination).getPiece();
+
+    return attackedPiece !== undefined && attackedPiece.id === ghostId &&
+           originPiece !== undefined && originPiece.type === BoardPieceType.Pawn;
+  }
+
+  public static getEnPassantCoordinate(movementData: MovementData): BoardCoordinate {
+    let mvVector = BoardCoordinate.getVector(movementData.origin, movementData.destination)
+    mvVector.y = 0;
+
+    let enPassantCoordinate = movementData.origin;
+    enPassantCoordinate.addVector(mvVector);
+
+    return enPassantCoordinate;
+  }
+
+  public static getEnPassantGhostCoordinate(movementData: MovementData): BoardCoordinate {
+    let mvVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
+    mvVector.normalize();
+
+    let enPassantGhostCoord = movementData.origin;
+    enPassantGhostCoord.addVector(mvVector);
+
+    return enPassantGhostCoord;
+  }
+
   public isLegalMove(movementData: MovementData) : boolean {
     let board = movementData.board;
     let origin = movementData.origin;
@@ -77,7 +115,7 @@ class PawnMovementJudge implements MovementJudge {
 			offset = 1;
 		}
 
-		return BoardCoordinate.at(origin.col, origin.row + offset);
+		return BoardCoordinate.at(origin.getCol(), origin.getRow() + offset);
   }
 
   private static getAbsoluteVectorForPawn(moveVector: Vector2): Vector2 {

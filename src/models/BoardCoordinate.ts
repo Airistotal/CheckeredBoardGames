@@ -1,8 +1,8 @@
 import { Vector2 } from 'three';
 
 class BoardCoordinate {
-  public readonly col: number;
-  public readonly row: number;
+  private col: number;
+  private row: number;
 
   constructor(col: number, row: number) {
     BoardCoordinate.validate(col, row);
@@ -20,6 +20,19 @@ class BoardCoordinate {
     let y = destination.row - origin.row;
 
     return new Vector2(x, y);
+  }
+
+  public getCol() {
+    return this.col;
+  }
+
+  public getRow() {
+    return this.row;
+  }
+
+  public addVector(v: Vector2) {
+    this.col += v.x;
+    this.row += v.y;
   }
 
   public toString() {

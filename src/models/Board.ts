@@ -21,8 +21,8 @@ class Board {
 
   private addTileToRenderableBoard(boardTile: BoardTile, tileCoordinate: BoardCoordinate) {
     let renderableTile = boardTile.getRenderableTile();
-    renderableTile.translateY(tileCoordinate.row);
-    renderableTile.translateX(tileCoordinate.col);
+    renderableTile.translateY(tileCoordinate.getRow());
+    renderableTile.translateX(tileCoordinate.getCol());
     renderableTile.userData = tileCoordinate;
 
     this.renderableBoard.add(renderableTile);
