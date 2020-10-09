@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"blackK",
+				"blackKingInCheck\tlet"
+			],
+			[
+				"origi",
+				"originTeam\tlet"
+			],
+			[
+				"whitekin",
+				"whiteKingInCheck\tlet"
+			],
+			[
+				"black",
+				"blackKingInCheck\tlet"
+			],
+			[
+				"whit",
+				"whiteKingCoord\tlet"
+			],
+			[
+				"BoardPiec",
+				"BoardPieceType\talias"
+			],
+			[
+				"BoardPi",
+				"BoardPiece\talias"
+			],
+			[
+				"logic",
+				"logicBoard\tlet"
+			],
+			[
+				"board",
+				"boardmap\tproperty"
+			],
+			[
+				"enPass",
+				"enPassantGhostCoord\tproperty"
+			],
+			[
 				"ghost",
 				"enPassantGhostCoord\tproperty"
 			],
@@ -26,10 +66,6 @@
 			[
 				"Pawn",
 				"PawnMovementJudge\talias"
-			],
-			[
-				"BoardPi",
-				"BoardPieceType\talias"
 			],
 			[
 				"load",
@@ -108,10 +144,6 @@
 				"LookAtBoard"
 			],
 			[
-				"board",
-				"board"
-			],
-			[
 				"boar",
 				"BoardCoordinate\tscript"
 			],
@@ -183,41 +215,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/presentation/SceneMediator.ts",
-			"settings":
-			{
-				"buffer_size": 3203,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/business/chess/ChessMediator.ts",
-			"settings":
-			{
-				"buffer_size": 3769,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/business/chess/movementJudges/KingMovementJudge.ts",
-			"settings":
-			{
-				"buffer_size": 4351,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/models/BoardCoordinate.ts",
-			"settings":
-			{
-				"buffer_size": 1529,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "npm run build",
 	"build_system_choices":
@@ -284,22 +281,34 @@
 	"expanded_folders":
 	[
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/public",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models"
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess"
 	],
 	"file_history":
 	[
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/BoardCoordinate.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/PawnMovementJudge.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/ChessMediator.test.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/Board.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessBoardBuilder.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/ChessMovementJudge.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessMediator.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/public/style.css",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/public/index.html",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/KingMovementJudge.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/presentation/SceneMediator.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/GameMediatorFactory.test.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessBoardBuilder.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/Main.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/presentation/BoardGameControls.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessPieceGeometryFactory.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestBoardBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/ChessMediator.test.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/GameMediator.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/BoardBuilder.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestBoardPieceFactory.ts",
@@ -328,7 +337,6 @@
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/BishopMovementJudge.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/models/BoardCoordinate.test.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/KnightMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/BoardCoordinate.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/ChessPieceMovementJudgeFactory.test.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/BoardTile.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/.gitignore",
@@ -412,16 +420,11 @@
 		"/C/Users/Daniel/Desktop/Logs/Log formatting.txt",
 		"/C/Users/Daniel/Desktop/Logs/www28/Service/20200102.txt",
 		"/C/Users/Daniel/Desktop/Logs/www28/Service/20200101.txt",
-		"/C/Users/Daniel/Desktop/Logs/www24/Service/20200101.txt",
-		"/C/Users/Daniel/Desktop/Logs/www24/Service/20200102.txt",
-		"/C/Users/Daniel/Desktop/Logs/www24.csv",
-		"/C/Users/Daniel/Desktop/Logs/www24/Service/20191228.txt",
-		"/C/Users/Daniel/Desktop/Logs/20200102.txt",
-		"/C/Users/Daniel/Desktop/Logs/20200101.txt"
+		"/C/Users/Daniel/Desktop/Logs/www24/Service/20200101.txt"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -435,6 +438,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"script"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -452,145 +456,8 @@
 	"groups":
 	[
 		{
-			"selected": 1,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/presentation/SceneMediator.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3203,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2466,
-								2466
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"typescript_plugin_format_options":
-							{
-								"convertTabsToSpaces": true,
-								"indentSize": 2,
-								"tabSize": 2
-							},
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/business/chess/ChessMediator.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3769,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1889,
-								1889
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"typescript_plugin_format_options":
-							{
-								"convertTabsToSpaces": false,
-								"indentSize": 2,
-								"tabSize": 2
-							},
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 648.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/business/chess/movementJudges/KingMovementJudge.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4351,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3036,
-								3036
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1216.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/models/BoardCoordinate.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1529,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								710,
-								710
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 486.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				}
 			]
 		}
 	],

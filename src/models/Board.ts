@@ -1,12 +1,18 @@
 import BoardTile from './BoardTile';
 import BoardCoordinate from './BoardCoordinate';
-import { Color, Group } from 'three';
+import BoardPiece from './BoardPiece';
+import { Color, Group, Mesh } from 'three';
 
 class Board {
-  private boardmap: Map<BoardCoordinate, BoardTile> = new Map<BoardCoordinate, BoardTile>();
+  public boardmap: Map<BoardCoordinate, BoardTile> = new Map<BoardCoordinate, BoardTile>();
   private renderableBoard: Group = new Group();
+  private height: number;
+  private length: number;
 
   constructor(height: number, length: number) {
+    this.height = height;
+    this.length = length;
+
     for (var i = 0; i < height; i++) {
       for (var j = 0; j < length; j++) {
         let boardTile =  new BoardTile(Board.getTileColor(i, j), undefined);
@@ -41,6 +47,19 @@ class Board {
     } else {
       throw new Error(`${coord.toString()} is not a coordinate on the board.`);
     }
+  }
+
+  public cloneBoardForLogic(): Board {
+    let logicBoard = new Board(this.height, this.length);
+
+    this.boardmap.forEach((tile, coord) => {
+      let localPiece = tile.getPiece();
+      if (localPiece !== undefined) {
+        logicBoard.get(coord).setPiece(new BoardPiece(localPiece.team, localPiece.type, new Mesh()));
+      }
+    });
+
+    return logicBoard;
   }
 
   public getRenderableBoard() {

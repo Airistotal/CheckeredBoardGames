@@ -23,7 +23,7 @@ class ChessMovementJudge implements MovementJudge {
 
       let movementJudge = this.getMovementJudge(originPiece.type);
 
-      return movementJudge.isLegalMove(movementData);
+      return movementJudge.isLegalMove(movementData) && this.teamKingIsNotInCheck(movementData);
     } catch(e) {
       console.log(e);
       return false;
@@ -38,6 +38,74 @@ class ChessMovementJudge implements MovementJudge {
     }
 
     return movementJudge;
+  }
+
+  private teamKingIsNotInCheck(mvDta: MovementData): boolean {
+    let originPiece = mvDta.board.get(mvDta.origin).getPiece();
+    if (originPiece === undefined) return false;
+    let originTeam = originPiece.team;
+
+    let logicBoard = mvDta.board.cloneBoardForLogic();
+    logicBoard.get(mvDta.destination).setPiece(logicBoard.get(mvDta.origin).getPiece());
+
+    let whitePieceCoords = new Array<BoardCoordinate>();
+    let blackPieceCoords = new Array<BoardCoordinate>();
+    let whiteKingCoord: BoardCoordinate;
+    let blackKingCoord: BoardCoordinate;
+
+    logicBoard.boardmap.forEach((tile, coord) => {
+      let piece = tile.getPiece();
+      if (piece !== undefined) {
+        if (piece.team === "white") {
+          if (piece.type === BoardPieceType.King) {
+            whiteKingCoord = coord;
+          } else {
+            whitePieceCoords.push(coord);
+          }
+        } else if (piece.team === "black") {
+          if (piece.type === BoardPieceType.King) {
+            blackKingCoord = coord;
+          } else {
+            blackPieceCoords.push(coord);
+          }
+        }
+      }
+    });
+
+    if (originTeam === "black") {
+      let blackKingInCheck = false;
+      whitePieceCoords.forEach((coord) => {
+        let originPiece = logicBoard.get(coord).getPiece();
+        if (originPiece === undefined) return false;
+
+        let movementJudge = this.getMovementJudge(originPiece.type);
+
+        let movementData = new MovementData(coord, blackKingCoord, logicBoard, mvDta.movedPieces);
+        if (movementJudge.isLegalMove(movementData)) {
+          blackKingInCheck = true
+        }
+      });
+
+      return !blackKingInCheck;
+    } else if (originTeam === "white") {
+      let whiteKingInCheck = false;
+
+      blackPieceCoords.forEach((coord) => {
+        let originPiece = logicBoard.get(coord).getPiece();
+        if (originPiece === undefined) return false;
+
+        let movementJudge = this.getMovementJudge(originPiece.type);
+
+        let movementData = new MovementData(coord, whiteKingCoord, logicBoard, mvDta.movedPieces);
+        if (movementJudge.isLegalMove(movementData)) {
+          whiteKingInCheck = true
+        }
+      });
+
+      return whiteKingInCheck;
+    }
+
+    throw new Error(`I do not know the team ${originTeam}`);
   }
 }
 
