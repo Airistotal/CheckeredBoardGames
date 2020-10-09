@@ -22,6 +22,10 @@ class BoardCoordinate {
     return new Vector2(x, y);
   }
 
+  public clone(): BoardCoordinate {
+    return BoardCoordinate.at(this.col, this.row);
+  }
+
   public getCol() {
     return this.col;
   }

@@ -68,6 +68,7 @@ class ChessMediator implements GameMediator {
     if (PawnMovementJudge.isMoveTwoForward(mvDta)) {
       if (this.enPassantGhostCoord !== undefined) {
         this.board.get(this.enPassantGhostCoord).setPiece(undefined);
+        this.enPassantGhostCoord = undefined;
       }
       this.enPassantGhostCoord = PawnMovementJudge.getEnPassantGhostCoordinate(mvDta);
       this.board.get(this.enPassantGhostCoord)
@@ -75,9 +76,11 @@ class ChessMediator implements GameMediator {
     } else if (PawnMovementJudge.isEnPassantAttack(mvDta, this.enPassantGhost.id)) {
       this.board.get(PawnMovementJudge.getEnPassantCoordinate(mvDta))
                 .setPiece(undefined);
+      this.enPassantGhostCoord = undefined;
     } else {
       if (this.enPassantGhostCoord !== undefined) {
         this.board.get(this.enPassantGhostCoord).setPiece(undefined);
+        this.enPassantGhostCoord = undefined;
       }
     }
   }

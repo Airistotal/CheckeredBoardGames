@@ -40,8 +40,6 @@ describe('ChessMediator tests', () => {
 
 		await mediator.loadBoard();
 
-		debugger;
-
 		let firstmove = mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
 		let secondmove = mediator.move(BoardCoordinate.at(1, 3), BoardCoordinate.at(1, 4));
 
@@ -85,5 +83,23 @@ describe('ChessMediator tests', () => {
 		expect(rookDest).to.not.be.undefined;
 		expect(kingDest).to.not.be.undefined;
 		expect(castleResult).to.be.true;
+	});
+
+	it('executes en passant attack', async () => {
+		let mediator = new ChessMediator(
+			new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece | undefined>([
+				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())],
+				[BoardCoordinate.at(2, 4), new BoardPiece("black", BoardPieceType.Pawn, new Mesh())]
+			])),
+			new TestMovementJudge(true, true));
+
+		await mediator.loadBoard();
+
+		debugger;
+
+		mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 4));
+		let enpassantResult = mediator.move(BoardCoordinate.at(2, 4), BoardCoordinate.at(1, 3));
+
+		expect(enpassantResult).to.be.true;
 	});
 });

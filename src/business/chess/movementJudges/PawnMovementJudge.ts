@@ -34,7 +34,7 @@ class PawnMovementJudge implements MovementJudge {
     let mvVector = BoardCoordinate.getVector(movementData.origin, movementData.destination)
     mvVector.y = 0;
 
-    let enPassantCoordinate = movementData.origin;
+    let enPassantCoordinate = movementData.origin.clone();
     enPassantCoordinate.addVector(mvVector);
 
     return enPassantCoordinate;
@@ -44,7 +44,7 @@ class PawnMovementJudge implements MovementJudge {
     let mvVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
     mvVector.normalize();
 
-    let enPassantGhostCoord = movementData.origin;
+    let enPassantGhostCoord = movementData.origin.clone();
     enPassantGhostCoord.addVector(mvVector);
 
     return enPassantGhostCoord;
