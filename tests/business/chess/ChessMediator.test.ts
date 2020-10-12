@@ -94,9 +94,7 @@ describe('ChessMediator tests', () => {
 			new TestMovementJudge(true, true));
 
 		await mediator.loadBoard();
-
-		debugger;
-
+		
 		mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 4));
 		let enpassantResult = mediator.move(BoardCoordinate.at(2, 4), BoardCoordinate.at(1, 3));
 

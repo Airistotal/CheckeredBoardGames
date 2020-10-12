@@ -11,7 +11,9 @@ class KingMovementJudge implements MovementJudge {
 
   public static isCaslting(movementData: MovementData): boolean {
     let originPiece = movementData.board.get(movementData.origin).getPiece()
-    if (originPiece === undefined || originPiece.type !== BoardPieceType.King) return false;
+    if (originPiece === undefined ||
+        originPiece.type !== BoardPieceType.King ||
+        movementData.movedPieces.some((v) => originPiece !== undefined && v === originPiece.id)) return false;
 
     return this.isLegalCastle(movementData);
   }

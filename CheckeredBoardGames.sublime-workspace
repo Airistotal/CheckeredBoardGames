@@ -215,6 +215,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "src/business/chess/movementJudges/KingMovementJudge.ts",
+			"settings":
+			{
+				"buffer_size": 4351,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "npm run build",
 	"build_system_choices":
@@ -424,7 +432,7 @@
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 29.0
 	},
 	"find_in_files":
 	{
@@ -456,14 +464,46 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/business/chess/movementJudges/KingMovementJudge.ts",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4351,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								737,
+								737
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 27.0
+		"height": 29.0
 	},
 	"input":
 	{
@@ -508,7 +548,7 @@
 	"project": "CheckeredBoardGames.sublime-project",
 	"replace":
 	{
-		"height": 50.0
+		"height": 54.0
 	},
 	"save_all_on_build": true,
 	"select_file":
