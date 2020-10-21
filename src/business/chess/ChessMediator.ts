@@ -18,13 +18,14 @@ import "reflect-metadata";
 
 @injectable()
 class ChessMediator implements GameMediator {
-  private readonly boardBuilder: BoardBuilder;
-	private board!: Board;
-  private readonly movementJudge: MovementJudge;
+  private board!: Board;
   private readonly movedPieces: Array<string>;
   private currentTeamTurn: string = "white";
   private enPassantGhost = new BoardPiece("gray", BoardPieceType.Pawn, new Mesh());
   private enPassantGhostCoord: BoardCoordinate | undefined;
+  
+  private readonly boardBuilder: BoardBuilder;
+  private readonly movementJudge: MovementJudge;
 
 	constructor(@inject(IOCTypes.BoardBuilderFactory) boardBuilderFactory: (type: GameType) => BoardBuilder,
               @inject(IOCTypes.MovementJudgeFactory) movementJudgeFactory: (type: GameType) => MovementJudge) {
