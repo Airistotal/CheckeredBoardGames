@@ -1,7 +1,6 @@
 import BoardGameScene from './BoardGameScene';
 import BoardGameControls from './BoardGameControls';
 import { Scene, WebGLRenderer, Raycaster } from 'three';
-import IGameMediatorFactory from '../business/IGameMediatorFactory';
 import GameMediator from '../business/GameMediator';
 import GameType from '../models/enums/GameType';
 import BoardCoordinate from '../models/BoardCoordinate';
@@ -23,10 +22,10 @@ class SceneMediator {
   private lastClicked: BoardCoordinate | null = null;
 
   private constructor(@inject(IOCTypes.BoardGameScene) boardGameScene: BoardGameScene,
-                      @inject(IOCTypes.GameMediatorFactory) gameMediatorFactory: IGameMediatorFactory) {
+                      @inject(IOCTypes.GameMediatorFactory) gameMediatorFactory: (type: GameType) => GameMediator) {
     this.boardGameScene = boardGameScene;
 
-    this.gameMediator = gameMediatorFactory.createGameMediator(GameType.Chess);
+    this.gameMediator = gameMediatorFactory(GameType.Chess);
     let boardLoadPromise = this.gameMediator.loadBoard();
     boardLoadPromise.then((board: Board) =>{
       this.boardGameScene.addGroup(board.getRenderableBoard());
@@ -44,7 +43,7 @@ class SceneMediator {
   public static getInstance(): SceneMediator {
     if(SceneMediator.instance === null) {
       const boardGameScene = Bootstrapper.getContainer().get<BoardGameScene>(IOCTypes.BoardGameScene);
-      const gameMediatorFactory = Bootstrapper.getContainer().get<IGameMediatorFactory>(IOCTypes.GameMediatorFactory);
+      const gameMediatorFactory = Bootstrapper.getContainer().get<(type: GameType) => GameMediator>(IOCTypes.GameMediatorFactory);
 
       SceneMediator.instance = new SceneMediator(boardGameScene, gameMediatorFactory);
     }

@@ -1,18 +1,21 @@
-import BoardBuilderFactory from '../BoardBuilderFactory';
-import IBoardBuilderFactory from '../IBoardBuilderFactory';
-import AbstractPieceMovementJudgeFactory from '../AbstractPieceMovementJudgeFactory';
-import IAbstractPieceMovementJudgeFactory from '../IAbstractPieceMovementJudgeFactory';
-import MovementJudgeFactory from '../MovementJudgeFactory';
-import IMovementJudgeFactory from '../IMovementJudgeFactory';
-import GameMediatorFactory from '../GameMediatorFactory';
-import IGameMediatorFactory from '../IGameMediatorFactory';
-import AbstractBoardPieceFactory from '../AbstractBoardPieceFactory';
-import IAbstractBoardPieceFactory from '../IAbstractBoardPieceFactory';
-import AbstractBoardPieceGeometryFactory from '../AbstractBoardPieceGeometryFactory';
-import IAbstractBoardPieceGeometryFactory from '../IAbstractBoardPieceGeometryFactory';
 import BoardGameScene from '../../presentation/BoardGameScene';
+import ChessMediator from '../chess/ChessMediator';
+import ChessPieceFactory from '../chess/ChessPieceFactory';
+import ChessBoardBuilder from '../chess/ChessBoardBuilder';
+import BoardBuilder from '../BoardBuilder';
+import BoardPieceFactory from '../BoardPieceFactory';
+import GameType from '../../models/enums/GameType';
+import GameMediator from '../GameMediator';
+import ChessPieceGeometryFactory from '../chess/ChessPieceGeometryFactory';
+import BoardPieceGeometryFactory from '../BoardPieceGeometryFactory';
+import ChessPieceMovementJudgeFactory from '../chess/ChessPieceMovementJudgeFactory';
+import PieceMovementJudgeFactory from '../PieceMovementJudgeFactory';
+import MovementJudge from '../MovementJudge';
+import ChessMovementJudge from '../chess/movementJudges/ChessMovementJudge';
+
 import { Container } from "inversify";
 import { IOCTypes } from "./IOCTypes";
+import { interfaces } from "inversify";
 
 class Bootstrapper {
   private static instance: Bootstrapper | null = null;
@@ -21,13 +24,56 @@ class Bootstrapper {
 
   private constructor() {
     this.container = new Container();
-    this.container.bind<IBoardBuilderFactory>(IOCTypes.BoardBuilderFactory).to(BoardBuilderFactory);
-    this.container.bind<IAbstractPieceMovementJudgeFactory>(IOCTypes.AbstractPieceMovementJudgeFactory).to(AbstractPieceMovementJudgeFactory);
-    this.container.bind<IMovementJudgeFactory>(IOCTypes.MovementJudgeFactory).to(MovementJudgeFactory);
-    this.container.bind<IGameMediatorFactory>(IOCTypes.GameMediatorFactory).to(GameMediatorFactory);
+
     this.container.bind<BoardGameScene>(IOCTypes.BoardGameScene).to(BoardGameScene);
-    this.container.bind<IAbstractBoardPieceFactory>(IOCTypes.AbstractBoardPieceFactory).to(AbstractBoardPieceFactory);
-    this.container.bind<IAbstractBoardPieceGeometryFactory>(IOCTypes.AbstractBoardPieceGeometryFactory).to(AbstractBoardPieceGeometryFactory);
+
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(ChessMovementJudge).whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<MovementJudge>>(IOCTypes.MovementJudgeFactory)
+                  .toFactory((context) => {
+                    return (type: GameType) => {
+                      return context.container.getNamed<MovementJudge>(IOCTypes.MovementJudge, type);
+                    };
+                  });
+
+    this.container.bind<PieceMovementJudgeFactory>(IOCTypes.PieceMovementJudgeFactory).to(ChessPieceMovementJudgeFactory).whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<PieceMovementJudgeFactory>>(IOCTypes.AbstractPieceMovementJudgeFactory)
+                  .toFactory<PieceMovementJudgeFactory>((context) => {
+                    return (type: GameType) => {
+                      return context.container.getNamed<PieceMovementJudgeFactory>(IOCTypes.PieceMovementJudgeFactory, type);
+                    };
+                  });
+
+    this.container.bind<BoardPieceGeometryFactory>(IOCTypes.BoardPieceGeometryFactory).to(ChessPieceGeometryFactory).whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<BoardPieceGeometryFactory>>(IOCTypes.AbstractBoardPieceGeometryFactory)
+                  .toFactory<BoardPieceGeometryFactory>((context) => {
+                    return (type: GameType) => {
+                      return context.container.getNamed<BoardPieceGeometryFactory>(IOCTypes.BoardPieceGeometryFactory, type);
+                    };
+                  });
+
+    this.container.bind<GameMediator>(IOCTypes.GameMediator).to(ChessMediator).whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<GameMediator>>(IOCTypes.GameMediatorFactory)
+                  .toFactory<GameMediator>((context) => {
+                    return (type: GameType) => {
+                      return context.container.getNamed<GameMediator>(IOCTypes.GameMediator, type);
+                    };
+                  });
+
+    this.container.bind<BoardBuilder>(IOCTypes.BoardBuilder).to(ChessBoardBuilder).whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<BoardBuilder>>(IOCTypes.BoardBuilderFactory)
+                  .toFactory<BoardBuilder>((context) => {
+                    return (type: GameType) => {
+                      return context.container.getNamed<BoardBuilder>(IOCTypes.BoardBuilder, type);
+                    };
+                  });
+
+    this.container.bind<BoardPieceFactory>(IOCTypes.BoardPieceFactory).to(ChessPieceFactory).whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<BoardPieceFactory>>(IOCTypes.AbstractBoardPieceFactory)
+                  .toFactory<BoardPieceFactory>((context) => {
+                    return (type: GameType) => {
+                      return context.container.getNamed<BoardPieceFactory>(IOCTypes.BoardPieceFactory, type);
+                    };
+                  });
   }
 
   public static getContainer() {

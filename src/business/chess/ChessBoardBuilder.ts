@@ -17,8 +17,8 @@ class ChessBoardBuilder implements BoardBuilder {
 	private readonly boardPieceFactory: BoardPieceFactory;
 	private board!: Board;
 
-	constructor(@inject(IOCTypes.BoardPieceFactory) boardPieceFactory: BoardPieceFactory) {
-		this.boardPieceFactory = boardPieceFactory;
+	constructor(@inject(IOCTypes.AbstractBoardPieceFactory) abstractFactory: (type: GameType) => BoardPieceFactory) {
+		this.boardPieceFactory = abstractFactory(GameType.Chess);
 	}
 
 	public createBoard(): Promise<Board> {

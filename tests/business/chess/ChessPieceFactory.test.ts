@@ -1,5 +1,6 @@
 import ChessPieceFactory from '../../../src/business/chess/ChessPieceFactory';
 import BoardPiece from '../../../src/models/BoardPiece';
+import GameType from '../../../src/models/enums/GameType';
 import BoardPieceType from '../../../src/models/enums/BoardPieceType';
 import TestBoardPieceGeometryFactory from '../../mocks/TestBoardPieceGeometryFactory';
 
@@ -18,7 +19,7 @@ describe('ChessPieceFactory tests', () => {
 
   pieceTypes.forEach((pieceType) => {
     it(`make a ${BoardPieceType[pieceType]}`, () => {
-      let sut = new ChessPieceFactory(new TestBoardPieceGeometryFactory());
+      let sut = new ChessPieceFactory((type: GameType) => new TestBoardPieceGeometryFactory());
 
       sut.createBoardPiece("white", pieceType)
          .then((piece) => {

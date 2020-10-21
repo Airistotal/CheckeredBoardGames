@@ -6,10 +6,14 @@ const IOCTypes = {
   GameMediatorFactory: Symbol.for("GameMediatorFactory"),
   BoardGameScene: Symbol.for("BoardGameScene"),
   BoardPieceGeometryFactory: Symbol.for("BoardPieceGeometryFactory"),
-  ChessBoardBuilder: Symbol.for("ChessBoardBuilder"),
   BoardPieceFactory: Symbol.for("BoardPieceFactory"),
   AbstractBoardPieceFactory: Symbol.for("AbstractBoardPieceFactory"),
-  AbstractBoardPieceGeometryFactory: Symbol.for("AbstractBoardPieceGeometryFactory")
+  AbstractBoardPieceGeometryFactory: Symbol.for("AbstractBoardPieceGeometryFactory"),
+  ChessMediator: Symbol.for("ChessMediator"),
+  ChessPieceFactory: Symbol.for("ChessPieceFactory"),
+  BoardBuilder: Symbol.for("BoardBuilder"),
+  GameMediator: Symbol.for("GameMediator"),
+  MovementJudge: Symbol.for("MovementJudge")
 };
 
 export { IOCTypes };

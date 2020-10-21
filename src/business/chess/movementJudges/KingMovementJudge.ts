@@ -57,9 +57,9 @@ class KingMovementJudge implements MovementJudge {
     let moveVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
 
     return KingMovementJudge.Castling.equals(KingMovementJudge.getAbsoluteVectorForKing(moveVector)) &&
-           moveVector.x < 0 ?
+           (moveVector.x < 0 ?
            this.arePiecesInPlaceForQueensideCastle(movementData) :
-           this.arePiecesInPlaceForKingsideCastle(movementData);
+           this.arePiecesInPlaceForKingsideCastle(movementData));
   }
 
   private static arePiecesInPlaceForQueensideCastle(movementData: MovementData): boolean {

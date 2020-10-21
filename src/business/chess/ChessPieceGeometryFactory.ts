@@ -6,6 +6,11 @@ import { Mesh, ConeGeometry, MeshPhongMaterial, Object3D, Vector3, Box3 } from '
 
 import { STLLoader } from '../loaders/STLLoader';
 
+import { IOCTypes } from '../initialization/IOCTypes';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+
+@injectable()
 class ChessPieceGeometryFactory implements BoardPieceGeometryFactory {
   public createGeometryFor(type: BoardPieceType): Promise<Object3D> {
     switch (type) {

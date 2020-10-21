@@ -3,8 +3,8 @@ import BoardCoordinate from '../../../src/models/BoardCoordinate';
 import BoardPiece from '../../../src/models/BoardPiece';
 import BoardPieceType from '../../../src/models/enums/BoardPieceType';
 import GameType from '../../../src/models/enums/GameType';
-import TestMovementJudge from '../../mocks/TestMovementJudge';
 import TestBoardBuilder from '../../mocks/TestBoardBuilder';
+import TestMovementJudge from '../../mocks/TestMovementJudge';
 
 import { Group, Mesh } from 'three'
 import { expect } from 'chai';
@@ -13,10 +13,10 @@ import 'mocha';
 describe('ChessMediator tests', () => {
 	it('moves board pieces', async () => {
 		let mediator = new ChessMediator(
-			new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece | undefined>([
+			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
 				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())]
 			])),
-			new TestMovementJudge(true, true));
+			(type: GameType) => new TestMovementJudge(true, true));
 
 		await mediator.loadBoard();
 
@@ -33,10 +33,10 @@ describe('ChessMediator tests', () => {
 
 	it('moves board pieces track first move', async () => {
 		let mediator = new ChessMediator(
-			new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece | undefined>([
+			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
 				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())]
 			])),
-			new TestMovementJudge(false, true));
+			(type: GameType) => new TestMovementJudge(false, true));
 
 		await mediator.loadBoard();
 
@@ -49,11 +49,11 @@ describe('ChessMediator tests', () => {
 
 	it('moves board pieces alternate team moves', async () => {
 		let mediator = new ChessMediator(
-			new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece | undefined>([
+			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
 				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())],
 				[BoardCoordinate.at(2, 2), new BoardPiece("black", BoardPieceType.Pawn, new Mesh())]
 			])),
-			new TestMovementJudge(true, true));
+			(type: GameType) => new TestMovementJudge(true, true));
 
 		await mediator.loadBoard()
 
@@ -68,11 +68,11 @@ describe('ChessMediator tests', () => {
 
 	it('when castling moves king and rook', async () => {
 		let mediator = new ChessMediator(
-			new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece | undefined>([
+			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
 				[BoardCoordinate.at(5, 1), new BoardPiece("white", BoardPieceType.King, new Mesh())],
 				[BoardCoordinate.at(8, 1), new BoardPiece("black", BoardPieceType.Rook, new Mesh())]
 			])),
-			new TestMovementJudge(true, true));
+			(type: GameType) => new TestMovementJudge(true, true));
 
 		await mediator.loadBoard();
 
@@ -87,11 +87,11 @@ describe('ChessMediator tests', () => {
 
 	it('executes en passant attack', async () => {
 		let mediator = new ChessMediator(
-			new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece | undefined>([
+			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
 				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())],
 				[BoardCoordinate.at(2, 4), new BoardPiece("black", BoardPieceType.Pawn, new Mesh())]
 			])),
-			new TestMovementJudge(true, true));
+			(type: GameType) => new TestMovementJudge(true, true));
 
 		await mediator.loadBoard();
 		

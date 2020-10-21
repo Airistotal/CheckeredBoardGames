@@ -2,11 +2,17 @@ import MovementJudge from '../../MovementJudge';
 import BoardCoordinate from '../../../models/BoardCoordinate';
 import BoardPiece from '../../../models/BoardPiece';
 import Board from '../../../models/Board';
+import GameType from '../../../models/enums/GameType';
 import MovementData from '../../../models/MovementData';
 import BoardPieceType from '../../../models/enums/BoardPieceType';
 import PieceMovementJudgeFactory from '../../PieceMovementJudgeFactory';
 import { Vector2 } from 'three';
 
+import { IOCTypes } from '../../initialization/IOCTypes';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+
+@injectable()
 class ChessMovementJudge implements MovementJudge {
   private readonly pieceMovementJudgeFactory: PieceMovementJudgeFactory;
   private readonly pieceMovementJudges: Map<BoardPieceType, MovementJudge>;
@@ -16,8 +22,8 @@ class ChessMovementJudge implements MovementJudge {
   private whiteKingCoord: BoardCoordinate|undefined;
   private blackKingCoord: BoardCoordinate|undefined;
 
-  constructor(pieceMovementJudgeFactory: PieceMovementJudgeFactory) {
-    this.pieceMovementJudgeFactory = pieceMovementJudgeFactory;
+  constructor(@inject(IOCTypes.AbstractPieceMovementJudgeFactory) pieceMovementJudgeFactory: (type: GameType) => PieceMovementJudgeFactory) {
+    this.pieceMovementJudgeFactory = pieceMovementJudgeFactory(GameType.Chess);
     this.pieceMovementJudges = new Map<BoardPieceType, MovementJudge>();
   }
 

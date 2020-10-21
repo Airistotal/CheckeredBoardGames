@@ -12,6 +12,11 @@ import PawnMovementJudge from '../chess/movementJudges/PawnMovementJudge';
 
 import { Group, Mesh } from 'three';
 
+import { IOCTypes } from '../initialization/IOCTypes';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+
+@injectable()
 class ChessMediator implements GameMediator {
   private readonly boardBuilder: BoardBuilder;
 	private board!: Board;
@@ -21,9 +26,10 @@ class ChessMediator implements GameMediator {
   private enPassantGhost = new BoardPiece("gray", BoardPieceType.Pawn, new Mesh());
   private enPassantGhostCoord: BoardCoordinate | undefined;
 
-	constructor(boardBuilder: BoardBuilder, movementJudge: MovementJudge) {
-    this.boardBuilder = boardBuilder;
-    this.movementJudge = movementJudge;
+	constructor(@inject(IOCTypes.BoardBuilderFactory) boardBuilderFactory: (type: GameType) => BoardBuilder,
+              @inject(IOCTypes.MovementJudgeFactory) movementJudgeFactory: (type: GameType) => MovementJudge) {
+    this.boardBuilder = boardBuilderFactory(GameType.Chess);
+    this.movementJudge = movementJudgeFactory(GameType.Chess);
     this.movedPieces = new Array<string>();
 	}
 

@@ -8,6 +8,11 @@ import RookMovementJudge from './movementJudges/RookMovementJudge';
 import QueenMovementJudge from './movementJudges/QueenMovementJudge';
 import KingMovementJudge from './movementJudges/KingMovementJudge';
 
+import { IOCTypes } from '../initialization/IOCTypes';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+
+@injectable()
 class ChessPieceMovementJudgeFactory implements PieceMovementJudgeFactory {
   createPieceMovementJudge(pieceType: BoardPieceType): MovementJudge {
     switch (pieceType) {

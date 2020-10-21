@@ -2,6 +2,7 @@ import BoardPieceFactory from '../BoardPieceFactory';
 import BoardPiece from '../../models/BoardPiece';
 import BoardPieceType from '../../models/enums/BoardPieceType';
 import BoardPieceGeometryFactory from '../BoardPieceGeometryFactory';
+import GameType from '../../models/enums/GameType';
 
 import { Mesh } from 'three';
 
@@ -21,8 +22,8 @@ class ChessPieceFactory implements BoardPieceFactory {
     BoardPieceType.King];
 
   constructor(
-    @inject(IOCTypes.BoardPieceGeometryFactory) boardPieceGeometryFactory: BoardPieceGeometryFactory) {
-    this.boardPieceGeometryFactory = boardPieceGeometryFactory;
+    @inject(IOCTypes.AbstractBoardPieceGeometryFactory) abstractBoardPieceGeometryFactory: (type: GameType) => BoardPieceGeometryFactory) {
+    this.boardPieceGeometryFactory = abstractBoardPieceGeometryFactory(GameType.Chess);
   }
 
   createBoardPiece(team: string, type: BoardPieceType): Promise<BoardPiece> {
@@ -35,8 +36,6 @@ class ChessPieceFactory implements BoardPieceFactory {
         reject(`I don't know how to make ${BoardPieceType[type]}`);
       }
     });
-
-    
   }
 }
 
