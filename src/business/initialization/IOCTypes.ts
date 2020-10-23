@@ -13,7 +13,9 @@ const IOCTypes = {
   ChessPieceFactory: Symbol.for("ChessPieceFactory"),
   BoardBuilder: Symbol.for("BoardBuilder"),
   GameMediator: Symbol.for("GameMediator"),
-  MovementJudge: Symbol.for("MovementJudge")
+  MovementJudge: Symbol.for("MovementJudge"),
+  GameStateProcessor: Symbol.for("GameStateProcessor"),
+  GameStateProcessorFactory: Symbol.for("GameStateProcessorFactory")
 };
 
 export { IOCTypes };

@@ -5,6 +5,7 @@ import BoardPieceType from '../../../src/models/enums/BoardPieceType';
 import GameType from '../../../src/models/enums/GameType';
 import TestBoardBuilder from '../../mocks/TestBoardBuilder';
 import TestMovementJudge from '../../mocks/TestMovementJudge';
+import TestStateProcessor from '../../mocks/TestStateProcessor';
 
 import { Group, Mesh } from 'three'
 import { expect } from 'chai';
@@ -16,7 +17,8 @@ describe('ChessMediator tests', () => {
 			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
 				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())]
 			])),
-			(type: GameType) => new TestMovementJudge(true, true));
+			(type: GameType) => new TestMovementJudge(true, true),
+			(type: GameType) => new TestStateProcessor());
 
 		await mediator.loadBoard();
 
@@ -36,7 +38,8 @@ describe('ChessMediator tests', () => {
 			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
 				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())]
 			])),
-			(type: GameType) => new TestMovementJudge(false, true));
+			(type: GameType) => new TestMovementJudge(false, true),
+			(type: GameType) => new TestStateProcessor());
 
 		await mediator.loadBoard();
 
@@ -53,7 +56,8 @@ describe('ChessMediator tests', () => {
 				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())],
 				[BoardCoordinate.at(2, 2), new BoardPiece("black", BoardPieceType.Pawn, new Mesh())]
 			])),
-			(type: GameType) => new TestMovementJudge(true, true));
+			(type: GameType) => new TestMovementJudge(true, true),
+			(type: GameType) => new TestStateProcessor());
 
 		await mediator.loadBoard()
 
@@ -72,7 +76,8 @@ describe('ChessMediator tests', () => {
 				[BoardCoordinate.at(5, 1), new BoardPiece("white", BoardPieceType.King, new Mesh())],
 				[BoardCoordinate.at(8, 1), new BoardPiece("black", BoardPieceType.Rook, new Mesh())]
 			])),
-			(type: GameType) => new TestMovementJudge(true, true));
+			(type: GameType) => new TestMovementJudge(true, true),
+			(type: GameType) => new TestStateProcessor());
 
 		await mediator.loadBoard();
 
@@ -91,7 +96,8 @@ describe('ChessMediator tests', () => {
 				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())],
 				[BoardCoordinate.at(2, 4), new BoardPiece("black", BoardPieceType.Pawn, new Mesh())]
 			])),
-			(type: GameType) => new TestMovementJudge(true, true));
+			(type: GameType) => new TestMovementJudge(true, true),
+			(type: GameType) => new TestStateProcessor());
 
 		await mediator.loadBoard();
 		

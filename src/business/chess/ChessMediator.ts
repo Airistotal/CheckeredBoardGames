@@ -6,6 +6,7 @@ import BoardBuilder from '../BoardBuilder';
 import BoardPiece from '../../models/BoardPiece';
 import GameType from '../../models/enums/GameType';
 import GameMediator from '../GameMediator';
+import GameStateProcessor from '../GameStateProcessor';
 import MovementJudge from '../MovementJudge';
 import KingMovementJudge from '../chess/movementJudges/KingMovementJudge';
 import PawnMovementJudge from '../chess/movementJudges/PawnMovementJudge';
@@ -26,11 +27,14 @@ class ChessMediator implements GameMediator {
   
   private readonly boardBuilder: BoardBuilder;
   private readonly movementJudge: MovementJudge;
+  private readonly gameStateProcessor: GameStateProcessor;
 
 	constructor(@inject(IOCTypes.BoardBuilderFactory) boardBuilderFactory: (type: GameType) => BoardBuilder,
-              @inject(IOCTypes.MovementJudgeFactory) movementJudgeFactory: (type: GameType) => MovementJudge) {
+              @inject(IOCTypes.MovementJudgeFactory) movementJudgeFactory: (type: GameType) => MovementJudge,
+              @inject(IOCTypes.GameStateProcessorFactory) gameStateProcessorFactory: (type: GameType) => GameStateProcessor) {
     this.boardBuilder = boardBuilderFactory(GameType.Chess);
     this.movementJudge = movementJudgeFactory(GameType.Chess);
+    this.gameStateProcessor = gameStateProcessorFactory(GameType.Chess);
     this.movedPieces = new Array<string>();
 	}
 

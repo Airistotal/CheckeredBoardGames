@@ -12,6 +12,8 @@ import ChessPieceMovementJudgeFactory from '../chess/ChessPieceMovementJudgeFact
 import PieceMovementJudgeFactory from '../PieceMovementJudgeFactory';
 import MovementJudge from '../MovementJudge';
 import ChessMovementJudge from '../chess/movementJudges/ChessMovementJudge';
+import GameStateProcessor from '../GameStateProcessor';
+import ChessStateProcessor from '../chess/ChessStateProcessor';
 
 import { Container } from "inversify";
 import { IOCTypes } from "./IOCTypes";
@@ -72,6 +74,14 @@ class Bootstrapper {
                   .toFactory<BoardPieceFactory>((context) => {
                     return (type: GameType) => {
                       return context.container.getNamed<BoardPieceFactory>(IOCTypes.BoardPieceFactory, type);
+                    };
+                  });
+
+    this.container.bind<GameStateProcessor>(IOCTypes.GameStateProcessor).to(ChessStateProcessor).whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<GameStateProcessor>>(IOCTypes.GameStateProcessorFactory)
+                  .toFactory<GameStateProcessor>((context) => {
+                    return (type: GameType) => {
+                      return context.container.getNamed<GameStateProcessor>(IOCTypes.GameStateProcessor, type);
                     };
                   });
   }
