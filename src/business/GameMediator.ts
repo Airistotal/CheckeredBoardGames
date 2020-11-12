@@ -7,6 +7,7 @@ interface GameMediator {
   move(origin: BoardCoordinate, destination: BoardCoordinate): boolean;
   loadBoard(): Promise<Board>;
   lookAtBoard(): Board;
+  getTeamThatWon(): string;
 }
 
 export default GameMediator;

@@ -52,6 +52,14 @@ class ChessMediator implements GameMediator {
     return boardPromise;
   }
 
+  public getTeamThatWon(): string {
+    if (this.gameStateProcessor.isGameOverForTeam(this.board, this.currentTeamTurn)) {
+      return this.currentTeamTurn;
+    } else {
+      return "";
+    }
+  }
+
   public move(origin: BoardCoordinate, destination: BoardCoordinate): boolean {
     let mvDta = new MovementData(origin, destination, this.board, this.movedPieces);
 

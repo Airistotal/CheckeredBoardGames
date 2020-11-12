@@ -5,15 +5,35 @@
 		[
 			[
 				"black",
-				"blackKingCoord\tproperty"
+				"blackPieceCoords\tproperty"
+			],
+			[
+				"defend",
+				"defendingPieceCoords\tproperty"
+			],
+			[
+				"isle",
+				"isLegalMove\twindow.BishopMovementJudge"
+			],
+			[
+				"getmo",
+				"getMovementJudge\twindow.ChessMovementJudge"
+			],
+			[
+				"white",
+				"whitePieceCoords\tproperty"
+			],
+			[
+				"clo",
+				"cloneBoardForLogic\twindow.Board"
+			],
+			[
+				"can",
+				"canKingMoveOutOfCheck"
 			],
 			[
 				"origi",
 				"originTeam\tparameter"
-			],
-			[
-				"white",
-				"whiteKingCoord\tproperty"
 			],
 			[
 				"whti",
@@ -231,39 +251,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/business/chess/ChessStateProcessor.ts",
-			"settings":
-			{
-				"buffer_size": 517,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/business/GameStateProcessor.ts",
-			"settings":
-			{
-				"buffer_size": 323,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "tests/business/chess/ChessStateProcessor.test.ts",
-			"settings":
-			{
-				"buffer_size": 2091,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/business/initialization/Bootstrapper.ts",
-			"settings":
-			{
-				"buffer_size": 5044,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "npm run build",
 	"build_system_choices":
@@ -337,16 +324,20 @@
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks"
 	],
 	"file_history":
 	[
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/GameStateProcessor.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessStateProcessor.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessMediator.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/initialization/Bootstrapper.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/ChessStateProcessor.test.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/ChessMovementJudge.ts",
+		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/GameMediator.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/ChessMediator.test.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestStateProcessor.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/initialization/IOCTypes.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/ChessMovementJudge.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/movementJudges/ChessMovementJudge.test.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TargetedPieceMovementJudgeFactory.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TargetedMovementJudge.ts",
@@ -366,7 +357,6 @@
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/presentation/BoardGameControls.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessPieceGeometryFactory.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestBoardBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/GameMediator.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/BoardBuilder.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestBoardPieceFactory.ts",
 		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/models/BoardPiece.test.ts",
@@ -465,11 +455,7 @@
 		"/C/Users/Daniel/source/repos/Engage.io/Source/API/appsettings.json",
 		"/C/Users/Daniel/.ssh/aws-eb.pub",
 		"/C/Users/Daniel/.ssh/aws-eb",
-		"/C/Users/Daniel/source/repos/Engage.io/.circleci/config.yml",
-		"/C/Users/Daniel/AppData/Local/Temp/Temp2_Artifacts.zip/wwwroot/js/app.3d250afb.js",
-		"/C/Users/Daniel/AppData/Local/Temp/Temp2_Artifacts.zip/wwwroot/js/app.ede3b820.js",
-		"/C/Users/Daniel/AppData/Local/Temp/Temp2_Artifacts.zip/aws-windows-deployment-manifest.json",
-		"/C/Users/Daniel/source/repos/Engage.io/Build/aws-windows-deployment-manifest.json"
+		"/C/Users/Daniel/source/repos/Engage.io/.circleci/config.yml"
 	],
 	"find":
 	{
@@ -505,137 +491,8 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/business/chess/ChessStateProcessor.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 517,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								351,
-								351
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/business/GameStateProcessor.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 323,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								288,
-								288
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "tests/business/chess/ChessStateProcessor.test.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2091,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								453,
-								453
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"typescript_plugin_format_options":
-							{
-								"convertTabsToSpaces": true,
-								"indentSize": 2,
-								"tabSize": 2
-							},
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/business/initialization/Bootstrapper.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5044,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4827,
-								4831
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1109.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				}
 			]
 		}
 	],

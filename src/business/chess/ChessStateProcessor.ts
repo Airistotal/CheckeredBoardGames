@@ -29,7 +29,7 @@ class ChessStateProcessor implements GameStateProcessor {
     this.pieceMovementJudges = new Map<BoardPieceType, MovementJudge>();
   }
 
-  public isGameOver(board: Board): boolean {
+  public isGameOver(board: Board, team: string): boolean {
     this.logicBoard = board.cloneBoardForLogic();
     this.getPieceCoordinates();
     let attackingPieces = this.getAttackingPieces();
