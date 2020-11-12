@@ -151,17 +151,17 @@ class ChessMediator implements GameMediator {
       this.removeCoordFromTeam(destination);
 
       if (originPiece.type === BoardPieceType.King) {
-        if (originPiece.team === "white") {
+        if (originPiece.team === Team.White) {
           this.whiteKingCoord = destination;
-        } else if (originPiece.team === "black") {
+        } else if (originPiece.team === Team.Black) {
           this.blackKingCoord = destination;
         }
       } else {
         this.removeCoordFromTeam(origin);
 
-        if (originPiece.team === "white") {
+        if (originPiece.team === Team.White) {
           this.whitePieceCoords.push(destination);
-        } else if (originPiece.team === "black") {
+        } else if (originPiece.team === Team.Black) {
           this.blackPieceCoords.push(destination);
         }
       }
@@ -172,10 +172,10 @@ class ChessMediator implements GameMediator {
     let destinationPiece = this.board.get(coord).getPiece();
 
     if (destinationPiece !== undefined) {
-      if (destinationPiece.team === "black") {
+      if (destinationPiece.team === Team.Black) {
         let index = this.blackPieceCoords.indexOf(coord);
         this.blackPieceCoords.splice(index, 1);
-      } else if (destinationPiece.team === "white") {
+      } else if (destinationPiece.team === Team.White) {
         let index = this.whitePieceCoords.indexOf(coord);
         this.whitePieceCoords.splice(index, 1);
       }
@@ -190,7 +190,7 @@ class ChessMediator implements GameMediator {
   }
 
   private rotateTeam(): void {
-    this.currentTeamTurn = this.currentTeamTurn === "white" ? "black" : "white";
+    this.currentTeamTurn = this.currentTeamTurn === Team.White ? Team.Black : Team.White;
   }
 }
 

@@ -3,6 +3,7 @@ import BoardCoordinate from '../../../models/BoardCoordinate';
 import BoardPiece from '../../../models/BoardPiece';
 import Board from '../../../models/Board';
 import GameType from '../../../models/enums/GameType';
+import Team from '../../../models/enums/Team';
 import MovementData from '../../../models/MovementData';
 import BoardPieceType from '../../../models/enums/BoardPieceType';
 import { Vector2 } from 'three';
@@ -72,13 +73,13 @@ class ChessMovementJudge implements MovementJudge {
     this.logicBoard.boardmap.forEach((tile, coord) => {
       let piece = tile.getPiece();
       if (piece !== undefined) {
-        if (piece.team === "white") {
+        if (piece.team === Team.White) {
           if (piece.type === BoardPieceType.King) {
             this.whiteKingCoord = coord;
           } else {
             this.whitePieceCoords.push(coord);
           }
-        } else if (piece.team === "black") {
+        } else if (piece.team === Team.Black) {
           if (piece.type === BoardPieceType.King) {
             this.blackKingCoord = coord;
           } else {
@@ -89,13 +90,13 @@ class ChessMovementJudge implements MovementJudge {
     });
   }
 
-  private isInCheck(originTeam: string, movedPieces?: Array<string>): boolean {
-    let attackingPieces = originTeam === "white" ? this.blackPieceCoords : this.whitePieceCoords;
+  private isInCheck(originTeam: Team, movedPieces?: Array<string>): boolean {
+    let attackingPieces = originTeam === Team.White ? this.blackPieceCoords : this.whitePieceCoords;
 
     let kingCoord: BoardCoordinate;
-    if (originTeam === "white" && this.whiteKingCoord !== undefined) {
+    if (originTeam === Team.White && this.whiteKingCoord !== undefined) {
       kingCoord = this.whiteKingCoord;
-    } else if (originTeam === "black" && this.blackKingCoord !== undefined) {
+    } else if (originTeam === Team.Black && this.blackKingCoord !== undefined) {
       kingCoord = this.blackKingCoord;
     } else {
       return false;

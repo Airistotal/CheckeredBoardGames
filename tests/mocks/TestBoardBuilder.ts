@@ -1,6 +1,7 @@
 import BoardBuilder from '../../src/business/BoardBuilder';
 import Board from '../../src/models/Board';
 import BoardCoordinate from '../../src/models/BoardCoordinate';
+import Team from '../../src/models/enums/Team';
 import BoardPiece from '../../src/models/BoardPiece';
 import BoardPieceType from '../../src/models/enums/BoardPieceType';
 import TestBoardPieceGeometryBuilder from '../mocks/TestBoardPieceGeometryBuilder';
@@ -22,7 +23,7 @@ class TestBoardBuilder implements BoardBuilder {
       this.piecesAt.forEach((piece, coord) => {
         board.get(coord).setPiece(
           piece === undefined ?
-          new BoardPiece("white", BoardPieceType.Pawn, new Mesh()) :
+          new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh()) :
           piece);
       })
 

@@ -5,6 +5,7 @@ import BoardPieceType from '../../../../src/models/enums/BoardPieceType';
 import Board from '../../../../src/models/Board';
 import MovementData from '../../../../src/models/MovementData';
 import TestBoardPieceGeometryBuilder from '../../../mocks/TestBoardPieceGeometryBuilder';
+import Team from '../../../../src/models/enums/Team';
 
 import { Mesh } from 'three';
 import { expect } from 'chai';
@@ -16,7 +17,7 @@ describe('PawnMovementJudge tests', () => {
 
   it('pawn can move forward one', () => {
     let board = new Board(8, 8);
-    let pawn = new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry);
+    let pawn = new BoardPiece(Team.White, BoardPieceType.Pawn, pieceGeometry);
     let mvDta = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3), board, new Array<string>(pawn.id));
     board.get(mvDta.origin).setPiece(pawn);
@@ -27,11 +28,11 @@ describe('PawnMovementJudge tests', () => {
 
   it('pawn cannot move forward one if blocked', () => {
     let board = new Board(8, 8);
-    let pawn = new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry);
+    let pawn = new BoardPiece(Team.White, BoardPieceType.Pawn, pieceGeometry);
     let mvDta = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3), board, new Array<string>(pawn.id));
     board.get(mvDta.origin).setPiece(pawn);
-    board.get(mvDta.destination).setPiece(new BoardPiece("black", BoardPieceType.Pawn, pieceGeometry));
+    board.get(mvDta.destination).setPiece(new BoardPiece(Team.Black, BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(mvDta)).to.be.false;
     expect(new PawnMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
@@ -39,7 +40,7 @@ describe('PawnMovementJudge tests', () => {
 
   it('pawn can move forward two on first move', () => {
     let board = new Board(8, 8);
-    let pawn = new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry);
+    let pawn = new BoardPiece(Team.White, BoardPieceType.Pawn, pieceGeometry);
     let mvDta = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 4), board, new Array<string>(pawn.id));
     board.get(mvDta.origin).setPiece(pawn);
@@ -50,11 +51,11 @@ describe('PawnMovementJudge tests', () => {
 
   it('pawn cannot move forward two if blocked', () => {
     let board = new Board(8, 8);
-    let pawn = new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry);
+    let pawn = new BoardPiece(Team.White, BoardPieceType.Pawn, pieceGeometry);
     let mvDta = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 4), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 4), board, new Array<string>(pawn.id));
     board.get(mvDta.origin).setPiece(pawn);
-    board.get(BoardCoordinate.at(1, 3)).setPiece(new BoardPiece("black", BoardPieceType.Pawn, pieceGeometry));
+    board.get(BoardCoordinate.at(1, 3)).setPiece(new BoardPiece(Team.Black, BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(mvDta)).to.be.false;
     expect(new PawnMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
@@ -62,11 +63,11 @@ describe('PawnMovementJudge tests', () => {
 
   it('pawn can capture diagonally', () => {
     let board = new Board(8, 8);
-    let pawn = new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry);
+    let pawn = new BoardPiece(Team.White, BoardPieceType.Pawn, pieceGeometry);
     let mvDta = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(2, 3), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(2, 3), board, new Array<string>(pawn.id));
     board.get(mvDta.origin).setPiece(pawn);
-    board.get(mvDta.destination).setPiece(new BoardPiece("black", BoardPieceType.Pawn, pieceGeometry));
+    board.get(mvDta.destination).setPiece(new BoardPiece(Team.Black, BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(mvDta)).to.be.true;
     expect(new PawnMovementJudge().isLegalMove(mvDtaMoved)).to.be.true;
@@ -74,11 +75,11 @@ describe('PawnMovementJudge tests', () => {
 
   it('pawn cannot capture same team diagonally', () => {
     let board = new Board(8, 8);
-    let pawn = new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry);
+    let pawn = new BoardPiece(Team.White, BoardPieceType.Pawn, pieceGeometry);
     let mvDta = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(2, 3), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(2, 3), board, new Array<string>(pawn.id));
     board.get(mvDta.origin).setPiece(pawn);
-    board.get(mvDta.destination).setPiece(new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry));
+    board.get(mvDta.destination).setPiece(new BoardPiece(Team.White, BoardPieceType.Pawn, pieceGeometry));
 
     expect(new PawnMovementJudge().isLegalMove(mvDta)).to.be.false;
     expect(new PawnMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
@@ -86,7 +87,7 @@ describe('PawnMovementJudge tests', () => {
 
   it('pawn cannot move diagonally', () => {
     let board = new Board(8, 8);
-    let pawn = new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry);
+    let pawn = new BoardPiece(Team.White, BoardPieceType.Pawn, pieceGeometry);
     let mvDta = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(2, 3), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(2, 3), board, new Array<string>(pawn.id));
     board.get(mvDta.origin).setPiece(pawn);
@@ -97,7 +98,7 @@ describe('PawnMovementJudge tests', () => {
 
   it('white pawn does not move down', function() {
     let board = new Board(8, 8);
-    let pawn = new BoardPiece("white", BoardPieceType.Pawn, pieceGeometry);
+    let pawn = new BoardPiece(Team.White, BoardPieceType.Pawn, pieceGeometry);
     let mvDta = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 1), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 1), board, new Array<string>(pawn.id));
     board.get(mvDta.origin).setPiece(pawn);
@@ -108,7 +109,7 @@ describe('PawnMovementJudge tests', () => {
 
   it('black pawn does not move up', function() {
     let board = new Board(8, 8);
-    let pawn = new BoardPiece("black", BoardPieceType.Pawn, pieceGeometry);
+    let pawn = new BoardPiece(Team.Black, BoardPieceType.Pawn, pieceGeometry);
     let mvDta = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3), board, new Array<string>(pawn.id));
     board.get(mvDta.origin).setPiece(pawn);

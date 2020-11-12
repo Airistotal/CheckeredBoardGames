@@ -6,6 +6,7 @@ import GameType from '../../../src/models/enums/GameType';
 import TestBoardBuilder from '../../mocks/TestBoardBuilder';
 import TestMovementJudge from '../../mocks/TestMovementJudge';
 import TestStateProcessor from '../../mocks/TestStateProcessor';
+import Team from '../../../src/models/enums/Team';
 
 import { Group, Mesh } from 'three'
 import { expect } from 'chai';
@@ -15,7 +16,7 @@ describe('ChessMediator tests', () => {
 	it('moves board pieces', async () => {
 		let mediator = new ChessMediator(
 			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
-				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())]
+				[BoardCoordinate.at(1, 2), new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
 			(type: GameType) => new TestStateProcessor());
@@ -36,7 +37,7 @@ describe('ChessMediator tests', () => {
 	it('moves board pieces track first move', async () => {
 		let mediator = new ChessMediator(
 			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
-				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())]
+				[BoardCoordinate.at(1, 2), new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(false, true),
 			(type: GameType) => new TestStateProcessor());
@@ -53,8 +54,8 @@ describe('ChessMediator tests', () => {
 	it('moves board pieces alternate team moves', async () => {
 		let mediator = new ChessMediator(
 			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
-				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())],
-				[BoardCoordinate.at(2, 2), new BoardPiece("black", BoardPieceType.Pawn, new Mesh())]
+				[BoardCoordinate.at(1, 2), new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh())],
+				[BoardCoordinate.at(2, 2), new BoardPiece(Team.Black, BoardPieceType.Pawn, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
 			(type: GameType) => new TestStateProcessor());
@@ -73,8 +74,8 @@ describe('ChessMediator tests', () => {
 	it('when castling moves king and rook', async () => {
 		let mediator = new ChessMediator(
 			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
-				[BoardCoordinate.at(5, 1), new BoardPiece("white", BoardPieceType.King, new Mesh())],
-				[BoardCoordinate.at(8, 1), new BoardPiece("black", BoardPieceType.Rook, new Mesh())]
+				[BoardCoordinate.at(5, 1), new BoardPiece(Team.White, BoardPieceType.King, new Mesh())],
+				[BoardCoordinate.at(8, 1), new BoardPiece(Team.Black, BoardPieceType.Rook, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
 			(type: GameType) => new TestStateProcessor());
@@ -93,8 +94,8 @@ describe('ChessMediator tests', () => {
 	it('executes en passant attack', async () => {
 		let mediator = new ChessMediator(
 			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
-				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())],
-				[BoardCoordinate.at(2, 4), new BoardPiece("black", BoardPieceType.Pawn, new Mesh())]
+				[BoardCoordinate.at(1, 2), new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh())],
+				[BoardCoordinate.at(2, 4), new BoardPiece(Team.Black, BoardPieceType.Pawn, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
 			(type: GameType) => new TestStateProcessor());
@@ -110,8 +111,8 @@ describe('ChessMediator tests', () => {
 	it('keeps track of team piece coordinates', async () => {
 		let mediator = new ChessMediator(
 			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
-				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())],
-				[BoardCoordinate.at(2, 4), new BoardPiece("black", BoardPieceType.Pawn, new Mesh())]
+				[BoardCoordinate.at(1, 2), new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh())],
+				[BoardCoordinate.at(2, 4), new BoardPiece(Team.Black, BoardPieceType.Pawn, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
 			(type: GameType) => new TestStateProcessor());

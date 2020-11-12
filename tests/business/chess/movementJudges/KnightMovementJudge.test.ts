@@ -5,6 +5,7 @@ import BoardPieceType from '../../../../src/models/enums/BoardPieceType';
 import Board from '../../../../src/models/Board';
 import MovementData from '../../../../src/models/MovementData';
 import TestBoardPieceGeometryBuilder from '../../../mocks/TestBoardPieceGeometryBuilder';
+import Team from '../../../../src/models/enums/Team';
 
 import { Mesh } from 'three';
 import { expect } from 'chai';
@@ -28,7 +29,7 @@ describe('KnightMovementJudge tests', () => {
   validKnightMoves.forEach((destination) => {
   	it(`knight can move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
-      let knight = new BoardPiece("white", BoardPieceType.Knight, pieceGeometry);
+      let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
       let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board);
       let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<string>(knight.id));
       board.get(mvDta.origin).setPiece(knight);
@@ -50,7 +51,7 @@ describe('KnightMovementJudge tests', () => {
   invalidKnightMoves.forEach((destination) => {
   	it(`knight cannot move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
-      let knight = new BoardPiece("white", BoardPieceType.Knight, pieceGeometry);
+      let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
       let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board);
       let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<string>(knight.id));
       board.get(mvDta.origin).setPiece(knight);
@@ -62,11 +63,11 @@ describe('KnightMovementJudge tests', () => {
 
   it('knight can capture opposite color piece', () => {
       let board = new Board(8, 8);
-      let knight = new BoardPiece("white", BoardPieceType.Knight, pieceGeometry);
+      let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
       let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board);
       let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board, new Array<string>(knight.id));
       board.get(mvDta.origin).setPiece(knight);
-      board.get(mvDta.destination).setPiece(new BoardPiece("black", BoardPieceType.Bishop, pieceGeometry));
+      board.get(mvDta.destination).setPiece(new BoardPiece(Team.Black, BoardPieceType.Bishop, pieceGeometry));
 
       expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.true;
       expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.true;
@@ -74,11 +75,11 @@ describe('KnightMovementJudge tests', () => {
 
   it('knight cannot capture same color piece', () => {
       let board = new Board(8, 8);
-      let knight = new BoardPiece("white", BoardPieceType.Knight, pieceGeometry);
+      let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
       let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board);
       let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board, new Array<string>(knight.id));
       board.get(mvDta.origin).setPiece(knight);
-      board.get(mvDta.destination).setPiece(new BoardPiece("white", BoardPieceType.Bishop, pieceGeometry));
+      board.get(mvDta.destination).setPiece(new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
 
       expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.false;
       expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;

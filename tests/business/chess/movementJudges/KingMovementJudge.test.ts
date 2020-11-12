@@ -5,6 +5,7 @@ import BoardPieceType from '../../../../src/models/enums/BoardPieceType';
 import Board from '../../../../src/models/Board';
 import MovementData from '../../../../src/models/MovementData';
 import TestBoardPieceGeometryBuilder from '../../../mocks/TestBoardPieceGeometryBuilder';
+import Team from '../../../../src/models/enums/Team';
 
 import { Mesh } from 'three';
 import { expect } from 'chai';
@@ -28,7 +29,7 @@ describe('KingMovementJudge tests', () => {
 
   validKingMoves.forEach((destination) => {
     it(`king can move from (4, 4) to destination ${destination.toString()}`, () => {
-      let king = new BoardPiece("white", BoardPieceType.King, pieceGeometry);
+      let king = new BoardPiece(Team.White, BoardPieceType.King, pieceGeometry);
       let board = new Board(8, 8);
       let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board);
       let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<string>(king.id));
@@ -49,7 +50,7 @@ describe('KingMovementJudge tests', () => {
 
   invalidKingMoves.forEach((destination) => {
     it(`king cannot move from (4, 4) to destination ${destination.toString()}`, () => {
-      let king = new BoardPiece("white", BoardPieceType.King, pieceGeometry);
+      let king = new BoardPiece(Team.White, BoardPieceType.King, pieceGeometry);
       let board = new Board(8, 8);
       let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board);
       let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<string>(king.id));
@@ -62,8 +63,8 @@ describe('KingMovementJudge tests', () => {
   it(`king can queenside castle`, () => {
     let mvDta = new MovementData(BoardCoordinate.at(5, 1), BoardCoordinate.at(3, 1), new Board(8, 8));
     let rookOrigin = KingMovementJudge.getCasltingRookOrigin(mvDta);
-    mvDta.board.get(mvDta.origin).setPiece(new BoardPiece("white", BoardPieceType.King, pieceGeometry));
-    mvDta.board.get(rookOrigin).setPiece(new BoardPiece("white", BoardPieceType.Rook, pieceGeometry))
+    mvDta.board.get(mvDta.origin).setPiece(new BoardPiece(Team.White, BoardPieceType.King, pieceGeometry));
+    mvDta.board.get(rookOrigin).setPiece(new BoardPiece(Team.White, BoardPieceType.Rook, pieceGeometry))
 
     debugger;
 
@@ -73,22 +74,22 @@ describe('KingMovementJudge tests', () => {
   it(`king can kingside castle`, () => {
     let mvDta = new MovementData(BoardCoordinate.at(5, 1), BoardCoordinate.at(7, 1), new Board(8, 8));
     let rookOrigin = KingMovementJudge.getCasltingRookOrigin(mvDta);
-    mvDta.board.get(mvDta.origin).setPiece(new BoardPiece("white", BoardPieceType.King, pieceGeometry));
-    mvDta.board.get(rookOrigin).setPiece(new BoardPiece("white", BoardPieceType.Rook, pieceGeometry))
+    mvDta.board.get(mvDta.origin).setPiece(new BoardPiece(Team.White, BoardPieceType.King, pieceGeometry));
+    mvDta.board.get(rookOrigin).setPiece(new BoardPiece(Team.White, BoardPieceType.Rook, pieceGeometry))
 
     expect(kingMovementJudge.isLegalMove(mvDta)).to.be.true;
   });
 
   it(`king cannot castle with pieces in the way`, () => {
     let mvDta = new MovementData(BoardCoordinate.at(5, 1), BoardCoordinate.at(7, 1), new Board(8, 8));
-    mvDta.board.get(mvDta.origin).setPiece(new BoardPiece("white", BoardPieceType.King, pieceGeometry));
-    mvDta.board.get(mvDta.destination).setPiece(new BoardPiece("black", BoardPieceType.Bishop, pieceGeometry));
+    mvDta.board.get(mvDta.origin).setPiece(new BoardPiece(Team.White, BoardPieceType.King, pieceGeometry));
+    mvDta.board.get(mvDta.destination).setPiece(new BoardPiece(Team.Black, BoardPieceType.Bishop, pieceGeometry));
 
     expect(kingMovementJudge.isLegalMove(mvDta)).to.be.false;
   });
 
   it(`king cannot castle after first move`, () => {
-    let king = new BoardPiece("white", BoardPieceType.King, pieceGeometry);
+    let king = new BoardPiece(Team.White, BoardPieceType.King, pieceGeometry);
     let mvDta = new MovementData(BoardCoordinate.at(5, 1), BoardCoordinate.at(7, 1), new Board(8, 8), new Array<string>(king.id));
     mvDta.board.get(mvDta.origin).setPiece(king);
 
@@ -96,24 +97,24 @@ describe('KingMovementJudge tests', () => {
   });
 
   it(`king cannot capture piece on same team`, () => {
-    let king = new BoardPiece("white", BoardPieceType.King, pieceGeometry);
+    let king = new BoardPiece(Team.White, BoardPieceType.King, pieceGeometry);
     let board = new Board(8, 8);
     let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(4, 3), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(4, 3), board, new Array<string>(king.id));
     board.get(mvDta.origin).setPiece(king);
-    board.get(mvDta.destination).setPiece(new BoardPiece("white", BoardPieceType.Bishop, pieceGeometry));
+    board.get(mvDta.destination).setPiece(new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
 
     expect(kingMovementJudge.isLegalMove(mvDta)).to.be.false;
     expect(kingMovementJudge.isLegalMove(mvDtaMoved)).to.be.false;
   });
 
   it(`king can capture piece on different team`, () => {
-    let king = new BoardPiece("white", BoardPieceType.King, pieceGeometry);
+    let king = new BoardPiece(Team.White, BoardPieceType.King, pieceGeometry);
     let board = new Board(8, 8);
     let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(4, 3), board);
     let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(4, 3), board, new Array<string>(king.id));
     board.get(mvDta.origin).setPiece(king);
-    board.get(mvDta.destination).setPiece(new BoardPiece("black", BoardPieceType.Bishop, pieceGeometry));
+    board.get(mvDta.destination).setPiece(new BoardPiece(Team.Black, BoardPieceType.Bishop, pieceGeometry));
 
     expect(kingMovementJudge.isLegalMove(mvDta)).to.be.true;
     expect(kingMovementJudge.isLegalMove(mvDtaMoved)).to.be.true;

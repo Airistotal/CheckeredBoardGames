@@ -2,6 +2,7 @@ import BoardTile from './BoardTile';
 import BoardCoordinate from './BoardCoordinate';
 import BoardPiece from './BoardPiece';
 import { Color, Group, Mesh } from 'three';
+import Team from '../models/enums/Team';
 
 class Board {
   public boardmap: Map<BoardCoordinate, BoardTile> = new Map<BoardCoordinate, BoardTile>();
@@ -68,9 +69,9 @@ class Board {
 
   private static getTileColor(row: number, col: number) {
     if ((row + col) % 2 === 0) {
-      return new Color("black");
+      return new Color(Team.Black);
     } else {
-      return new Color("white");
+      return new Color(Team.White);
     }
   }
 }

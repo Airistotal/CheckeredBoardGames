@@ -5,6 +5,7 @@ import BoardCoordinate from '../../models/BoardCoordinate';
 import BoardPieceType from '../../models/enums/BoardPieceType';
 import GameType from '../../models/enums/GameType';
 import MovementData from '../../models/MovementData';
+import Team from '../../models/enums/Team';
 
 import { IOCTypes } from '../initialization/IOCTypes';
 import { injectable, inject } from "inversify";
@@ -15,7 +16,7 @@ class ChessStateProcessor implements GameStateProcessor {
   private readonly pieceMovementJudgeFactory: (type: BoardPieceType) => MovementJudge;
   private readonly pieceMovementJudges: Map<BoardPieceType, MovementJudge>;
 
-  private playingTeam = "white";
+  private playingTeam = Team.White;
 
   private logicBoard: Board = new Board(0, 0);
   private attackCoords = new Array<BoardCoordinate>();
@@ -28,7 +29,7 @@ class ChessStateProcessor implements GameStateProcessor {
     this.pieceMovementJudges = new Map<BoardPieceType, MovementJudge>();
   }
 
-  public isGameOverForTeam(board: Board, team: string): boolean {
+  public isGameOverForTeam(board: Board, team: Team): boolean {
     this.logicBoard = board.cloneBoardForLogic();
     this.getPieceCoordinates(team);
     let attackingPieces = this.getAttackingPieces();
@@ -42,7 +43,7 @@ class ChessStateProcessor implements GameStateProcessor {
     }
   }
 
-  private getPieceCoordinates(team: string) {
+  private getPieceCoordinates(team: Team) {
     this.logicBoard.boardmap.forEach((tile, coord) => {
       let piece = tile.getPiece();
       if (piece !== undefined) {
@@ -104,10 +105,10 @@ class ChessStateProcessor implements GameStateProcessor {
   }
 
   private changePlayingTeam() {
-    if (this.playingTeam === "white") {
-      this.playingTeam = "black";
+    if (this.playingTeam === Team.White) {
+      this.playingTeam = Team.Black;
     } else {
-      this.playingTeam = "white";
+      this.playingTeam = Team.White;
     }
   }
 
@@ -119,7 +120,7 @@ class ChessStateProcessor implements GameStateProcessor {
     return "hist";
   }
 
-  public whoseTurnIsIt(): string {
+  public whoseTurnIsIt(): Team {
     return this.playingTeam;
   }
 }

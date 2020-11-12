@@ -2,6 +2,7 @@ import MovementJudge from '../../MovementJudge';
 import BoardCoordinate from '../../../models/BoardCoordinate';
 import BoardPiece from '../../../models/BoardPiece';
 import BoardPieceType from '../../../models/enums/BoardPieceType';
+import Team from '../../../models/enums/Team';
 import BoardTile from '../../../models/BoardTile';
 import Board from '../../../models/Board';
 import MovementData from '../../../models/MovementData';
@@ -98,7 +99,7 @@ class PawnMovementJudge implements MovementJudge {
   }
 
   private isMovingInCorrectDirection(originPiece: BoardPiece, moveVector: Vector2): boolean {
-  	if (originPiece.team === "white") {
+  	if (originPiece.team === Team.White) {
   		return moveVector.y > 0;
   	} else {
   		return moveVector.y < 0;
