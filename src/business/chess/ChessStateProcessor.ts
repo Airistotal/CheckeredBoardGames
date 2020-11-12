@@ -1,5 +1,4 @@
 import GameStateProcessor from '../GameStateProcessor';
-import PieceMovementJudgeFactory from '../PieceMovementJudgeFactory';
 import MovementJudge from '../MovementJudge';
 import Board from '../../models/Board';
 import BoardCoordinate from '../../models/BoardCoordinate';
@@ -13,7 +12,7 @@ import "reflect-metadata";
 
 @injectable()
 class ChessStateProcessor implements GameStateProcessor {
-  private readonly pieceMovementJudgeFactory: PieceMovementJudgeFactory;
+  private readonly pieceMovementJudgeFactory: (type: BoardPieceType) => MovementJudge;
   private readonly pieceMovementJudges: Map<BoardPieceType, MovementJudge>;
 
   private playingTeam = "white";
@@ -22,16 +21,16 @@ class ChessStateProcessor implements GameStateProcessor {
   private attackCoords = new Array<BoardCoordinate>();
   private opponentPieceCoords = new Array<BoardCoordinate>();
   private defendingPieceCoords = new Array<BoardCoordinate>();
-  private kingCoord: BoardCoordinate|undefined;
+  private defendingKingCoord: BoardCoordinate|undefined;
 
-  constructor(@inject(IOCTypes.AbstractPieceMovementJudgeFactory) abstractPieceMovementJudgeFactory: (type: GameType) => PieceMovementJudgeFactory) {
+  constructor(@inject(IOCTypes.AbstractPieceMovementJudgeFactory) abstractPieceMovementJudgeFactory: (type: GameType) => (type: BoardPieceType) => MovementJudge) {
     this.pieceMovementJudgeFactory = abstractPieceMovementJudgeFactory(GameType.Chess);
     this.pieceMovementJudges = new Map<BoardPieceType, MovementJudge>();
   }
 
-  public isGameOver(board: Board, team: string): boolean {
+  public isGameOverForTeam(board: Board, team: string): boolean {
     this.logicBoard = board.cloneBoardForLogic();
-    this.getPieceCoordinates();
+    this.getPieceCoordinates(team);
     let attackingPieces = this.getAttackingPieces();
 
     if (attackingPieces.length > 1) {
@@ -43,43 +42,23 @@ class ChessStateProcessor implements GameStateProcessor {
     }
   }
 
-  private getPieceCoordinates() {
-    let whitePieceCoords = new Array<BoardCoordinate>();
-    let blackPieceCoords = new Array<BoardCoordinate>();
-    let whiteKingCoord = undefined;
-    let blackKingCoord = undefined;
-
+  private getPieceCoordinates(team: string) {
     this.logicBoard.boardmap.forEach((tile, coord) => {
       let piece = tile.getPiece();
       if (piece !== undefined) {
-        if (piece.team === "white") {
+        if (piece.team === team) {
           if (piece.type === BoardPieceType.King) {
-            whiteKingCoord = coord;
+            this.defendingKingCoord = coord;
           } else {
-            whitePieceCoords.push(coord);
+            this.defendingPieceCoords.push(coord);
           }
-        } else if (piece.team === "black") {
-          if (piece.type === BoardPieceType.King) {
-            blackKingCoord = coord;
-          } else {
-            blackPieceCoords.push(coord);
+        } else if (piece.team !== team) {
+          if (piece.type !== BoardPieceType.King) {
+            this.opponentPieceCoords.push(coord);
           }
         }
       }
     });
-
-    let defendingTeam = this.whoseTurnIsIt();
-    if (defendingTeam === "white" && whiteKingCoord !== undefined) {
-      this.opponentPieceCoords = blackPieceCoords;
-      this.defendingPieceCoords = whitePieceCoords;
-      this.kingCoord = whiteKingCoord;
-    } else if (defendingTeam === "black" && blackKingCoord !== undefined) {
-      this.opponentPieceCoords = whitePieceCoords;
-      this.defendingPieceCoords = blackPieceCoords;
-      this.kingCoord = blackKingCoord;
-    } else {
-      throw new Error("Unable to process game over since the pieces aren't in the right place");
-    }
   }
 
   private getAttackingPieces(): Array<BoardCoordinate> {
@@ -89,9 +68,9 @@ class ChessStateProcessor implements GameStateProcessor {
     this.opponentPieceCoords.forEach(function(pieceCoord) {
       let originPiece = chessStateProcessor.logicBoard.get(pieceCoord).getPiece();
 
-      if (originPiece !== undefined && chessStateProcessor.kingCoord !== undefined) {
+      if (originPiece !== undefined && chessStateProcessor.defendingKingCoord !== undefined) {
         let movementJudge = chessStateProcessor.getMovementJudge(originPiece.type);
-        let mvDta = new MovementData(pieceCoord, chessStateProcessor.kingCoord, chessStateProcessor.logicBoard);
+        let mvDta = new MovementData(pieceCoord, chessStateProcessor.defendingKingCoord, chessStateProcessor.logicBoard);
 
         if (movementJudge.isLegalMove(mvDta)) {
           attackingPieces.push(pieceCoord);
@@ -113,7 +92,7 @@ class ChessStateProcessor implements GameStateProcessor {
   private getMovementJudge(pieceType: BoardPieceType) {
     let movementJudge = this.pieceMovementJudges.get(pieceType);
     if (movementJudge === undefined) {
-      movementJudge = this.pieceMovementJudgeFactory.createPieceMovementJudge(pieceType);
+      movementJudge = this.pieceMovementJudgeFactory(pieceType);
       this.pieceMovementJudges.set(pieceType, movementJudge);
     }
 

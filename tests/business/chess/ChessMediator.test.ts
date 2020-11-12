@@ -106,4 +106,16 @@ describe('ChessMediator tests', () => {
 
 		expect(enpassantResult).to.be.true;
 	});
+
+	it('keeps track of team piece coordinates', async () => {
+		let mediator = new ChessMediator(
+			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
+				[BoardCoordinate.at(1, 2), new BoardPiece("white", BoardPieceType.Pawn, new Mesh())],
+				[BoardCoordinate.at(2, 4), new BoardPiece("black", BoardPieceType.Pawn, new Mesh())]
+			])),
+			(type: GameType) => new TestMovementJudge(true, true),
+			(type: GameType) => new TestStateProcessor());
+
+		await mediator.loadBoard();
+	});
 });

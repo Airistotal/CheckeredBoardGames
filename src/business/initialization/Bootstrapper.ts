@@ -1,19 +1,24 @@
 import BoardGameScene from '../../presentation/BoardGameScene';
 import ChessMediator from '../chess/ChessMediator';
-import ChessPieceFactory from '../chess/ChessPieceFactory';
+import ChessPieceBuilder from '../chess/ChessPieceBuilder';
 import ChessBoardBuilder from '../chess/ChessBoardBuilder';
 import BoardBuilder from '../BoardBuilder';
-import BoardPieceFactory from '../BoardPieceFactory';
+import BoardPieceBuilder from '../BoardPieceBuilder';
 import GameType from '../../models/enums/GameType';
+import BoardPieceType from '../../models/enums/BoardPieceType';
 import GameMediator from '../GameMediator';
-import ChessPieceGeometryFactory from '../chess/ChessPieceGeometryFactory';
-import BoardPieceGeometryFactory from '../BoardPieceGeometryFactory';
-import ChessPieceMovementJudgeFactory from '../chess/ChessPieceMovementJudgeFactory';
-import PieceMovementJudgeFactory from '../PieceMovementJudgeFactory';
+import ChessPieceGeometryBuilder from '../chess/ChessPieceGeometryBuilder';
+import BoardPieceGeometryBuilder from '../BoardPieceGeometryBuilder';
 import MovementJudge from '../MovementJudge';
 import ChessMovementJudge from '../chess/movementJudges/ChessMovementJudge';
 import GameStateProcessor from '../GameStateProcessor';
 import ChessStateProcessor from '../chess/ChessStateProcessor';
+import BishopMovementJudge from '../chess/movementJudges/BishopMovementJudge';
+import KnightMovementJudge from '../chess/movementJudges/KnightMovementJudge';
+import KingMovementJudge from '../chess/movementJudges/KingMovementJudge';
+import QueenMovementJudge from '../chess/movementJudges/QueenMovementJudge';
+import RookMovementJudge from '../chess/movementJudges/RookMovementJudge';
+import PawnMovementJudge from '../chess/movementJudges/PawnMovementJudge';
 
 import { Container } from "inversify";
 import { IOCTypes } from "./IOCTypes";
@@ -37,19 +42,31 @@ class Bootstrapper {
                     };
                   });
 
-    this.container.bind<PieceMovementJudgeFactory>(IOCTypes.PieceMovementJudgeFactory).to(ChessPieceMovementJudgeFactory).whenTargetNamed(GameType.Chess);
-    this.container.bind<interfaces.Factory<PieceMovementJudgeFactory>>(IOCTypes.AbstractPieceMovementJudgeFactory)
-                  .toFactory<PieceMovementJudgeFactory>((context) => {
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(KingMovementJudge).whenTargetNamed(`${BoardPieceType.King}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(QueenMovementJudge).whenTargetNamed(`${BoardPieceType.Queen}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(BishopMovementJudge).whenTargetNamed(`${BoardPieceType.Bishop}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(KnightMovementJudge).whenTargetNamed(`${BoardPieceType.Knight}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(RookMovementJudge).whenTargetNamed(`${BoardPieceType.Rook}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(PawnMovementJudge).whenTargetNamed(`${BoardPieceType.Pawn}${GameType.Chess}`);
+    this.container.bind<interfaces.Factory<MovementJudge>>(IOCTypes.PieceMovementJudgeFactory)
+                  .toFactory<MovementJudge>((context) => {
+                    return (type: BoardPieceType) => {
+                      return context.container.getNamed<MovementJudge>(IOCTypes.PieceMovementJudgeFactory, `${type}${GameType.Chess}`);
+                    };
+                  })
+                  .whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<interfaces.Factory<MovementJudge>>>(IOCTypes.AbstractPieceMovementJudgeFactory)
+                  .toFactory<interfaces.Factory<MovementJudge>>((context) => {
                     return (type: GameType) => {
-                      return context.container.getNamed<PieceMovementJudgeFactory>(IOCTypes.PieceMovementJudgeFactory, type);
+                      return context.container.getNamed<interfaces.Factory<MovementJudge>>(IOCTypes.PieceMovementJudgeFactory, type);
                     };
                   });
 
-    this.container.bind<BoardPieceGeometryFactory>(IOCTypes.BoardPieceGeometryFactory).to(ChessPieceGeometryFactory).whenTargetNamed(GameType.Chess);
-    this.container.bind<interfaces.Factory<BoardPieceGeometryFactory>>(IOCTypes.AbstractBoardPieceGeometryFactory)
-                  .toFactory<BoardPieceGeometryFactory>((context) => {
+    this.container.bind<BoardPieceGeometryBuilder>(IOCTypes.BoardPieceGeometryBuilder).to(ChessPieceGeometryBuilder).whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<BoardPieceGeometryBuilder>>(IOCTypes.BoardPieceGeometryBuilderFactory)
+                  .toFactory<BoardPieceGeometryBuilder>((context) => {
                     return (type: GameType) => {
-                      return context.container.getNamed<BoardPieceGeometryFactory>(IOCTypes.BoardPieceGeometryFactory, type);
+                      return context.container.getNamed<BoardPieceGeometryBuilder>(IOCTypes.BoardPieceGeometryBuilder, type);
                     };
                   });
 
@@ -69,11 +86,11 @@ class Bootstrapper {
                     };
                   });
 
-    this.container.bind<BoardPieceFactory>(IOCTypes.BoardPieceFactory).to(ChessPieceFactory).whenTargetNamed(GameType.Chess);
-    this.container.bind<interfaces.Factory<BoardPieceFactory>>(IOCTypes.AbstractBoardPieceFactory)
-                  .toFactory<BoardPieceFactory>((context) => {
+    this.container.bind<BoardPieceBuilder>(IOCTypes.BoardPieceBuilder).to(ChessPieceBuilder).whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<BoardPieceBuilder>>(IOCTypes.BoardPieceBuilderFactory)
+                  .toFactory<BoardPieceBuilder>((context) => {
                     return (type: GameType) => {
-                      return context.container.getNamed<BoardPieceFactory>(IOCTypes.BoardPieceFactory, type);
+                      return context.container.getNamed<BoardPieceBuilder>(IOCTypes.BoardPieceBuilder, type);
                     };
                   });
 

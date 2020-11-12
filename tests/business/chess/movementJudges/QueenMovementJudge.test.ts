@@ -1,22 +1,20 @@
 import QueenMovementJudge from '../../../../src/business/chess/movementJudges/QueenMovementJudge';
-import RookMovementJudge from '../../../../src/business/chess/movementJudges/RookMovementJudge';
-import BishopMovementJudge from '../../../../src/business/chess/movementJudges/BishopMovementJudge';
 import BoardCoordinate from '../../../../src/models/BoardCoordinate';
 import BoardPiece from '../../../../src/models/BoardPiece';
 import BoardPieceType from '../../../../src/models/enums/BoardPieceType';
 import Board from '../../../../src/models/Board';
 import MovementData from '../../../../src/models/MovementData';
-import TestBoardPieceGeometryFactory from '../../../mocks/TestBoardPieceGeometryFactory';
+import TestBoardPieceGeometryBuilder from '../../../mocks/TestBoardPieceGeometryBuilder';
 
 import { Mesh } from 'three';
 import { expect } from 'chai';
 import 'mocha';
 
 describe('QueenMovementJudge tests', () => {
-  let testBoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
+  let testBoardPieceGeometryBuilder = new TestBoardPieceGeometryBuilder();
   let pieceGeometry = new Mesh();
 
-  let queenMovementJudge = new QueenMovementJudge(new BishopMovementJudge(), new RookMovementJudge());
+  let queenMovementJudge = new QueenMovementJudge();
 
   const validQueenMoves = [
     BoardCoordinate.at(1, 1),

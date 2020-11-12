@@ -4,14 +4,14 @@ import BoardPiece from '../../../../src/models/BoardPiece';
 import BoardPieceType from '../../../../src/models/enums/BoardPieceType';
 import Board from '../../../../src/models/Board';
 import MovementData from '../../../../src/models/MovementData';
-import TestBoardPieceGeometryFactory from '../../../mocks/TestBoardPieceGeometryFactory';
+import TestBoardPieceGeometryBuilder from '../../../mocks/TestBoardPieceGeometryBuilder';
 
 import { Mesh } from 'three';
 import { expect } from 'chai';
 import 'mocha';
 
 describe('KnightMovementJudge tests', () => {
-  let testBoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
+  let testBoardPieceGeometryBuilder = new TestBoardPieceGeometryBuilder();
   let pieceGeometry = new Mesh();
 
 	const validKnightMoves = [

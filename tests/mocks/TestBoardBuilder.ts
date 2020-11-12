@@ -3,16 +3,16 @@ import Board from '../../src/models/Board';
 import BoardCoordinate from '../../src/models/BoardCoordinate';
 import BoardPiece from '../../src/models/BoardPiece';
 import BoardPieceType from '../../src/models/enums/BoardPieceType';
-import TestBoardPieceGeometryFactory from '../mocks/TestBoardPieceGeometryFactory';
+import TestBoardPieceGeometryBuilder from '../mocks/TestBoardPieceGeometryBuilder';
 import { Mesh } from 'three';
 
 class TestBoardBuilder implements BoardBuilder {
   private piecesAt: Map<BoardCoordinate, BoardPiece | undefined>;
-  private testBoardPieceGeometryFactory: TestBoardPieceGeometryFactory;
+  private testBoardPieceGeometryBuilder: TestBoardPieceGeometryBuilder;
 
   constructor(piecesAt: Map<BoardCoordinate, BoardPiece | undefined>) {
     this.piecesAt = piecesAt;
-    this.testBoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
+    this.testBoardPieceGeometryBuilder = new TestBoardPieceGeometryBuilder();
   }
 
   public createBoard(): Promise<Board> {

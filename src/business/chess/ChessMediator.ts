@@ -5,6 +5,7 @@ import BoardPieceType from '../../models/enums/BoardPieceType';
 import BoardBuilder from '../BoardBuilder';
 import BoardPiece from '../../models/BoardPiece';
 import GameType from '../../models/enums/GameType';
+import Team from '../../models/enums/Team';
 import GameMediator from '../GameMediator';
 import GameStateProcessor from '../GameStateProcessor';
 import MovementJudge from '../MovementJudge';
@@ -21,8 +22,12 @@ import "reflect-metadata";
 class ChessMediator implements GameMediator {
   private board!: Board;
   private readonly movedPieces: Array<string>;
-  private currentTeamTurn: string = "white";
-  private enPassantGhost = new BoardPiece("gray", BoardPieceType.Pawn, new Mesh());
+  private whitePieceCoords!: Array<BoardCoordinate>;
+  private blackPieceCoords!: Array<BoardCoordinate>;
+  private whiteKingCoord!: BoardCoordinate;
+  private blackKingCoord!: BoardCoordinate;
+  private currentTeamTurn: Team = Team.White;
+  private enPassantGhost = new BoardPiece(Team.Ghost, BoardPieceType.Pawn, new Mesh());
   private enPassantGhostCoord: BoardCoordinate | undefined;
   
   private readonly boardBuilder: BoardBuilder;
@@ -38,6 +43,30 @@ class ChessMediator implements GameMediator {
     this.movedPieces = new Array<string>();
 	}
 
+  private setPieceCoords() {
+    this.whitePieceCoords = new Array<BoardCoordinate>();
+    this.blackPieceCoords = new Array<BoardCoordinate>();
+
+    this.board.boardmap.forEach((tile, coord) => {
+      let piece = tile.getPiece();
+      if (piece !== undefined) {
+        if (piece.team === Team.White) {
+          if (piece.type === BoardPieceType.King) {
+            this.whiteKingCoord = coord;
+          } else {
+            this.whitePieceCoords.push(coord);
+          }
+        } else if (piece.team === Team.Black) {
+          if (piece.type === BoardPieceType.King) {
+            this.blackKingCoord = coord;
+          } else {
+            this.blackPieceCoords.push(coord);
+          }
+        }
+      }
+    });
+  }
+
   public lookAtBoard(): Board {
     return this.board;
   }
@@ -47,16 +76,17 @@ class ChessMediator implements GameMediator {
     let boardPromise = this.boardBuilder.createBoard();
     boardPromise.then((board: Board) => {
       self.board = board;
+      self.setPieceCoords();
     });
 
     return boardPromise;
   }
 
-  public getTeamThatWon(): string {
+  public getTeamThatWon(): Team | undefined {
     if (this.gameStateProcessor.isGameOverForTeam(this.board, this.currentTeamTurn)) {
       return this.currentTeamTurn;
     } else {
-      return "";
+      return undefined;
     }
   }
 
@@ -90,17 +120,13 @@ class ChessMediator implements GameMediator {
         this.enPassantGhostCoord = undefined;
       }
       this.enPassantGhostCoord = PawnMovementJudge.getEnPassantGhostCoordinate(mvDta);
-      this.board.get(this.enPassantGhostCoord)
-                .setPiece(this.enPassantGhost);
+      this.board.get(this.enPassantGhostCoord).setPiece(this.enPassantGhost);
     } else if (PawnMovementJudge.isEnPassantAttack(mvDta, this.enPassantGhost.id)) {
-      this.board.get(PawnMovementJudge.getEnPassantCoordinate(mvDta))
-                .setPiece(undefined);
+      this.board.get(PawnMovementJudge.getEnPassantCoordinate(mvDta)).setPiece(undefined);
       this.enPassantGhostCoord = undefined;
-    } else {
-      if (this.enPassantGhostCoord !== undefined) {
-        this.board.get(this.enPassantGhostCoord).setPiece(undefined);
-        this.enPassantGhostCoord = undefined;
-      }
+    } else if (this.enPassantGhostCoord !== undefined) {
+      this.board.get(this.enPassantGhostCoord).setPiece(undefined);
+      this.enPassantGhostCoord = undefined;
     }
   }
 
@@ -110,10 +136,50 @@ class ChessMediator implements GameMediator {
     
     if (originPiece !== undefined) {  
       this.movedPieces.push(originPiece.id);
-    }
 
-    this.board.get(destination).setPiece(originPiece);
-    originTile.setPiece(undefined);
+      this.updatePieceCoords(origin, destination);
+
+      this.board.get(destination).setPiece(originPiece);
+      originTile.setPiece(undefined);
+    }
+  }
+
+  private updatePieceCoords(origin: BoardCoordinate, destination: BoardCoordinate) {
+    let originPiece = this.board.get(origin).getPiece();
+
+    if (originPiece !== undefined) {
+      this.removeCoordFromTeam(destination);
+
+      if (originPiece.type === BoardPieceType.King) {
+        if (originPiece.team === "white") {
+          this.whiteKingCoord = destination;
+        } else if (originPiece.team === "black") {
+          this.blackKingCoord = destination;
+        }
+      } else {
+        this.removeCoordFromTeam(origin);
+
+        if (originPiece.team === "white") {
+          this.whitePieceCoords.push(destination);
+        } else if (originPiece.team === "black") {
+          this.blackPieceCoords.push(destination);
+        }
+      }
+    }
+  }
+
+  private removeCoordFromTeam(coord: BoardCoordinate) {
+    let destinationPiece = this.board.get(coord).getPiece();
+
+    if (destinationPiece !== undefined) {
+      if (destinationPiece.team === "black") {
+        let index = this.blackPieceCoords.indexOf(coord);
+        this.blackPieceCoords.splice(index, 1);
+      } else if (destinationPiece.team === "white") {
+        let index = this.whitePieceCoords.indexOf(coord);
+        this.whitePieceCoords.splice(index, 1);
+      }
+    }
   }
 
   private isLegalMove(mvDta: MovementData): boolean {

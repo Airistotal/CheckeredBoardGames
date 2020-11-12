@@ -1,14 +1,14 @@
 import ChessBoardBuilder from '../../../src/business/chess/ChessBoardBuilder';
 import BoardCoordinate from '../../../src/models/BoardCoordinate';
 import GameType from '../../../src/models/enums/GameType';
-import TestBoardPieceFactory from '../../mocks/TestBoardPieceFactory';
+import TestBoardPieceBuilder from '../../mocks/TestBoardPieceBuilder';
 
 import { expect } from 'chai';
 import 'mocha';
 
 describe('ChessBoardBuilder tests', () => {
   it('makes chess board with pieces', () => {
-    let sut = new ChessBoardBuilder((type: GameType) => new TestBoardPieceFactory());
+    let sut = new ChessBoardBuilder((type: GameType) => new TestBoardPieceBuilder());
 
     let boardPromise = sut.createBoard();
 

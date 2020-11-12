@@ -7,9 +7,9 @@ class QueenMovementJudge implements MovementJudge {
   private readonly bishopMovementJudge: BishopMovementJudge;
   private readonly rookMovementJudge: RookMovementJudge;
 
-  constructor(bishopMovementJudge: BishopMovementJudge, rookMovementJudge: RookMovementJudge) {
-    this.bishopMovementJudge = bishopMovementJudge;
-    this.rookMovementJudge = rookMovementJudge;
+  constructor() {
+    this.bishopMovementJudge = new BishopMovementJudge();
+    this.rookMovementJudge = new RookMovementJudge();
   }
 
   public isLegalMove(movementData: MovementData): boolean {

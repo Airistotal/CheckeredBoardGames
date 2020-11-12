@@ -1,13 +1,13 @@
 import BoardPiece from '../../src/models/BoardPiece';
 import BoardPieceType from '../../src/models/enums/BoardPieceType';
-import TestBoardPieceGeometryFactory from '../mocks/TestBoardPieceGeometryFactory';
+import TestBoardPieceGeometryBuilder from '../mocks/TestBoardPieceGeometryBuilder';
 
 import { expect } from 'chai';
 import { Vec2, Mesh } from 'three';
 import 'mocha';
 
 describe('BoardPiece tests', () => {
-  let testBoardPieceGeometryFactory = new TestBoardPieceGeometryFactory();
+  let testBoardPieceGeometryBuilder = new TestBoardPieceGeometryBuilder();
   let pieceGeometry = new Mesh();
 
 	it('create with correct properties', () => {
