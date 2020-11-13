@@ -35,16 +35,21 @@ class Board {
     this.renderableBoard.add(renderableTile);
   }
 
-  public get(coord: BoardCoordinate): BoardTile {
+  public get(coord: BoardCoordinate): BoardPiece | undefined {
     let foundTile: BoardTile | null = null;
-    this.boardmap.forEach((tile, coordinate) => {
+
+    for (var key in this.boardmap) {
       if (coord.Equals(coordinate)) {
         foundTile = tile;
       }
+    }
+
+    this.boardmap.forEach((tile, coordinate) => {
+      
     })
 
     if (foundTile !== null) {
-      return foundTile;
+      return foundTile.getPiece();
     } else {
       throw new Error(`${coord.toString()} is not a coordinate on the board.`);
     }

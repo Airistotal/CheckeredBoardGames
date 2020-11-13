@@ -18,7 +18,7 @@ describe('ChessMovementJudge tests', async () => {
 
 	it('no origin piece cannot move', () => {
 		let board = new Board(8, 8);
-		let mvDta = new MovementData(BoardCoordinate.at(1, 1), BoardCoordinate.at(2, 1), board);
+		let mvDta = new MovementData(BoardCoordinate.at(1, 1), BoardCoordinate.at(2, 1), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
 
 		let moveSucces = chessMovementJudge.isLegalMove(mvDta);
 
@@ -28,7 +28,7 @@ describe('ChessMovementJudge tests', async () => {
 	it('movement not on board cannot move there', () => {
 		let board = new Board(8, 8);
 		board.get(BoardCoordinate.at(5, 8)).setPiece(new BoardPiece(Team.Black, BoardPieceType.King, new Mesh()));
-		let mvDta = new MovementData(BoardCoordinate.at(5, 8), BoardCoordinate.at(9, 9), board);
+		let mvDta = new MovementData(BoardCoordinate.at(5, 8), BoardCoordinate.at(9, 9), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
 
 		let moveSucces = chessMovementJudge.isLegalMove(mvDta);
 
@@ -38,7 +38,7 @@ describe('ChessMovementJudge tests', async () => {
 	it('no king and can move', () => {
 		let board = new Board(8, 8);
 		board.get(BoardCoordinate.at(5, 2)).setPiece(new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh()));
-		let mvDta = new MovementData(BoardCoordinate.at(5, 2), BoardCoordinate.at(2, 2), board);
+		let mvDta = new MovementData(BoardCoordinate.at(5, 2), BoardCoordinate.at(2, 2), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
 
 		let moveSucces = chessMovementJudge.isLegalMove(mvDta);
 
@@ -49,7 +49,7 @@ describe('ChessMovementJudge tests', async () => {
 		let board = new Board(8, 8);
 		board.get(BoardCoordinate.at(5, 2)).setPiece(new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh()));
 		board.get(BoardCoordinate.at(5, 3)).setPiece(new BoardPiece(Team.White, BoardPieceType.King, new Mesh()));
-		let mvDta = new MovementData(BoardCoordinate.at(5, 2), BoardCoordinate.at(2, 2), board);
+		let mvDta = new MovementData(BoardCoordinate.at(5, 2), BoardCoordinate.at(2, 2), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
 
 		let moveSucces = chessMovementJudge.isLegalMove(mvDta);
 
@@ -60,7 +60,7 @@ describe('ChessMovementJudge tests', async () => {
 		let board = new Board(8, 8);
 		board.get(BoardCoordinate.at(5, 2)).setPiece(new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh()));
 		board.get(BoardCoordinate.at(5, 3)).setPiece(new BoardPiece(Team.White, BoardPieceType.King, new Mesh()));
-		let mvDta = new MovementData(BoardCoordinate.at(5, 2), BoardCoordinate.at(2, 2), board);
+		let mvDta = new MovementData(BoardCoordinate.at(5, 2), BoardCoordinate.at(2, 2), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
 
 		let moveSucces = chessMovementJudge.isLegalMove(mvDta);
 
@@ -71,7 +71,7 @@ describe('ChessMovementJudge tests', async () => {
 		let board = new Board(8, 8);
 		board.get(BoardCoordinate.at(5, 3)).setPiece(new BoardPiece(Team.White, BoardPieceType.King, new Mesh()));
 		board.get(BoardCoordinate.at(7, 3)).setPiece(new BoardPiece(Team.Black, BoardPieceType.Queen, new Mesh()));
-		let mvDta = new MovementData(BoardCoordinate.at(5, 3), BoardCoordinate.at(2, 2), board);
+		let mvDta = new MovementData(BoardCoordinate.at(5, 3), BoardCoordinate.at(2, 2), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
 		let judge = new ChessMovementJudge((type: GameType) => (type: BoardPieceType) => new TargetedMovementJudge([BoardCoordinate.at(2, 2)]));
 
 		let moveSucces = judge.isLegalMove(mvDta);
@@ -83,7 +83,7 @@ describe('ChessMovementJudge tests', async () => {
 		let board = new Board(8, 8);
 		board.get(BoardCoordinate.at(5, 3)).setPiece(new BoardPiece(Team.Black, BoardPieceType.King, new Mesh()));
 		board.get(BoardCoordinate.at(7, 3)).setPiece(new BoardPiece(Team.White, BoardPieceType.Queen, new Mesh()));
-		let mvDta = new MovementData(BoardCoordinate.at(5, 3), BoardCoordinate.at(2, 2), board);
+		let mvDta = new MovementData(BoardCoordinate.at(5, 3), BoardCoordinate.at(2, 2), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
 		let judge = new ChessMovementJudge((type: GameType) => (type: BoardPieceType) => new TargetedMovementJudge([BoardCoordinate.at(2, 2)]));
 
 		let moveSucces = judge.isLegalMove(mvDta);
@@ -95,7 +95,7 @@ describe('ChessMovementJudge tests', async () => {
 		let board = new Board(8, 8);
 		board.get(BoardCoordinate.at(5, 3)).setPiece(new BoardPiece(Team.Black, BoardPieceType.King, new Mesh()));
 		board.get(BoardCoordinate.at(7, 3)).setPiece(new BoardPiece(Team.White, BoardPieceType.Queen, new Mesh()));
-		let mvDta = new MovementData(BoardCoordinate.at(5, 3), BoardCoordinate.at(2, 2), board);
+		let mvDta = new MovementData(BoardCoordinate.at(5, 3), BoardCoordinate.at(2, 2), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
 		let judge = new ChessMovementJudge((type: GameType) => (type: BoardPieceType) => new TargetedMovementJudge([BoardCoordinate.at(5, 3)]))
 
 		debugger;

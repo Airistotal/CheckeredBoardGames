@@ -11,6 +11,8 @@ class BoardCoordinate {
     this.row = row;
   }
 
+  private static instances: Array<BoardCoordinate> = new Array<BoardCoordinate>();
+
   public static at(col: number, row: number) {
     return new BoardCoordinate(col, row);
   }

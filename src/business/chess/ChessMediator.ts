@@ -91,7 +91,7 @@ class ChessMediator implements GameMediator {
   }
 
   public move(origin: BoardCoordinate, destination: BoardCoordinate): boolean {
-    let mvDta = new MovementData(origin, destination, this.board, this.movedPieces);
+    let mvDta = new MovementData(origin, destination, this.board, this.whitePieceCoords, this.blackPieceCoords, this.movedPieces);
 
     if (this.isLegalMove(mvDta)) {
       this.processCastling(mvDta);

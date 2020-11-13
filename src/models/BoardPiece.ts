@@ -3,7 +3,7 @@ import Utilities from '../business/Utilities';
 import Team from '../../src/models/enums/Team';
 
 import { v4 as uuidv4 } from 'uuid';
-import { Object3D, Mesh, ConeGeometry, MeshPhongMaterial } from 'three';
+import { Object3D, Mesh, ConeGeometry, MeshPhongMaterial, Color } from 'three';
 
 class BoardPiece {
   public readonly id = uuidv4();
@@ -30,7 +30,9 @@ class BoardPiece {
   }
 
   private setTeamSpecifics() {
-    (<MeshPhongMaterial>(<Mesh>this.pieceMesh).material).color.set(this.team);
+
+
+    (<MeshPhongMaterial>(<Mesh>this.pieceMesh).material).color.set(this.getColorForTeam());
 
     if (this.type === BoardPieceType.Knight && this.team === Team.White) {
       this.pieceMesh.rotateY(Utilities.degreesToRadians(180));
@@ -38,6 +40,14 @@ class BoardPiece {
       this.pieceMesh.translateY(0.4);
       this.pieceMesh.translateX(-0.35);
       this.pieceMesh.translateZ(-0.4);
+    }
+  }
+
+  private getColorForTeam(): Color {
+    if (Team.White) {
+      return new Color("white");
+    } else {
+      return new Color("black");
     }
   }
 }

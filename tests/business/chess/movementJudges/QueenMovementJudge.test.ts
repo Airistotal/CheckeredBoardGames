@@ -51,8 +51,8 @@ describe('QueenMovementJudge tests', () => {
     it(`queen can move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
       let queen = new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry);
-      let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board);
-      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<string>(queen.id));
+      let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
+      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>(), new Array<string>(queen.id));
       board.get(mvDta.origin).setPiece(queen);
 
       expect(queenMovementJudge.isLegalMove(mvDta)).to.be.true;
@@ -72,8 +72,8 @@ describe('QueenMovementJudge tests', () => {
     it(`queen cannot move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
       let queen = new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry);
-      let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board);
-      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<string>(queen.id));
+      let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
+      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>(), new Array<string>(queen.id));
       board.get(mvDta.origin).setPiece(queen);
 
       expect(queenMovementJudge.isLegalMove(mvDta)).to.be.false;
@@ -84,8 +84,8 @@ describe('QueenMovementJudge tests', () => {
   it(`queen cannot move over other pieces`, () => {
     let board = new Board(8, 8);
     let queen = new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry);
-    let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board);
-    let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board, new Array<string>(queen.id));
+    let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
+    let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>(), new Array<string>(queen.id));
     board.get(mvDta.origin).setPiece(queen);
     board.get(BoardCoordinate.at(2, 2)).setPiece(new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
 
@@ -96,8 +96,8 @@ describe('QueenMovementJudge tests', () => {
   it(`queen cannot capture piece on same team`, () => {
     let board = new Board(8, 8);
     let queen = new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry);
-    let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board);
-    let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board, new Array<string>(queen.id));
+    let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
+    let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>(), new Array<string>(queen.id));
     board.get(mvDta.origin).setPiece(queen);
     board.get(mvDta.destination).setPiece(new BoardPiece(Team.Black, BoardPieceType.Bishop, pieceGeometry));
 
@@ -108,8 +108,8 @@ describe('QueenMovementJudge tests', () => {
   it(`queen can capture piece on different team`, () => {
     let board = new Board(8, 8);
     let queen = new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry);
-    let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board);
-    let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board, new Array<string>(queen.id));
+    let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
+    let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(1, 1), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>(), new Array<string>(queen.id));
     board.get(mvDta.origin).setPiece(queen);
     board.get(mvDta.destination).setPiece(new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
 
