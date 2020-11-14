@@ -1,16 +1,17 @@
-import BoardCoordinate from '../../models/BoardCoordinate';
-import Board from '../../models/Board';
-import MovementData from '../../models/MovementData';
-import BoardPieceType from '../../models/enums/BoardPieceType';
-import BoardBuilder from '../BoardBuilder';
-import BoardPiece from '../../models/BoardPiece';
-import GameType from '../../models/enums/GameType';
-import Team from '../../models/enums/Team';
-import GameMediator from '../GameMediator';
-import GameStateProcessor from '../GameStateProcessor';
-import MovementJudge from '../MovementJudge';
-import KingMovementJudge from '../chess/movementJudges/KingMovementJudge';
-import PawnMovementJudge from '../chess/movementJudges/PawnMovementJudge';
+import { BoardCoordinate } from '../../models/BoardCoordinate';
+import { Board } from '../../models/Board';
+import { MovementData } from '../../models/MovementData';
+import { BoardPieceType } from '../../models/enums/BoardPieceType';
+import { BoardBuilder } from '../BoardBuilder';
+import { BoardPiece } from '../../models/BoardPiece';
+import { GameType } from '../../models/enums/GameType';
+import { Team } from '../../models/enums/Team';
+import { GameMediator } from '../GameMediator';
+import { GameStateProcessor } from '../GameStateProcessor';
+import { MovementJudge } from '../MovementJudge';
+import { KingMovementJudge } from '../chess/movementJudges/KingMovementJudge';
+import { PawnMovementJudge } from '../chess/movementJudges/PawnMovementJudge';
+import { FluentMovementDataBuilder } from '../FluentMovementDataBuilder';
 
 import { Group, Mesh } from 'three';
 
@@ -19,7 +20,7 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-class ChessMediator implements GameMediator {
+export class ChessMediator implements GameMediator {
   private board!: Board;
   private readonly movedPieces: Array<string>;
   private whitePieceCoords!: Array<BoardCoordinate>;
@@ -91,7 +92,16 @@ class ChessMediator implements GameMediator {
   }
 
   public move(origin: BoardCoordinate, destination: BoardCoordinate): boolean {
-    let mvDta = new MovementData(origin, destination, this.board, this.whitePieceCoords, this.blackPieceCoords, this.movedPieces);
+    let mvDta = FluentMovementDataBuilder
+      .MovementData()
+      .from(origin)
+      .to(destination)
+      .on(this.board)
+      .withMovedPieces(this.movedPieces)
+      .withBlackKingOn(this.blackKingCoord)
+      .withBlackPiecesOn(this.blackPieceCoords)
+      .withWhiteKingOn(this.whiteKingCoord)
+      .withWhitePiecesOn(this.whitePieceCoords);
 
     if (this.isLegalMove(mvDta)) {
       this.processCastling(mvDta);
@@ -116,36 +126,35 @@ class ChessMediator implements GameMediator {
   private processEnPassant(mvDta: MovementData): void {
     if (PawnMovementJudge.isMoveTwoForward(mvDta)) {
       if (this.enPassantGhostCoord !== undefined) {
-        this.board.get(this.enPassantGhostCoord).setPiece(undefined);
+        this.board.set(this.enPassantGhostCoord, undefined);
         this.enPassantGhostCoord = undefined;
       }
       this.enPassantGhostCoord = PawnMovementJudge.getEnPassantGhostCoordinate(mvDta);
-      this.board.get(this.enPassantGhostCoord).setPiece(this.enPassantGhost);
+      this.board.set(this.enPassantGhostCoord, this.enPassantGhost);
     } else if (PawnMovementJudge.isEnPassantAttack(mvDta, this.enPassantGhost.id)) {
-      this.board.get(PawnMovementJudge.getEnPassantCoordinate(mvDta)).setPiece(undefined);
+      this.board.set(PawnMovementJudge.getEnPassantCoordinate(mvDta), undefined);
       this.enPassantGhostCoord = undefined;
     } else if (this.enPassantGhostCoord !== undefined) {
-      this.board.get(this.enPassantGhostCoord).setPiece(undefined);
+      this.board.set(this.enPassantGhostCoord, undefined);
       this.enPassantGhostCoord = undefined;
     }
   }
 
   private executeMove(origin: BoardCoordinate, destination: BoardCoordinate) {
-    let originTile = this.board.get(origin);
-    let originPiece = originTile.getPiece();
+    let originPiece = this.board.get(origin);
     
     if (originPiece !== undefined) {  
       this.movedPieces.push(originPiece.id);
 
       this.updatePieceCoords(origin, destination);
 
-      this.board.get(destination).setPiece(originPiece);
-      originTile.setPiece(undefined);
+      this.board.set(destination, originPiece);
+      this.board.set(origin, undefined);
     }
   }
 
   private updatePieceCoords(origin: BoardCoordinate, destination: BoardCoordinate) {
-    let originPiece = this.board.get(origin).getPiece();
+    let originPiece = this.board.get(origin);
 
     if (originPiece !== undefined) {
       this.removeCoordFromTeam(destination);
@@ -169,7 +178,7 @@ class ChessMediator implements GameMediator {
   }
 
   private removeCoordFromTeam(coord: BoardCoordinate) {
-    let destinationPiece = this.board.get(coord).getPiece();
+    let destinationPiece = this.board.get(coord);
 
     if (destinationPiece !== undefined) {
       if (destinationPiece.team === Team.Black) {
@@ -183,7 +192,7 @@ class ChessMediator implements GameMediator {
   }
 
   private isLegalMove(mvDta: MovementData): boolean {
-    let originPiece = this.board.get(mvDta.origin).getPiece();
+    let originPiece = this.board.get(mvDta.origin);
     if (originPiece === undefined || originPiece.team !== this.currentTeamTurn) return false;
 
     return this.movementJudge.isLegalMove(mvDta);
@@ -193,5 +202,3 @@ class ChessMediator implements GameMediator {
     this.currentTeamTurn = this.currentTeamTurn === Team.White ? Team.Black : Team.White;
   }
 }
-
-export default ChessMediator;

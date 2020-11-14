@@ -1,21 +1,21 @@
-import MovementJudge from '../../MovementJudge';
-import BoardCoordinate from '../../../models/BoardCoordinate';
-import BoardPiece from '../../../models/BoardPiece';
-import BoardPieceType from '../../../models/enums/BoardPieceType';
-import Team from '../../../models/enums/Team';
-import BoardTile from '../../../models/BoardTile';
-import Board from '../../../models/Board';
-import MovementData from '../../../models/MovementData';
+import { MovementJudge } from '../../MovementJudge';
+import { BoardCoordinate } from '../../../models/BoardCoordinate';
+import { BoardPiece } from '../../../models/BoardPiece';
+import { BoardPieceType } from '../../../models/enums/BoardPieceType';
+import { Team } from '../../../models/enums/Team';
+import { BoardTile } from '../../../models/BoardTile';
+import { Board } from '../../../models/Board';
+import { MovementData } from '../../../models/MovementData';
 import { Vector2 } from 'three';
 
-class PawnMovementJudge implements MovementJudge {
+export class PawnMovementJudge implements MovementJudge {
   private static PawnMove = new Vector2(0, 1);
   private static PawnInitialMove = new Vector2(0, 2);
   private static PawnAttack = new Vector2(1, 1);
 
   public static isMoveTwoForward(movementData: MovementData): boolean {
     let mvVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
-    let originPiece = movementData.board.get(movementData.origin).getPiece();
+    let originPiece = movementData.board.get(movementData.origin);
     let absVector = PawnMovementJudge.getAbsoluteVectorForPawn(mvVector);
 
     return originPiece !== undefined &&
@@ -24,8 +24,8 @@ class PawnMovementJudge implements MovementJudge {
   }
 
   public static isEnPassantAttack(movementData: MovementData, ghostId: string): boolean {
-    let originPiece = movementData.board.get(movementData.origin).getPiece();
-    let attackedPiece = movementData.board.get(movementData.destination).getPiece();
+    let originPiece = movementData.board.get(movementData.origin);
+    let attackedPiece = movementData.board.get(movementData.destination);
 
     return attackedPiece !== undefined && attackedPiece.id === ghostId &&
            originPiece !== undefined && originPiece.type === BoardPieceType.Pawn;
@@ -35,7 +35,7 @@ class PawnMovementJudge implements MovementJudge {
     let mvVector = BoardCoordinate.getVector(movementData.origin, movementData.destination)
     mvVector.y = 0;
 
-    let enPassantCoordinate = movementData.origin.clone();
+    let enPassantCoordinate = movementData.origin;
     enPassantCoordinate.addVector(mvVector);
 
     return enPassantCoordinate;
@@ -45,7 +45,7 @@ class PawnMovementJudge implements MovementJudge {
     let mvVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
     mvVector.normalize();
 
-    let enPassantGhostCoord = movementData.origin.clone();
+    let enPassantGhostCoord = movementData.origin;
     enPassantGhostCoord.addVector(mvVector);
 
     return enPassantGhostCoord;
@@ -56,7 +56,7 @@ class PawnMovementJudge implements MovementJudge {
     let origin = movementData.origin;
     let dest = movementData.destination;
 
-    let originPiece = board.get(origin).getPiece();
+    let originPiece = board.get(origin);
     if (originPiece === undefined) return false;
 
     let movementVector = BoardCoordinate.getVector(origin, dest);
@@ -74,15 +74,14 @@ class PawnMovementJudge implements MovementJudge {
            (isFirstMove ? this.isValidFirstPawnMove(movementVector, board.get(adjCoord), board.get(dest)) : false);
   }
 
-  private isValidPawnMove(moveVector: Vector2, destinationTile: BoardTile): boolean {
+  private isValidPawnMove(moveVector: Vector2, destinationPiece: BoardPiece | undefined): boolean {
   	let normalizedVector = PawnMovementJudge.getAbsoluteVectorForPawn(moveVector);
 
   	return PawnMovementJudge.PawnMove.equals(normalizedVector) && 
-  				 destinationTile.getPiece() === undefined;
+  				 destinationPiece === undefined;
   }
 
-  private isValidPawnAttack(moveVector: Vector2, originPiece: BoardPiece, destinationTile: BoardTile): boolean {
-  	let destinationPiece = destinationTile.getPiece();
+  private isValidPawnAttack(moveVector: Vector2, originPiece: BoardPiece, destinationPiece: BoardPiece | undefined): boolean {
   	let normalizedVector = PawnMovementJudge.getAbsoluteVectorForPawn(moveVector);
 
   	return PawnMovementJudge.PawnAttack.equals(normalizedVector) &&
@@ -90,12 +89,12 @@ class PawnMovementJudge implements MovementJudge {
   				 destinationPiece.team !== originPiece.team;
   }
 
-  private isValidFirstPawnMove(moveVector: Vector2, skippedTile: BoardTile, destinationTile: BoardTile): boolean {
+  private isValidFirstPawnMove(moveVector: Vector2, skippedPiece: BoardPiece | undefined, destinationPiece: BoardPiece | undefined): boolean {
   	let normalizedVector = PawnMovementJudge.getAbsoluteVectorForPawn(moveVector);
 
   	return PawnMovementJudge.PawnInitialMove.equals(normalizedVector) &&
-  				 skippedTile.getPiece() === undefined &&
-  				 destinationTile.getPiece() === undefined;
+  				 skippedPiece === undefined &&
+  				 destinationPiece === undefined;
   }
 
   private isMovingInCorrectDirection(originPiece: BoardPiece, moveVector: Vector2): boolean {
@@ -116,12 +115,10 @@ class PawnMovementJudge implements MovementJudge {
 			offset = 1;
 		}
 
-		return BoardCoordinate.at(origin.getCol(), origin.getRow() + offset);
+		return BoardCoordinate.at(origin.col, origin.row + offset);
   }
 
   private static getAbsoluteVectorForPawn(moveVector: Vector2): Vector2 {
     return new Vector2(Math.abs(moveVector.x), Math.abs(moveVector.y));
   }
 }
-
-export default PawnMovementJudge;

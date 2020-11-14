@@ -1,13 +1,13 @@
-import BoardBuilder from '../../src/business/BoardBuilder';
-import Board from '../../src/models/Board';
-import BoardCoordinate from '../../src/models/BoardCoordinate';
-import Team from '../../src/models/enums/Team';
-import BoardPiece from '../../src/models/BoardPiece';
-import BoardPieceType from '../../src/models/enums/BoardPieceType';
-import TestBoardPieceGeometryBuilder from '../mocks/TestBoardPieceGeometryBuilder';
+import { BoardBuilder } from '../../src/business/BoardBuilder';
+import { Board } from '../../src/models/Board';
+import { BoardCoordinate } from '../../src/models/BoardCoordinate';
+import { Team } from '../../src/models/enums/Team';
+import { BoardPiece } from '../../src/models/BoardPiece';
+import { BoardPieceType } from '../../src/models/enums/BoardPieceType';
+import { TestBoardPieceGeometryBuilder } from '../mocks/TestBoardPieceGeometryBuilder';
 import { Mesh } from 'three';
 
-class TestBoardBuilder implements BoardBuilder {
+export class TestBoardBuilder implements BoardBuilder {
   private piecesAt: Map<BoardCoordinate, BoardPiece | undefined>;
   private testBoardPieceGeometryBuilder: TestBoardPieceGeometryBuilder;
 
@@ -21,7 +21,7 @@ class TestBoardBuilder implements BoardBuilder {
       let board = new Board(8, 8);
 
       this.piecesAt.forEach((piece, coord) => {
-        board.get(coord).setPiece(
+        board.set(coord, 
           piece === undefined ?
           new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh()) :
           piece);
@@ -31,5 +31,3 @@ class TestBoardBuilder implements BoardBuilder {
     });
   }
 }
-
-export default TestBoardBuilder;

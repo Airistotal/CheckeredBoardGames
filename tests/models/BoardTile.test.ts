@@ -1,7 +1,7 @@
-import BoardTile from '../../src/models/BoardTile';
-import BoardPiece from '../../src/models/BoardPiece';
-import Team from '../../src/models/enums/Team';
-import BoardPieceType from '../../src/models/enums/BoardPieceType';
+import { BoardTile } from '../../src/models/BoardTile';
+import { BoardPiece } from '../../src/models/BoardPiece';
+import { Team } from '../../src/models/enums/Team';
+import { BoardPieceType } from '../../src/models/enums/BoardPieceType';
 import { expect } from 'chai';
 import { Color, MeshPhongMaterial, Mesh } from 'three';
 import 'mocha';

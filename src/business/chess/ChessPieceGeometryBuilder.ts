@@ -1,6 +1,6 @@
-import BoardPieceGeometryBuilder from '../BoardPieceGeometryBuilder';
-import BoardPieceType from '../../models/enums/BoardPieceType';
-import Utilities from '../Utilities';
+import { BoardPieceGeometryBuilder } from '../BoardPieceGeometryBuilder';
+import { BoardPieceType } from '../../models/enums/BoardPieceType';
+import { Utilities } from '../Utilities';
 
 import { Mesh, ConeGeometry, MeshPhongMaterial, Object3D, Vector3, Box3 } from 'three';
 
@@ -11,7 +11,7 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-class ChessPieceGeometryBuilder implements BoardPieceGeometryBuilder {
+export class ChessPieceGeometryBuilder implements BoardPieceGeometryBuilder {
   public createGeometryFor(type: BoardPieceType): Promise<Object3D> {
     switch (type) {
       case BoardPieceType.King:
@@ -74,5 +74,3 @@ class ChessPieceGeometryBuilder implements BoardPieceGeometryBuilder {
     });
   }
 }
-
-export default ChessPieceGeometryBuilder;

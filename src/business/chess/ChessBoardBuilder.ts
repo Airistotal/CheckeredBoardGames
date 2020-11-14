@@ -1,11 +1,11 @@
-import BoardBuilder from '../BoardBuilder';
-import GameType from '../../models/enums/GameType';
-import BoardPieceType from '../../models/enums/BoardPieceType';
-import Team from '../../models/enums/Team';
-import Board from '../../models/Board';
-import BoardCoordinate from '../../models/BoardCoordinate';
-import BoardPiece from '../../models/BoardPiece';
-import BoardPieceBuilder from '../BoardPieceBuilder';
+import { BoardBuilder } from '../BoardBuilder';
+import { GameType } from '../../models/enums/GameType';
+import { BoardPieceType } from '../../models/enums/BoardPieceType';
+import { Team } from '../../models/enums/Team';
+import { Board } from '../../models/Board';
+import { BoardCoordinate } from '../../models/BoardCoordinate';
+import { BoardPiece } from '../../models/BoardPiece';
+import { BoardPieceBuilder } from '../BoardPieceBuilder';
 
 import { Mesh, MeshPhongMaterial } from 'three';
 
@@ -14,7 +14,7 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-class ChessBoardBuilder implements BoardBuilder {
+export class ChessBoardBuilder implements BoardBuilder {
 	private readonly boardPieceBuilder: BoardPieceBuilder;
 	private board!: Board;
 
@@ -73,11 +73,9 @@ class ChessBoardBuilder implements BoardBuilder {
 		let self = this;
 		let piecePromise = this.boardPieceBuilder.createBoardPiece(team, type);
 		piecePromise.then((piece) => {
-			self.board.get(coord).setPiece(piece)
+			self.board.set(coord, piece)
 		});
 
 		return piecePromise;
 	}
 }
-
-export default ChessBoardBuilder;

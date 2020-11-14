@@ -1,7 +1,7 @@
-import BoardPiece from './BoardPiece';
+import { BoardPiece } from './BoardPiece';
 import { Color, Mesh, MeshPhongMaterial, BoxGeometry, Group, Layers } from 'three';
 
-class BoardTile {
+export class BoardTile {
   private piece?: BoardPiece;
   private color: Color;
   private tileMesh!: Mesh;
@@ -51,5 +51,3 @@ class BoardTile {
     }
   }
 }
-
-export default BoardTile;

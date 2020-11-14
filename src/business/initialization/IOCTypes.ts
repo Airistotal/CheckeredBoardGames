@@ -14,7 +14,8 @@ const IOCTypes = {
   GameMediator: Symbol.for("GameMediator"),
   MovementJudge: Symbol.for("MovementJudge"),
   GameStateProcessor: Symbol.for("GameStateProcessor"),
-  GameStateProcessorFactory: Symbol.for("GameStateProcessorFactory")
+  GameStateProcessorFactory: Symbol.for("GameStateProcessorFactory"),
+  MovementDataBuilder: Symbol.for("MovementDataBuilder")
 };
 
 export { IOCTypes };

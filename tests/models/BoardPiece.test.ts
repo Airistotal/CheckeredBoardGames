@@ -1,7 +1,7 @@
-import BoardPiece from '../../src/models/BoardPiece';
-import BoardPieceType from '../../src/models/enums/BoardPieceType';
-import TestBoardPieceGeometryBuilder from '../mocks/TestBoardPieceGeometryBuilder';
-import Team from '../../src/models/enums/Team';
+import { BoardPiece } from '../../src/models/BoardPiece';
+import { BoardPieceType } from '../../src/models/enums/BoardPieceType';
+import { TestBoardPieceGeometryBuilder } from '../mocks/TestBoardPieceGeometryBuilder';
+import { Team } from '../../src/models/enums/Team';
 
 import { expect } from 'chai';
 import { Vec2, Mesh } from 'three';

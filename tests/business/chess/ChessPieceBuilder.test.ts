@@ -1,9 +1,9 @@
-import ChessPieceBuilder from '../../../src/business/chess/ChessPieceBuilder';
-import BoardPiece from '../../../src/models/BoardPiece';
-import GameType from '../../../src/models/enums/GameType';
-import Team from '../../../src/models/enums/Team';
-import BoardPieceType from '../../../src/models/enums/BoardPieceType';
-import TestBoardPieceGeometryBuilder from '../../mocks/TestBoardPieceGeometryBuilder';
+import { ChessPieceBuilder } from '../../../src/business/chess/ChessPieceBuilder';
+import { BoardPiece } from '../../../src/models/BoardPiece';
+import { GameType } from '../../../src/models/enums/GameType';
+import { Team } from '../../../src/models/enums/Team';
+import { BoardPieceType } from '../../../src/models/enums/BoardPieceType';
+import { TestBoardPieceGeometryBuilder } from '../../mocks/TestBoardPieceGeometryBuilder';
 
 import { expect } from 'chai';
 import 'mocha';

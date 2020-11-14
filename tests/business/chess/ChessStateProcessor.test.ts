@@ -1,12 +1,12 @@
-import ChessStateProcessor from '../../../src/business/chess/ChessStateProcessor';
-import GameType from '../../../src/models/enums/GameType';
-import Board from '../../../src/models/Board';
-import BoardCoordinate from '../../../src/models/BoardCoordinate';
-import BoardPiece from '../../../src/models/BoardPiece';
-import BoardPieceType from '../../../src/models/enums/BoardPieceType';
-import TestBoardBuilder from '../../mocks/TestBoardBuilder';
-import TestMovementJudge from '../../mocks/TestMovementJudge';
-import Team from '../../../src/models/enums/Team';
+import { ChessStateProcessor } from '../../../src/business/chess/ChessStateProcessor';
+import { GameType } from '../../../src/models/enums/GameType';
+import { Board } from '../../../src/models/Board';
+import { BoardCoordinate } from '../../../src/models/BoardCoordinate';
+import { BoardPiece } from '../../../src/models/BoardPiece';
+import { BoardPieceType } from '../../../src/models/enums/BoardPieceType';
+import { TestBoardBuilder } from '../../mocks/TestBoardBuilder';
+import { TestMovementJudge } from '../../mocks/TestMovementJudge';
+import { Team } from '../../../src/models/enums/Team';
 
 import { Group, Mesh } from 'three'
 import { expect } from 'chai';

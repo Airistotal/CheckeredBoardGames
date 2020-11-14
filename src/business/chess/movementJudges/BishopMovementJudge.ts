@@ -1,18 +1,18 @@
-import MovementJudge from '../../MovementJudge';
-import BoardCoordinate from '../../../models/BoardCoordinate';
-import Board from '../../../models/Board';
-import MovementData from '../../../models/MovementData';
+import { MovementJudge } from '../../MovementJudge';
+import { BoardCoordinate } from '../../../models/BoardCoordinate';
+import { Board } from '../../../models/Board';
+import { MovementData } from '../../../models/MovementData';
 import { Vector2 } from 'three';
 
-class BishopMovementJudge implements MovementJudge {
+export class BishopMovementJudge implements MovementJudge {
 	private static BishopMove = new Vector2(1, 1);
 
   public isLegalMove(movementData: MovementData): boolean {
-  	let originPiece = movementData.board.get(movementData.origin).getPiece();
+  	let originPiece = movementData.board.get(movementData.origin);
   	if (originPiece === undefined) return false;
 
   	let moveVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
-  	let destinationPiece = movementData.board.get(movementData.destination).getPiece();
+  	let destinationPiece = movementData.board.get(movementData.destination);
 
     return BishopMovementJudge.BishopMove.equals(this.getAbsoluteVectorForBishop(moveVector)) &&
     			 this.missOtherPieces(movementData.origin, movementData.destination, movementData.board) &&
@@ -26,7 +26,7 @@ class BishopMovementJudge implements MovementJudge {
 
     originVector = originVector.add(moveVector);
     while (!originVector.equals(destinationVector)) {
-      let targetPiece = board.get(BoardCoordinate.at(originVector.x, originVector.y)).getPiece();
+      let targetPiece = board.get(BoardCoordinate.at(originVector.x, originVector.y));
       if (targetPiece !== undefined) {
         return false;
       }
@@ -41,5 +41,3 @@ class BishopMovementJudge implements MovementJudge {
   	return new Vector2(Math.abs(moveVector.x / moveVector.x), Math.abs(moveVector.y / moveVector.x));
   }
 }
-
-export default BishopMovementJudge;

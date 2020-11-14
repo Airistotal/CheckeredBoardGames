@@ -1,18 +1,19 @@
-import GameStateProcessor from '../GameStateProcessor';
-import MovementJudge from '../MovementJudge';
-import Board from '../../models/Board';
-import BoardCoordinate from '../../models/BoardCoordinate';
-import BoardPieceType from '../../models/enums/BoardPieceType';
-import GameType from '../../models/enums/GameType';
-import MovementData from '../../models/MovementData';
-import Team from '../../models/enums/Team';
+import { GameStateProcessor } from '../GameStateProcessor';
+import { MovementJudge } from '../MovementJudge';
+import { Board } from '../../models/Board';
+import { BoardCoordinate } from '../../models/BoardCoordinate';
+import { BoardPieceType } from '../../models/enums/BoardPieceType';
+import { GameType } from '../../models/enums/GameType';
+import { MovementData } from '../../models/MovementData';
+import { Team } from '../../models/enums/Team';
+import { FluentMovementDataBuilder } from '../FluentMovementDataBuilder';
 
 import { IOCTypes } from '../initialization/IOCTypes';
 import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-class ChessStateProcessor implements GameStateProcessor {
+export class ChessStateProcessor implements GameStateProcessor {
   private readonly pieceMovementJudgeFactory: (type: BoardPieceType) => MovementJudge;
   private readonly pieceMovementJudges: Map<BoardPieceType, MovementJudge>;
 
@@ -67,11 +68,15 @@ class ChessStateProcessor implements GameStateProcessor {
 
     let chessStateProcessor = this;
     this.opponentPieceCoords.forEach(function(pieceCoord) {
-      let originPiece = chessStateProcessor.logicBoard.get(pieceCoord).getPiece();
+      let originPiece = chessStateProcessor.logicBoard.get(pieceCoord);
 
       if (originPiece !== undefined && chessStateProcessor.defendingKingCoord !== undefined) {
         let movementJudge = chessStateProcessor.getMovementJudge(originPiece.type);
-        let mvDta = new MovementData(pieceCoord, chessStateProcessor.defendingKingCoord, chessStateProcessor.logicBoard);
+        let mvDta = FluentMovementDataBuilder
+          .MovementData()
+          .from(pieceCoord)
+          .to(chessStateProcessor.defendingKingCoord)
+          .on(chessStateProcessor.logicBoard);
 
         if (movementJudge.isLegalMove(mvDta)) {
           attackingPieces.push(pieceCoord);
@@ -124,5 +129,3 @@ class ChessStateProcessor implements GameStateProcessor {
     return this.playingTeam;
   }
 }
-
-export default ChessStateProcessor;

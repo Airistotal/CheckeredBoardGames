@@ -1,9 +1,9 @@
-import MovementJudge from '../../src/business/MovementJudge';
-import BoardCoordinate from '../../src/models/BoardCoordinate';
-import Board from '../../src/models/Board';
-import MovementData from '../../src/models/MovementData';
+import { MovementJudge } from '../../src/business/MovementJudge';
+import { BoardCoordinate } from '../../src/models/BoardCoordinate';
+import { Board } from '../../src/models/Board';
+import { MovementData } from '../../src/models/MovementData';
 
-class TestMovementJudge implements MovementJudge {
+export class TestMovementJudge implements MovementJudge {
   private isLegalMoveValue: boolean;
   private isLegalFirstMove: boolean;
 
@@ -13,7 +13,7 @@ class TestMovementJudge implements MovementJudge {
   }
 
   isLegalMove(mvDta: MovementData) : boolean{
-    let origPiece = mvDta.board.get(mvDta.origin).getPiece();
+    let origPiece = mvDta.board.get(mvDta.origin);
     if (origPiece === undefined) {
       return this.isLegalMoveValue;
     }
@@ -26,5 +26,3 @@ class TestMovementJudge implements MovementJudge {
     }
   }
 }
-
-export default TestMovementJudge;

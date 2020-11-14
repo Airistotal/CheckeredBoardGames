@@ -1,11 +1,11 @@
-import BoardGameScene from './BoardGameScene';
-import BoardGameControls from './BoardGameControls';
+import { BoardGameScene } from './BoardGameScene';
+import { BoardGameControls } from './BoardGameControls';
 import { Scene, WebGLRenderer, Raycaster } from 'three';
-import GameMediator from '../business/GameMediator';
-import GameType from '../models/enums/GameType';
-import BoardCoordinate from '../models/BoardCoordinate';
-import Board from '../models/Board';
-import Bootstrapper from '../business/initialization/Bootstrapper';
+import { GameMediator } from '../business/GameMediator';
+import { GameType } from '../models/enums/GameType';
+import { BoardCoordinate } from '../models/BoardCoordinate';
+import { Board } from '../models/Board';
+import { Bootstrapper } from '../business/initialization/Bootstrapper';
 
 import { Color } from 'three';
 
@@ -14,7 +14,7 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-class SceneMediator {
+export class SceneMediator {
   private static instance: SceneMediator | null = null;
   private boardGameScene: BoardGameScene;
   private renderer: WebGLRenderer = new WebGLRenderer({antialias: true});
@@ -68,7 +68,7 @@ class SceneMediator {
     let self = SceneMediator.getInstance();
 
     if (self.lastClicked === null) {
-      if (self.gameMediator.lookAtBoard().get(clicked).getPiece() !== undefined) {
+      if (self.gameMediator.lookAtBoard().get(clicked) !== undefined) {
         self.lastClicked = clicked;
       }
     } else {
@@ -77,5 +77,3 @@ class SceneMediator {
     }
   }
 }
-
-export default SceneMediator;

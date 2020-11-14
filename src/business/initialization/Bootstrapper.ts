@@ -1,30 +1,34 @@
-import BoardGameScene from '../../presentation/BoardGameScene';
-import ChessMediator from '../chess/ChessMediator';
-import ChessPieceBuilder from '../chess/ChessPieceBuilder';
-import ChessBoardBuilder from '../chess/ChessBoardBuilder';
-import BoardBuilder from '../BoardBuilder';
-import BoardPieceBuilder from '../BoardPieceBuilder';
-import GameType from '../../models/enums/GameType';
-import BoardPieceType from '../../models/enums/BoardPieceType';
-import GameMediator from '../GameMediator';
-import ChessPieceGeometryBuilder from '../chess/ChessPieceGeometryBuilder';
-import BoardPieceGeometryBuilder from '../BoardPieceGeometryBuilder';
-import MovementJudge from '../MovementJudge';
-import ChessMovementJudge from '../chess/movementJudges/ChessMovementJudge';
-import GameStateProcessor from '../GameStateProcessor';
-import ChessStateProcessor from '../chess/ChessStateProcessor';
-import BishopMovementJudge from '../chess/movementJudges/BishopMovementJudge';
-import KnightMovementJudge from '../chess/movementJudges/KnightMovementJudge';
-import KingMovementJudge from '../chess/movementJudges/KingMovementJudge';
-import QueenMovementJudge from '../chess/movementJudges/QueenMovementJudge';
-import RookMovementJudge from '../chess/movementJudges/RookMovementJudge';
-import PawnMovementJudge from '../chess/movementJudges/PawnMovementJudge';
+import { BoardGameScene } from '../../presentation/BoardGameScene';
+import { ChessMediator } from '../chess/ChessMediator';
+import { ChessPieceBuilder } from '../chess/ChessPieceBuilder';
+import { ChessBoardBuilder } from '../chess/ChessBoardBuilder';
+import { BoardBuilder } from '../BoardBuilder';
+import { BoardPieceBuilder } from '../BoardPieceBuilder';
+import { GameType } from '../../models/enums/GameType';
+import { BoardPieceType } from '../../models/enums/BoardPieceType';
+import { MovementJudgeType } from '../../models/enums/MovementJudgeType';
+import { GameMediator } from '../GameMediator';
+import { ChessPieceGeometryBuilder } from '../chess/ChessPieceGeometryBuilder';
+import { BoardPieceGeometryBuilder } from '../BoardPieceGeometryBuilder';
+import { MovementJudge } from '../MovementJudge';
+import { MovementDataBuilder } from '../MovementDataBuilder';
+import { FluentMovementDataBuilder } from '../FluentMovementDataBuilder';
+import { ChessMovementJudge } from '../chess/movementJudges/ChessMovementJudge';
+import { GameStateProcessor } from '../GameStateProcessor';
+import { ChessStateProcessor } from '../chess/ChessStateProcessor';
+import { BishopMovementJudge } from '../chess/movementJudges/BishopMovementJudge';
+import { KnightMovementJudge} from '../chess/movementJudges/KnightMovementJudge';
+import { KingMovementJudge } from '../chess/movementJudges/KingMovementJudge';
+import { QueenMovementJudge } from '../chess/movementJudges/QueenMovementJudge';
+import { RookMovementJudge } from '../chess/movementJudges/RookMovementJudge';
+import { PawnMovementJudge } from '../chess/movementJudges/PawnMovementJudge';
+import { CheckMovementJudge } from '../chess/movementJudges/CheckMovementJudge';
 
 import { Container } from "inversify";
 import { IOCTypes } from "./IOCTypes";
 import { interfaces } from "inversify";
 
-class Bootstrapper {
+export class Bootstrapper {
   private static instance: Bootstrapper | null = null;
 
   private container: Container;
@@ -33,6 +37,7 @@ class Bootstrapper {
     this.container = new Container();
 
     this.container.bind<BoardGameScene>(IOCTypes.BoardGameScene).to(BoardGameScene);
+    this.container.bind<MovementDataBuilder>(IOCTypes.MovementDataBuilder).to(FluentMovementDataBuilder);
 
     this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(ChessMovementJudge).whenTargetNamed(GameType.Chess);
     this.container.bind<interfaces.Factory<MovementJudge>>(IOCTypes.MovementJudgeFactory)
@@ -42,15 +47,16 @@ class Bootstrapper {
                     };
                   });
 
-    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(KingMovementJudge).whenTargetNamed(`${BoardPieceType.King}${GameType.Chess}`);
-    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(QueenMovementJudge).whenTargetNamed(`${BoardPieceType.Queen}${GameType.Chess}`);
-    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(BishopMovementJudge).whenTargetNamed(`${BoardPieceType.Bishop}${GameType.Chess}`);
-    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(KnightMovementJudge).whenTargetNamed(`${BoardPieceType.Knight}${GameType.Chess}`);
-    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(RookMovementJudge).whenTargetNamed(`${BoardPieceType.Rook}${GameType.Chess}`);
-    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(PawnMovementJudge).whenTargetNamed(`${BoardPieceType.Pawn}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(KingMovementJudge).whenTargetNamed(`${MovementJudgeType.King}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(QueenMovementJudge).whenTargetNamed(`${MovementJudgeType.Queen}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(BishopMovementJudge).whenTargetNamed(`${MovementJudgeType.Bishop}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(KnightMovementJudge).whenTargetNamed(`${MovementJudgeType.Knight}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(RookMovementJudge).whenTargetNamed(`${MovementJudgeType.Rook}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(PawnMovementJudge).whenTargetNamed(`${MovementJudgeType.Pawn}${GameType.Chess}`);
+    this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(CheckMovementJudge).whenTargetNamed(`${MovementJudgeType.Check}${GameType.Chess}`);
     this.container.bind<interfaces.Factory<MovementJudge>>(IOCTypes.PieceMovementJudgeFactory)
                   .toFactory<MovementJudge>((context) => {
-                    return (type: BoardPieceType) => {
+                    return (type: MovementJudgeType) => {
                       return context.container.getNamed<MovementJudge>(IOCTypes.PieceMovementJudgeFactory, `${type}${GameType.Chess}`);
                     };
                   })
@@ -111,5 +117,3 @@ class Bootstrapper {
     return Bootstrapper.instance.container;
   }
 }
-
-export default Bootstrapper;

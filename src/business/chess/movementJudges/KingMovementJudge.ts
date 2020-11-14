@@ -1,16 +1,16 @@
-import MovementJudge from '../../MovementJudge';
-import BoardCoordinate from '../../../models/BoardCoordinate';
-import Board from '../../../models/Board';
-import MovementData from '../../../models/MovementData';
-import BoardPieceType from '../../../models/enums/BoardPieceType';
+import { MovementJudge } from '../../MovementJudge';
+import { BoardCoordinate } from '../../../models/BoardCoordinate';
+import { Board } from '../../../models/Board';
+import { MovementData } from '../../../models/MovementData';
+import { BoardPieceType } from '../../../models/enums/BoardPieceType';
 import { Vector2 } from 'three';
 
-class KingMovementJudge implements MovementJudge {
+export class KingMovementJudge implements MovementJudge {
   private static KingMoves = [new Vector2(0, 1), new Vector2(1, 0), new Vector2(1, 1)];
   private static Castling = new Vector2(2,  0);
 
   public static isCaslting(movementData: MovementData): boolean {
-    let originPiece = movementData.board.get(movementData.origin).getPiece()
+    let originPiece = movementData.board.get(movementData.origin)
     if (originPiece === undefined ||
         originPiece.type !== BoardPieceType.King ||
         movementData.movedPieces.some((v) => originPiece !== undefined && v === originPiece.id)) return false;
@@ -23,8 +23,8 @@ class KingMovementJudge implements MovementJudge {
     let moveVector = BoardCoordinate.getVector(origin, movementData.destination);
 
     return moveVector.x < 0 ?
-           BoardCoordinate.at(origin.getCol() - 4, origin.getRow()) :
-           BoardCoordinate.at(origin.getCol() + 3, origin.getRow())
+           BoardCoordinate.at(origin.col - 4, origin.row) :
+           BoardCoordinate.at(origin.col + 3, origin.row)
   }
 
   public static getCasltingRookDestination(movementData: MovementData): BoardCoordinate {
@@ -32,16 +32,16 @@ class KingMovementJudge implements MovementJudge {
     let moveVector = BoardCoordinate.getVector(origin, movementData.destination);
 
     return moveVector.x < 0 ?
-           BoardCoordinate.at(origin.getCol() - 1, origin.getRow()) :
-           BoardCoordinate.at(origin.getCol() + 1, origin.getRow())
+           BoardCoordinate.at(origin.col - 1, origin.row) :
+           BoardCoordinate.at(origin.col + 1, origin.row)
   }
 
   public isLegalMove(movementData: MovementData): boolean {
-    let originPiece = movementData.board.get(movementData.origin).getPiece()
+    let originPiece = movementData.board.get(movementData.origin)
     if (originPiece === undefined) return false;
 
     let moveVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
-    let destinationPiece = movementData.board.get(movementData.destination).getPiece();
+    let destinationPiece = movementData.board.get(movementData.destination);
 
     let isLegalCastle = false;
     if (!movementData.movedPieces.some((v) => originPiece !== undefined && v === originPiece.id)) {
@@ -65,11 +65,11 @@ class KingMovementJudge implements MovementJudge {
   private static arePiecesInPlaceForQueensideCastle(movementData: MovementData): boolean {
     let board = movementData.board;
     let origin = movementData.origin;
-    let rook = board.get(BoardCoordinate.at(origin.getCol() - 4, origin.getRow())).getPiece();
+    let rook = board.get(BoardCoordinate.at(origin.col - 4, origin.row));
 
-    return board.get(BoardCoordinate.at(origin.getCol() - 1, origin.getRow())).getPiece() === undefined &&
-           board.get(BoardCoordinate.at(origin.getCol() - 2, origin.getRow())).getPiece() === undefined &&
-           board.get(BoardCoordinate.at(origin.getCol() - 3, origin.getRow())).getPiece() === undefined &&
+    return board.get(BoardCoordinate.at(origin.col - 1, origin.row)) === undefined &&
+           board.get(BoardCoordinate.at(origin.col - 2, origin.row)) === undefined &&
+           board.get(BoardCoordinate.at(origin.col - 3, origin.row)) === undefined &&
            rook !== undefined && rook.type === BoardPieceType.Rook &&
            !movementData.movedPieces.some((v) => rook !== undefined && v === rook.id);
   }
@@ -77,10 +77,10 @@ class KingMovementJudge implements MovementJudge {
   private static arePiecesInPlaceForKingsideCastle(movementData: MovementData): boolean {
     let board = movementData.board;
     let origin = movementData.origin;
-    let rook = board.get(BoardCoordinate.at(origin.getCol() + 3, origin.getRow())).getPiece();
+    let rook = board.get(BoardCoordinate.at(origin.col + 3, origin.row));
 
-    return board.get(BoardCoordinate.at(origin.getCol() + 1, origin.getRow())).getPiece() === undefined &&
-           board.get(BoardCoordinate.at(origin.getCol() + 2, origin.getRow())).getPiece() === undefined &&
+    return board.get(BoardCoordinate.at(origin.col + 1, origin.row)) === undefined &&
+           board.get(BoardCoordinate.at(origin.col + 2, origin.row)) === undefined &&
            rook !== undefined && rook.type === BoardPieceType.Rook &&
            !movementData.movedPieces.some((v) => rook !== undefined && v === rook.id);
   }
@@ -89,5 +89,3 @@ class KingMovementJudge implements MovementJudge {
     return new Vector2(Math.abs(v.x), Math.abs(v.y));
   }
 }
-
-export default KingMovementJudge;

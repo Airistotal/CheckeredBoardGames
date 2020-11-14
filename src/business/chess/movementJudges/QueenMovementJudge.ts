@@ -1,9 +1,9 @@
-import MovementJudge from '../../MovementJudge';
-import BishopMovementJudge from '../../chess/movementJudges/BishopMovementJudge';
-import RookMovementJudge from '../../chess/movementJudges/RookMovementJudge';
-import MovementData from '../../../models/MovementData';
+import { MovementJudge } from '../../MovementJudge';
+import { BishopMovementJudge } from '../../chess/movementJudges/BishopMovementJudge';
+import { RookMovementJudge } from '../../chess/movementJudges/RookMovementJudge';
+import { MovementData } from '../../../models/MovementData';
 
-class QueenMovementJudge implements MovementJudge {
+export class QueenMovementJudge implements MovementJudge {
   private readonly bishopMovementJudge: BishopMovementJudge;
   private readonly rookMovementJudge: RookMovementJudge;
 
@@ -17,5 +17,3 @@ class QueenMovementJudge implements MovementJudge {
            this.bishopMovementJudge.isLegalMove(movementData);
   }
 }
-
-export default QueenMovementJudge;

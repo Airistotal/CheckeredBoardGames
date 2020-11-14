@@ -1,4 +1,4 @@
-import SceneMediator from './presentation/SceneMediator';
+import { SceneMediator } from './presentation/SceneMediator';
 
 class Main {
   public static Run() {

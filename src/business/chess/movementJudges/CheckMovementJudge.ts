@@ -1,10 +1,10 @@
-import MovementJudge from '../../MovementJudge';
-import BoardCoordinate from '../../../models/BoardCoordinate';
-import BoardPiece from '../../../models/BoardPiece';
-import Board from '../../../models/Board';
-import GameType from '../../../models/enums/GameType';
-import MovementData from '../../../models/MovementData';
-import BoardPieceType from '../../../models/enums/BoardPieceType';
+import { MovementJudge } from '../../MovementJudge';
+import { BoardCoordinate } from '../../../models/BoardCoordinate';
+import { BoardPiece } from '../../../models/BoardPiece';
+import { Board } from '../../../models/Board';
+import { GameType } from '../../../models/enums/GameType';
+import { MovementData } from '../../../models/MovementData';
+import { BoardPieceType } from '../../../models/enums/BoardPieceType';
 import { Vector2 } from 'three';
 
 import { IOCTypes } from '../../initialization/IOCTypes';
@@ -12,7 +12,7 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-class CheckMovementJudge implements MovementJudge {
+export class CheckMovementJudge implements MovementJudge {
   private readonly pieceMovementJudgeFactory: (type: BoardPieceType) => MovementJudge;
   private readonly pieceMovementJudges: Map<BoardPieceType, MovementJudge>;
 
@@ -25,5 +25,3 @@ class CheckMovementJudge implements MovementJudge {
     return false;
   }
 }
-
-export default CheckMovementJudge;

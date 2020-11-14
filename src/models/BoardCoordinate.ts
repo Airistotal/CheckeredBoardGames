@@ -1,20 +1,32 @@
 import { Vector2 } from 'three';
 
-class BoardCoordinate {
-  private col: number;
-  private row: number;
+export class BoardCoordinate {
+  public readonly col: number;
+  public readonly row: number;
 
-  constructor(col: number, row: number) {
+  private constructor(col: number, row: number) {
     BoardCoordinate.validate(col, row);
 
     this.col = col;
     this.row = row;
   }
 
-  private static instances: Array<BoardCoordinate> = new Array<BoardCoordinate>();
+  private static instances = new Map<number, Map<number, BoardCoordinate>>();
 
   public static at(col: number, row: number) {
-    return new BoardCoordinate(col, row);
+    let coordCols = BoardCoordinate.instances.get(col);
+    if (!coordCols) {
+      coordCols = new Map<number, BoardCoordinate>();
+      BoardCoordinate.instances.set(col, coordCols);
+    }
+
+    let coord = coordCols.get(row);
+    if (!coord) {
+      coord = new BoardCoordinate(col, row)
+      coordCols.set(row, coord);
+    }
+
+    return coord;
   }
 
   public static getVector(origin: BoardCoordinate, destination: BoardCoordinate): Vector2 {
@@ -24,21 +36,8 @@ class BoardCoordinate {
     return new Vector2(x, y);
   }
 
-  public clone(): BoardCoordinate {
-    return BoardCoordinate.at(this.col, this.row);
-  }
-
-  public getCol() {
-    return this.col;
-  }
-
-  public getRow() {
-    return this.row;
-  }
-
-  public addVector(v: Vector2) {
-    this.col += v.x;
-    this.row += v.y;
+  public addVector(v: Vector2): BoardCoordinate {
+    return BoardCoordinate.at(this.col + v.x, this.row + v.y);
   }
 
   public toString() {
@@ -50,14 +49,6 @@ class BoardCoordinate {
 
     return this.col === other.col &&
            this.row === other.row;
-  }
-
-  public IsInCol(col: number) {
-    return this.col === col;
-  }
-
-  public IsInRow(row: number) {
-    return this.row === row;
   }
 
   private static validate(col: number, row: number) {
@@ -84,5 +75,3 @@ class BoardCoordinate {
     }
   }
 }
-
-export default BoardCoordinate;

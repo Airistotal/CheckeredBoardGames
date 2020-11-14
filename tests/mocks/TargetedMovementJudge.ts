@@ -1,9 +1,9 @@
-import MovementJudge from '../../src/business/MovementJudge';
-import BoardCoordinate from '../../src/models/BoardCoordinate';
-import Board from '../../src/models/Board';
-import MovementData from '../../src/models/MovementData';
+import { MovementJudge } from '../../src/business/MovementJudge';
+import { BoardCoordinate } from '../../src/models/BoardCoordinate';
+import { Board } from '../../src/models/Board';
+import { MovementData } from '../../src/models/MovementData';
 
-class TargetedMovementJudge implements MovementJudge {
+export class TargetedMovementJudge implements MovementJudge {
   private targets: Array<BoardCoordinate>;
 
   constructor(targets: Array<BoardCoordinate>) {
@@ -11,7 +11,7 @@ class TargetedMovementJudge implements MovementJudge {
   }
 
   isLegalMove(mvDta: MovementData) : boolean{
-    let origPiece = mvDta.board.get(mvDta.origin).getPiece();
+    let origPiece = mvDta.board.get(mvDta.origin);
     if (origPiece === undefined) {
       return false;
     }
@@ -19,5 +19,3 @@ class TargetedMovementJudge implements MovementJudge {
    return this.targets.some((v) => v.Equals(mvDta.destination));
   }
 }
-
-export default TargetedMovementJudge;

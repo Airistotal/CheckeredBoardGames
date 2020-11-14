@@ -1,9 +1,9 @@
-import BoardPieceBuilder from '../BoardPieceBuilder';
-import BoardPiece from '../../models/BoardPiece';
-import BoardPieceType from '../../models/enums/BoardPieceType';
-import BoardPieceGeometryBuilder from '../BoardPieceGeometryBuilder';
-import GameType from '../../models/enums/GameType';
-import Team from '../../models/enums/Team';
+import { BoardPieceBuilder } from '../BoardPieceBuilder';
+import { BoardPiece } from '../../models/BoardPiece';
+import { BoardPieceType } from '../../models/enums/BoardPieceType';
+import { BoardPieceGeometryBuilder } from '../BoardPieceGeometryBuilder';
+import { GameType } from '../../models/enums/GameType';
+import { Team } from '../../models/enums/Team';
 
 import { Mesh } from 'three';
 
@@ -12,7 +12,7 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-class ChessPieceBuilder implements BoardPieceBuilder {
+export class ChessPieceBuilder implements BoardPieceBuilder {
   private BoardPieceGeometryBuilder: BoardPieceGeometryBuilder;
   private static knownPieces = [
     BoardPieceType.Pawn,
@@ -39,5 +39,3 @@ class ChessPieceBuilder implements BoardPieceBuilder {
     });
   }
 }
-
-export default ChessPieceBuilder;

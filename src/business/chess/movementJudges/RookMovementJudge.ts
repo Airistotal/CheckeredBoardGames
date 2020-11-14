@@ -1,21 +1,21 @@
-import MovementJudge from '../../MovementJudge';
-import BoardCoordinate from '../../../models/BoardCoordinate';
-import Board from '../../../models/Board';
-import MovementData from '../../../models/MovementData';
+import { MovementJudge } from '../../MovementJudge';
+import { BoardCoordinate } from '../../../models/BoardCoordinate';
+import { Board } from '../../../models/Board';
+import { MovementData } from '../../../models/MovementData';
 import { Vector2 } from 'three';
 
-class RookMovementJudge implements MovementJudge {
+export class RookMovementJudge implements MovementJudge {
   private static RookMoves = [new Vector2(0, 1), new Vector2(1, 0)];
 
   public isLegalMove(movementData: MovementData): boolean {
     let board = movementData.board;
     let origin = movementData.origin;
     let dest = movementData.destination;
-    let originPiece = board.get(origin).getPiece();
+    let originPiece = board.get(origin);
     if (originPiece === undefined) return false;
 
     let moveVector = BoardCoordinate.getVector(origin, dest);
-    let destinationPiece = board.get(dest).getPiece();
+    let destinationPiece = board.get(dest);
 
     return RookMovementJudge.RookMoves.some((v) => v.equals(this.getAbsoluteVectorForRook(moveVector))) &&
            this.missOtherPieces(origin, dest, board) &&
@@ -29,7 +29,7 @@ class RookMovementJudge implements MovementJudge {
 
     originVector = originVector.add(moveVector);
     while (!originVector.equals(destinationVector)) {
-      let targetPiece = board.get(BoardCoordinate.at(originVector.x, originVector.y)).getPiece();
+      let targetPiece = board.get(BoardCoordinate.at(originVector.x, originVector.y));
       if (targetPiece !== undefined) {
         return false;
       }
@@ -46,5 +46,3 @@ class RookMovementJudge implements MovementJudge {
     return new Vector2(Math.abs(normVector.x), Math.abs(normVector.y));
   }
 }
-
-export default RookMovementJudge;

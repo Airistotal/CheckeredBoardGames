@@ -1,12 +1,12 @@
-import ChessMediator from '../../../src/business/chess/ChessMediator';
-import BoardCoordinate from '../../../src/models/BoardCoordinate';
-import BoardPiece from '../../../src/models/BoardPiece';
-import BoardPieceType from '../../../src/models/enums/BoardPieceType';
-import GameType from '../../../src/models/enums/GameType';
-import TestBoardBuilder from '../../mocks/TestBoardBuilder';
-import TestMovementJudge from '../../mocks/TestMovementJudge';
-import TestStateProcessor from '../../mocks/TestStateProcessor';
-import Team from '../../../src/models/enums/Team';
+import { ChessMediator } from '../../../src/business/chess/ChessMediator';
+import { BoardCoordinate } from '../../../src/models/BoardCoordinate';
+import { BoardPiece } from '../../../src/models/BoardPiece';
+import { BoardPieceType } from '../../../src/models/enums/BoardPieceType';
+import { GameType } from '../../../src/models/enums/GameType';
+import { TestBoardBuilder } from '../../mocks/TestBoardBuilder';
+import { TestMovementJudge } from '../../mocks/TestMovementJudge';
+import { TestStateProcessor } from '../../mocks/TestStateProcessor';
+import { Team } from '../../../src/models/enums/Team';
 
 import { Group, Mesh } from 'three'
 import { expect } from 'chai';
@@ -23,12 +23,12 @@ describe('ChessMediator tests', () => {
 
 		await mediator.loadBoard();
 
-		let piece = mediator.lookAtBoard().get(BoardCoordinate.at(1, 2)).getPiece();
+		let piece = mediator.lookAtBoard().get(BoardCoordinate.at(1, 2));
 		mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
-		let pieceAtDestination = mediator.lookAtBoard().get(BoardCoordinate.at(1, 3)).getPiece();
+		let pieceAtDestination = mediator.lookAtBoard().get(BoardCoordinate.at(1, 3));
 
 		expect(piece).to.not.be.undefined;
-		expect(mediator.lookAtBoard().get(BoardCoordinate.at(1, 2)).getPiece()).to.be.undefined;
+		expect(mediator.lookAtBoard().get(BoardCoordinate.at(1, 2))).to.be.undefined;
 		expect(pieceAtDestination).to.not.be.undefined;
 		if(piece === undefined || pieceAtDestination === undefined) return;
 		expect(piece.id).to.eql(pieceAtDestination.id);
@@ -83,8 +83,8 @@ describe('ChessMediator tests', () => {
 		await mediator.loadBoard();
 
 		let castleResult = mediator.move(BoardCoordinate.at(5, 1), BoardCoordinate.at(7, 1));
-		let kingDest = mediator.lookAtBoard().get(BoardCoordinate.at(7, 1)).getPiece();
-		let rookDest = mediator.lookAtBoard().get(BoardCoordinate.at(6, 1)).getPiece();
+		let kingDest = mediator.lookAtBoard().get(BoardCoordinate.at(7, 1));
+		let rookDest = mediator.lookAtBoard().get(BoardCoordinate.at(6, 1));
 
 		expect(rookDest).to.not.be.undefined;
 		expect(kingDest).to.not.be.undefined;

@@ -1,4 +1,4 @@
-import Utilities from '../business/Utilities';
+import { Utilities } from '../business/Utilities';
 
 import { PerspectiveCamera, Scene, FogExp2, BoxGeometry, MeshPhongMaterial, Mesh, DirectionalLight, Group } from 'three';
 
@@ -6,7 +6,7 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-class BoardGameScene {
+export class BoardGameScene {
   public readonly scene: Scene = new Scene();
   public readonly camera: PerspectiveCamera;
   private cube: Mesh = new Mesh();
@@ -52,5 +52,3 @@ class BoardGameScene {
     this.scene.add(group);
   }
 }
-
-export default BoardGameScene;

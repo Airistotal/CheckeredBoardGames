@@ -1,10 +1,10 @@
-import BoardCoordinate from '../models/BoardCoordinate';
+import { BoardCoordinate } from '../models/BoardCoordinate';
 
 import * as $ from 'jquery';
 import { Vector2, Raycaster, PerspectiveCamera, Scene } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-class BoardGameControls {
+export class BoardGameControls {
   private static instance: BoardGameControls | null = null;
   private raycaster: Raycaster;
   private camera!: PerspectiveCamera;
@@ -65,5 +65,3 @@ class BoardGameControls {
     }
   }
 }
-
-export default BoardGameControls;

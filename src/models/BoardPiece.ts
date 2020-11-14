@@ -1,11 +1,11 @@
-import BoardPieceType from './enums/BoardPieceType';
-import Utilities from '../business/Utilities';
-import Team from '../../src/models/enums/Team';
+import { BoardPieceType } from './enums/BoardPieceType';
+import { Utilities } from '../business/Utilities';
+import { Team } from '../../src/models/enums/Team';
 
 import { v4 as uuidv4 } from 'uuid';
 import { Object3D, Mesh, ConeGeometry, MeshPhongMaterial, Color } from 'three';
 
-class BoardPiece {
+export class BoardPiece {
   public readonly id = uuidv4();
   public readonly team: Team;
   public readonly type: BoardPieceType;
@@ -51,5 +51,3 @@ class BoardPiece {
     }
   }
 }
-
-export default BoardPiece;

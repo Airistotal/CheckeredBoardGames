@@ -1,11 +1,12 @@
-import KnightMovementJudge from '../../../../src/business/chess/movementJudges/KnightMovementJudge';
-import BoardCoordinate from '../../../../src/models/BoardCoordinate';
-import BoardPiece from '../../../../src/models/BoardPiece';
-import BoardPieceType from '../../../../src/models/enums/BoardPieceType';
-import Board from '../../../../src/models/Board';
-import MovementData from '../../../../src/models/MovementData';
-import TestBoardPieceGeometryBuilder from '../../../mocks/TestBoardPieceGeometryBuilder';
-import Team from '../../../../src/models/enums/Team';
+import { KnightMovementJudge } from '../../../../src/business/chess/movementJudges/KnightMovementJudge';
+import { BoardCoordinate } from '../../../../src/models/BoardCoordinate';
+import { BoardPiece } from '../../../../src/models/BoardPiece';
+import { BoardPieceType } from '../../../../src/models/enums/BoardPieceType';
+import { Board } from '../../../../src/models/Board';
+import { MovementData } from '../../../../src/models/MovementData';
+import { TestBoardPieceGeometryBuilder } from '../../../mocks/TestBoardPieceGeometryBuilder';
+import { Team } from '../../../../src/models/enums/Team';
+import { FluentMovementDataBuilder } from '../../../../src/business/FluentMovementDataBuilder';
 
 import { Mesh } from 'three';
 import { expect } from 'chai';
@@ -30,9 +31,18 @@ describe('KnightMovementJudge tests', () => {
   	it(`knight can move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
       let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
-      let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
-      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>(), new Array<string>(knight.id));
-      board.get(mvDta.origin).setPiece(knight);
+      let mvDta = FluentMovementDataBuilder
+        .MovementData()
+        .on(board)
+        .from(BoardCoordinate.at(4, 4))
+        .to(destination);
+      let mvDtaMoved = FluentMovementDataBuilder
+        .MovementData()
+        .on(board)
+        .from(BoardCoordinate.at(4, 4))
+        .to(destination)
+        .withMovedPieces(new Array<string>(knight.id));
+      board.set(mvDta.origin, knight);
 
 	    expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.true;
       expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.true;
@@ -52,9 +62,18 @@ describe('KnightMovementJudge tests', () => {
   	it(`knight cannot move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
       let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
-      let mvDta = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
-      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), destination, board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>(), new Array<string>(knight.id));
-      board.get(mvDta.origin).setPiece(knight);
+      let mvDta = FluentMovementDataBuilder
+        .MovementData()
+        .on(board)
+        .from(BoardCoordinate.at(4, 4))
+        .to(destination);
+      let mvDtaMoved = FluentMovementDataBuilder
+        .MovementData()
+        .on(board)
+        .from(BoardCoordinate.at(4, 4))
+        .to(destination)
+        .withMovedPieces(new Array<string>(knight.id));
+      board.set(mvDta.origin, knight);
 
       expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.false;
       expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
@@ -64,10 +83,19 @@ describe('KnightMovementJudge tests', () => {
   it('knight can capture opposite color piece', () => {
       let board = new Board(8, 8);
       let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
-      let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
-      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>(), new Array<string>(knight.id));
-      board.get(mvDta.origin).setPiece(knight);
-      board.get(mvDta.destination).setPiece(new BoardPiece(Team.Black, BoardPieceType.Bishop, pieceGeometry));
+      let mvDta = FluentMovementDataBuilder
+        .MovementData()
+        .on(board)
+        .from(BoardCoordinate.at(4, 4))
+        .to(BoardCoordinate.at(3, 2));
+      let mvDtaMoved = FluentMovementDataBuilder
+        .MovementData()
+        .on(board)
+        .from(BoardCoordinate.at(4, 4))
+        .to(BoardCoordinate.at(3, 2))
+        .withMovedPieces(new Array<string>(knight.id));
+      board.set(mvDta.origin, knight);
+      board.set(mvDta.destination, new BoardPiece(Team.Black, BoardPieceType.Bishop, pieceGeometry));
 
       expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.true;
       expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.true;
@@ -76,10 +104,19 @@ describe('KnightMovementJudge tests', () => {
   it('knight cannot capture same color piece', () => {
       let board = new Board(8, 8);
       let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
-      let mvDta = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>());
-      let mvDtaMoved = new MovementData(BoardCoordinate.at(4, 4), BoardCoordinate.at(3, 2), board, new Array<BoardCoordinate>(), new Array<BoardCoordinate>(), new Array<string>(knight.id));
-      board.get(mvDta.origin).setPiece(knight);
-      board.get(mvDta.destination).setPiece(new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
+      let mvDta = FluentMovementDataBuilder
+        .MovementData()
+        .on(board)
+        .from(BoardCoordinate.at(4, 4))
+        .to(BoardCoordinate.at(3, 2));
+      let mvDtaMoved = FluentMovementDataBuilder
+        .MovementData()
+        .on(board)
+        .from(BoardCoordinate.at(4, 4))
+        .to(BoardCoordinate.at(3, 2))
+        .withMovedPieces(new Array<string>(knight.id));
+      board.set(mvDta.origin, knight);
+      board.set(mvDta.destination, new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
 
       expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.false;
       expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;

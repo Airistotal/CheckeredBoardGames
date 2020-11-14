@@ -1,10 +1,10 @@
-import BoardTile from './BoardTile';
-import BoardCoordinate from './BoardCoordinate';
-import BoardPiece from './BoardPiece';
+import { BoardTile } from './BoardTile';
+import { BoardCoordinate } from './BoardCoordinate';
+import { BoardPiece } from './BoardPiece';
 import { Color, Group, Mesh } from 'three';
-import Team from '../models/enums/Team';
+import { Team } from '../models/enums/Team';
 
-class Board {
+export class Board {
   public boardmap: Map<BoardCoordinate, BoardTile> = new Map<BoardCoordinate, BoardTile>();
   private renderableBoard: Group = new Group();
   private height: number;
@@ -17,7 +17,7 @@ class Board {
     for (var i = 0; i < height; i++) {
       for (var j = 0; j < length; j++) {
         let boardTile =  new BoardTile(Board.getTileColor(i, j), undefined);
-        let boardCoord = new BoardCoordinate(j + 1, i + 1);
+        let boardCoord = BoardCoordinate.at(j + 1, i + 1);
 
         this.boardmap.set(boardCoord, boardTile);
 
@@ -28,30 +28,28 @@ class Board {
 
   private addTileToRenderableBoard(boardTile: BoardTile, tileCoordinate: BoardCoordinate) {
     let renderableTile = boardTile.getRenderableTile();
-    renderableTile.translateY(tileCoordinate.getRow());
-    renderableTile.translateX(tileCoordinate.getCol());
+    renderableTile.translateY(tileCoordinate.row);
+    renderableTile.translateX(tileCoordinate.col);
     renderableTile.userData = tileCoordinate;
 
     this.renderableBoard.add(renderableTile);
   }
 
   public get(coord: BoardCoordinate): BoardPiece | undefined {
-    let foundTile: BoardTile | null = null;
+    let foundTile = this.boardmap.get(coord);
 
-    for (var key in this.boardmap) {
-      if (coord.Equals(coordinate)) {
-        foundTile = tile;
-      }
-    }
-
-    this.boardmap.forEach((tile, coordinate) => {
-      
-    })
-
-    if (foundTile !== null) {
+    if (foundTile) {
       return foundTile.getPiece();
     } else {
       throw new Error(`${coord.toString()} is not a coordinate on the board.`);
+    }
+  }
+
+  public set(coord: BoardCoordinate, piece: BoardPiece | undefined): void {
+    let foundTile = this.boardmap.get(coord);
+
+    if (foundTile) {
+      foundTile.setPiece(piece);
     }
   }
 
@@ -60,8 +58,8 @@ class Board {
 
     this.boardmap.forEach((tile, coord) => {
       let localPiece = tile.getPiece();
-      if (localPiece !== undefined) {
-        logicBoard.get(coord).setPiece(new BoardPiece(localPiece.team, localPiece.type, new Mesh()));
+      if (localPiece) {
+        logicBoard.set(coord, new BoardPiece(localPiece.team, localPiece.type, new Mesh()));
       }
     });
 
@@ -80,5 +78,3 @@ class Board {
     }
   }
 }
-
-export default Board;
