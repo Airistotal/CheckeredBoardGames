@@ -21,7 +21,7 @@ describe("Board tests", () => {
       board.set(BoardCoordinate.at(1, 1), new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh()));
       let tile = board.get(BoardCoordinate.at(1, 1));
 
-      expect(tile).to.be.undefined;
+      expect(tile).to.be.not.undefined;
     });
 
     it("get non-existent coordinate", () => {

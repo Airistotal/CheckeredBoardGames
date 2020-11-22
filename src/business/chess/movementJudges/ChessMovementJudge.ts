@@ -34,7 +34,9 @@ export class ChessMovementJudge implements MovementJudge {
       let movementJudge = this.getMovementJudge(Utilities.getMovementJudgeTypeFor(originPiece.type));
       let checkJudge = this.getMovementJudge(MovementJudgeType.Check);
 
-      return movementJudge.isLegalMove(movementData) && checkJudge.isLegalMove(movementData);
+      return movementJudge.isLegalMove(movementData) &&
+             checkJudge.isLegalMove(movementData) &&
+             this.destinationHasNoPieceOrHasOpponent(movementData);
     } catch(e) {
       console.log(e);
       return false;
@@ -49,5 +51,14 @@ export class ChessMovementJudge implements MovementJudge {
     }
 
     return movementJudge;
+  }
+
+  private destinationHasNoPieceOrHasOpponent(movementData: MovementData) {
+      let originPiece = movementData.board.get(movementData.origin);
+      if (originPiece === undefined) return false;
+
+      let destinationPiece = movementData.board.get(movementData.destination);
+      return destinationPiece === undefined ||
+             originPiece.team !== destinationPiece.team;
   }
 }

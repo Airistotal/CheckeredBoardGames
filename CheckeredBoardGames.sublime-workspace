@@ -4,288 +4,500 @@
 		"selected_items":
 		[
 			[
-				"boa",
-				"BoardPieceType\tscript"
+				"BoardPiece",
+				"BoardPieceType"
 			],
 			[
-				"movemen",
-				"movementJudge\tlet"
+				"Movement",
+				"movementJudges"
 			],
 			[
-				"getmo",
-				"getMovementJudgeTypeFor\twindow.Utilities"
+				"kING",
+				"KingMovementJudge\tscript"
 			],
 			[
-				"getMovem",
-				"getMovementJudgeTypeFor\twindow.Utilities"
-			],
-			[
-				"Movem",
-				"MovementJudgeType\talias"
+				"Ki",
+				"King\tenum member"
 			],
 			[
 				"Moveme",
-				"MovementJudgeType\tscript"
-			],
-			[
-				"Check",
-				"CheckMovementJudge\tscript"
-			],
-			[
-				"Move",
-				"MovementJudgeType\tscript"
-			],
-			[
-				"pieec",
-				"pieceCoord\tparameter"
-			],
-			[
-				"withWhite",
-				"withWhitePiecesOn\twindow.FluentMovementDataBuilder"
-			],
-			[
-				"withwhite",
-				"withWhiteKingOn\twindow.FluentMovementDataBuilder"
-			],
-			[
-				"withBlac",
-				"withBlackPiecesOn\twindow.FluentMovementDataBuilder"
-			],
-			[
-				"moved",
-				"MovementData\twindow.FluentMovementDataBuilder"
-			],
-			[
-				"withblak",
-				"withBlackPiecesOn\twindow.FluentMovementDataBuilder"
+				"MovementJudgeType\talias"
 			],
 			[
 				"movem",
-				"MovementData\twindow.FluentMovementDataBuilder"
-			],
-			[
-				"bla",
-				"blackPieces\tproperty"
-			],
-			[
-				"blac",
-				"blackKing\tproperty"
-			],
-			[
-				"bl",
-				"blackKing\tproperty"
-			],
-			[
-				"white",
-				"whitePieces\tproperty"
-			],
-			[
-				"move",
-				"movedPieces\tproperty"
+				"movementData\tparameter"
 			],
 			[
 				"black",
-				"blackPieces\tproperty"
+				"blackPieceCoords\tproperty"
 			],
 			[
-				"movm",
-				"MovementDataBuilder\tscript"
+				"with",
+				"withAttackingPiecesOn\tmethod"
 			],
 			[
-				"coord",
-				"coordCols\tlet"
+				"wht",
+				"whitePieceCoords\tproperty"
 			],
 			[
-				"defend",
-				"defendingPieceCoords\tproperty"
+				"w",
+				"White\tenum member"
 			],
 			[
-				"isle",
-				"isLegalMove\twindow.BishopMovementJudge"
+				"cl",
+				"cloneBoardForLogic\tmethod"
 			],
 			[
-				"clo",
-				"cloneBoardForLogic\twindow.Board"
+				"ori",
+				"orig\tparameter"
 			],
 			[
-				"can",
-				"canKingMoveOutOfCheck"
+				"o",
+				"origin\tproperty"
 			],
 			[
-				"origi",
-				"originTeam\tparameter"
+				"d",
+				"destinationHasNoPieceOrHasOpponent\tmethod"
 			],
 			[
-				"whti",
-				"whiteKingCoord\tproperty"
-			],
-			[
-				"chess",
-				"chessMovementJudge\tlet"
-			],
-			[
-				"BoardPiece",
-				"BoardPieceType\talias"
-			],
-			[
-				"blackK",
-				"blackKingInCheck\tlet"
-			],
-			[
-				"whitekin",
-				"whiteKingInCheck\tlet"
-			],
-			[
-				"whit",
-				"whiteKingCoord\tlet"
-			],
-			[
-				"BoardPiec",
-				"BoardPieceType\talias"
-			],
-			[
-				"BoardPi",
-				"BoardPiece\talias"
-			],
-			[
-				"logic",
-				"logicBoard\tlet"
+				"des",
+				"destination\tproperty"
 			],
 			[
 				"board",
 				"boardmap\tproperty"
 			],
 			[
-				"enPass",
-				"enPassantGhostCoord\tproperty"
-			],
-			[
-				"ghost",
-				"enPassantGhostCoord\tproperty"
-			],
-			[
-				"enpassa",
-				"enPassantVector\tlet"
-			],
-			[
-				"enPas",
-				"enPassantVector\tlet"
-			],
-			[
-				"enP",
-				"enPassantGhostCoord\tlet"
-			],
-			[
-				"set",
-				"setPiece\twindow.BoardTile"
-			],
-			[
-				"Pawn",
-				"PawnMovementJudge\talias"
-			],
-			[
-				"load",
-				"loadBoard\tmethod"
-			],
-			[
-				"OBject",
-				"Object3D\talias"
-			],
-			[
-				"Bishop",
-				"BishopMovementJudge\tclass"
-			],
-			[
-				"dest",
-				"destination\tparameter"
-			],
-			[
-				"destin",
-				"destinationPiece\tparameter"
-			],
-			[
-				"origin",
-				"originPiece\tlet"
-			],
-			[
-				"Kni",
-				"KnightMovementJudge\tclass"
-			],
-			[
-				"destinat",
-				"destinationTile\tparameter"
-			],
-			[
-				"pawn",
-				"PawnInitialMove\tproperty"
-			],
-			[
-				"destination",
-				"destinationPiece\tlet"
-			],
-			[
-				"desti",
-				"destinationPiece"
-			],
-			[
-				"destina",
-				"destinationTile\tparameter"
-			],
-			[
-				"paw",
-				"PawnAttacks\tproperty"
-			],
-			[
-				"desit",
-				"destinationTile"
-			],
-			[
-				"isValid",
-				"isValidPawnAttack"
-			],
-			[
-				"des",
-				"destinationPiece"
-			],
-			[
-				"PawnMove",
-				"PawnMovementJudge\tclass"
-			],
-			[
-				"eql",
-				"equal\tproperty"
-			],
-			[
-				"l",
-				"LookAtBoard"
-			],
-			[
-				"boar",
-				"BoardCoordinate\tscript"
-			],
-			[
-				"Boa",
-				"BoardPiece\tscript"
-			],
-			[
-				"get",
-				"GetPiece\twindow.BoardTile"
-			],
-			[
-				"Chess",
-				"ChessMediator\tclass"
+				"white",
+				"whitePieceCoords\tproperty"
 			],
 			[
 				"Board",
 				"BoardCoordinate\talias"
 			],
 			[
-				"is",
-				"IsInCol\twindow.BoardCoordinate"
+				"Test",
+				"TestBoardPieceBuilder\tscript"
 			],
 			[
-				"f",
-				"forEach\tmethod"
+				"BoardP",
+				"BoardPieceBuilder\tscript"
+			],
+			[
+				"destin",
+				"destinationPiece\tlet"
+			],
+			[
+				"wh",
+				"whitePieceCoords\tproperty"
+			],
+			[
+				"set",
+				"setPieceCoords\tmethod"
+			],
+			[
+				"attack",
+				"attackingPieces"
+			],
+			[
+				"defend",
+				"defendingPieceCoords\tproperty"
+			],
+			[
+				"BoardBu",
+				"ChessBoardBuilder\tproperty"
+			],
+			[
+				"ab",
+				"AbstractBoardPieceFactory\tproperty"
+			],
+			[
+				"movement",
+				"movementJudgeFactory\tparameter"
+			],
+			[
+				"Move",
+				"MovementJudgeFactory\tproperty"
+			],
+			[
+				"BoardBuild",
+				"BoardBuilderFactory\tproperty"
+			],
+			[
+				"create",
+				"createBoardBuilder\tmethod"
+			],
+			[
+				"Game",
+				"GameStateProcessor\tscript"
+			],
+			[
+				"origin",
+				"originPiece\tlet"
+			],
+			[
+				"proces",
+				"processEnPassant\tmethod"
+			],
+			[
+				"rook",
+				"rookAtDestination\tlet"
+			],
+			[
+				"get",
+				"getCasltingRookOrigin\tmethod"
+			],
+			[
+				"King",
+				"KingMovementJudge\talias"
+			],
+			[
+				"r",
+				"getCasltingRookCoordinate\tmethod"
+			],
+			[
+				"isl",
+				"isLegalFirstMove\tproperty"
+			],
+			[
+				"orig",
+				"origPiece\tlet"
+			],
+			[
+				"dest",
+				"destination\tproperty"
+			],
+			[
+				"move",
+				"movementData\tparameter"
+			],
+			[
+				"isvale",
+				"isValidFirstPawnMove\tmethod"
+			],
+			[
+				"movemen",
+				"movementData\tparameter"
+			],
+			[
+				"piece",
+				"movedPieces\tproperty"
+			],
+			[
+				"kin",
+				"KingMovementJudge\tscript"
+			],
+			[
+				"arepi",
+				"arePiecesInPlaceForKingsideCastle"
+			],
+			[
+				"arp",
+				"arePiecesInPlaceForQueensideCastle"
+			],
+			[
+				"setClear",
+				"setClearColor\tmethod"
+			],
+			[
+				"trans",
+				"translateX\tmethod"
+			],
+			[
+				"setfrom",
+				"setFromObject\tmethod"
+			],
+			[
+				"add",
+				"addOrbitControls\tmethod"
+			],
+			[
+				"Object",
+				"Object3D\talias"
+			],
+			[
+				"Chess",
+				"ChessPieceGeometryFactory\tscript"
+			],
+			[
+				"testab",
+				"TestAbstractBoardPieceGeometryFactory\tscript"
+			],
+			[
+				"TestBoard",
+				"TestBoardPieceFactory\tscript"
+			],
+			[
+				"crea",
+				"createBoardPieceGeometryFactory\tmethod"
+			],
+			[
+				"c",
+				"chessPieceFactory"
+			],
+			[
+				"Abstr",
+				"AbstractBoardPieceFactory\talias"
+			],
+			[
+				"Testb",
+				"TestBoardPieceFactory\tscript"
+			],
+			[
+				"BoardPi",
+				"BoardPieceFactory"
+			],
+			[
+				"creat",
+				"createBoardPiece\tmethod"
+			],
+			[
+				"TEst",
+				"TestBoardPieceGeometryFactory\tscript"
+			],
+			[
+				"b",
+				"boardPieceGeometryFactory\tproperty"
+			],
+			[
+				"boardpi",
+				"BoardPieceGeometryFactory\tproperty"
+			],
+			[
+				"B",
+				"Bishop\tenum member"
+			],
+			[
+				"Ba",
+				"BoardPieceType\tscript"
+			],
+			[
+				"BoardGame",
+				"BoardGameScene"
+			],
+			[
+				"toF",
+				"toFunction\tmethod"
+			],
+			[
+				"to",
+				"toSelf\tmethod"
+			],
+			[
+				"on",
+				"onClickCallback\tproperty"
+			],
+			[
+				"rend",
+				"renderer\tproperty"
+			],
+			[
+				"gamem",
+				"gameMediatorFactory\tparameter"
+			],
+			[
+				"game",
+				"gameMediator\tproperty"
+			],
+			[
+				"gameMida",
+				"GameMediatorFactory"
+			],
+			[
+				"inject",
+				"injectable\talias"
+			],
+			[
+				"testmove",
+				"TestMovementJudgeFactory\tscript"
+			],
+			[
+				"testbo",
+				"TestBoardBuilderFactory\tscript"
+			],
+			[
+				"test",
+				"TestMovementJudgeFactory"
+			],
+			[
+				"is",
+				"isLegalFirstMove\tproperty"
+			],
+			[
+				"chess",
+				"ChessMovementJudge\tscript"
+			],
+			[
+				"Ches",
+				"ChessMediator\tscript"
+			],
+			[
+				"mos",
+				"onMouseClick\tmethod"
+			],
+			[
+				"at",
+				"addRaycasterMouseControl\tmethod"
+			],
+			[
+				"getelem",
+				"getElementsByTagName\tmethod"
+			],
+			[
+				"rot",
+				"rotateX\tmethod"
+			],
+			[
+				"degree",
+				"degrees_to_radians"
+			],
+			[
+				"ro",
+				"rotateX\tmethod"
+			],
+			[
+				"tileMes",
+				"tileMeshGroup\tproperty"
+			],
+			[
+				"tilem",
+				"tileMeshGroup\tproperty"
+			],
+			[
+				"ad",
+				"addLight\tmethod"
+			],
+			[
+				"red",
+				"renderer\tproperty"
+			],
+			[
+				"BoardG",
+				"boardGameControls"
+			],
+			[
+				"setup",
+				"setupRayCaster"
+			],
+			[
+				"Ray",
+				"Raycaster\tclass"
+			],
+			[
+				"ray",
+				"raycaster"
+			],
+			[
+				"WebGLRed",
+				"WebGLRenderer\talias"
+			],
+			[
+				"pla",
+				"placeWhitePieces\tmethod"
+			],
+			[
+				"ches",
+				"chessPieceMovementJudgeFactory\tproperty"
+			],
+			[
+				"origi",
+				"originPiece\tlet"
+			],
+			[
+				"Boardpi",
+				"BoardPieceType\talias"
+			],
+			[
+				"BoardPei",
+				"BoardPieceType\talias"
+			],
+			[
+				"desti",
+				"destinationPiece\tlet"
+			],
+			[
+				"n",
+				"normalize\tmethod"
+			],
+			[
+				"Rook",
+				"RookMovementJudge\talias"
+			],
+			[
+				"Bishop",
+				"BishopMovementJudge\talias"
+			],
+			[
+				"Queen",
+				"QueenMovementJudge\talias"
+			],
+			[
+				"queen",
+				"QueenMovementJudge"
+			],
+			[
+				"clam",
+				"clampScalar\tmethod"
+			],
+			[
+				"Paw",
+				"PawnMovementJudge\tscript"
+			],
+			[
+				"Pawn",
+				"PawnMovementJudge\talias"
+			],
+			[
+				"first",
+				"firstmove\tlet"
+			],
+			[
+				"Bo",
+				"BoardPiece\tscript"
+			],
+			[
+				"Movem",
+				"MovementJudgeAlwaysTrue\tclass"
+			],
+			[
+				"destina",
+				"destinationPiece\tlet"
+			],
+			[
+				"destination",
+				"destinationPiece\tparameter"
+			],
+			[
+				"norm",
+				"normalizeVectorForPiece"
+			],
+			[
+				"bard",
+				"BoardPiece\tscript"
+			],
+			[
+				"bo",
+				"BoardPieceType"
+			],
+			[
+				"throw",
+				"throwErr\tlet"
+			],
+			[
+				"IsI",
+				"IsInRow\tmethod"
+			],
+			[
+				"eq",
+				"equal\tproperty"
+			],
+			[
+				"Bor",
+				"BoardCoordinate\tscript"
+			],
+			[
+				"equ",
+				"equals\tproperty"
 			],
 			[
 				"stock",
@@ -302,49 +514,17 @@
 			[
 				"leads",
 				"leads_per_form"
-			],
-			[
-				"leads_per",
-				"leads_per_form_paged"
-			],
-			[
-				"click",
-				"clickEnabled"
-			],
-			[
-				"EXP",
-				"expToLevel"
-			],
-			[
-				"add",
-				"addExp"
-			],
-			[
-				"anima",
-				"animation-play-state\tproperty"
-			],
-			[
-				"inlin",
-				"inline-block\tdisplay"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "tests/business/chess/movementJudges/ChessMovementJudge.test.ts",
+			"file": "src/business/chess/movementJudges/CheckMovementJudge.ts",
 			"settings":
 			{
-				"buffer_size": 3421,
+				"buffer_size": 2983,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/business/chess/movementJudges/ChessMovementJudge.ts",
-			"settings":
-			{
-				"buffer_size": 2190,
 				"line_ending": "Windows"
 			}
 		},
@@ -352,7 +532,8 @@
 			"file": "tests/business/chess/movementJudges/CheckMovementJudge.test.ts",
 			"settings":
 			{
-				"buffer_size": 4473,
+				"buffer_size": 4918,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		}
@@ -385,8 +566,20 @@
 		"selected_items":
 		[
 			[
+				"githu",
+				"Github: Repository"
+			],
+			[
+				"github",
+				"Github: Repository"
+			],
+			[
+				"git",
+				"Package Control: Install Package"
+			],
+			[
 				"pci",
-				"Preferences: Settings – Syntax Specific"
+				"Package Control: Install Package"
 			],
 			[
 				"cpi",
@@ -421,156 +614,157 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/movementJudges"
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/enums",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges"
 	],
 	"file_history":
 	[
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/CheckMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/Utilities.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/ChessMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/enums/MovementJudgeType.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/initialization/Bootstrapper.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/models/Board.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessStateProcessor.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessMediator.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/movementJudges/ChessMovementJudge.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/ChessStateProcessor.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/movementJudges/RookMovementJudge.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/movementJudges/QueenMovementJudge.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/movementJudges/KnightMovementJudge.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/movementJudges/KingMovementJudge.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/movementJudges/CheckMovementJudge.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/movementJudges/BishopMovementJudge.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/initialization/IOCTypes.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/MovementData.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/FluentMovementDataBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/movementJudges/PawnMovementJudge.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestBoardPieceGeometryBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/ChessBoardBuilder.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/ChessMediator.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/ChessPieceBuilder.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TargetedMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestBoardBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestBoardPieceBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestStateProcessor.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/models/BoardCoordinate.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/models/BoardPiece.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/models/BoardTile.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/presentation/BoardGameControls.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/presentation/BoardGameScene.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/presentation/SceneMediator.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/Main.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/BoardTile.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/BoardPiece.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/BoardCoordinate.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/Board.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessPieceBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessPieceGeometryBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/BoardBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/BoardPieceBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/BoardPieceGeometryBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/GameMediator.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/GameStateProcessor.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/MovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/enums/BoardPieceType.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/enums/GameType.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/enums/Team.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/KnightMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/BishopMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/KingMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/PawnMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/QueenMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/movementJudges/RookMovementJudge.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessBoardBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/MovementDataBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/MovementDataBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/FluentMovementDataBuilder.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TargetedPieceMovementJudgeFactory.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestPieceMovementJudgeFactory.ts",
-		"/C/Users/Daniel/Documents/Neighbourhoods to look at.txt",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/public/style.css",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/public/index.html",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/GameMediatorFactory.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessPieceGeometryFactory.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestBoardPieceFactory.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/chess/ChessPieceFactory.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocks/TestBoardPieceGeometryFactory.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/BoardPieceGeometryFactory.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/loaders/STLLoader.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/node_modules/three/src/core/BufferGeometry.d.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/package.json",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/lib/STLLoader.d.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/lib/STLLoader.js",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/node_modules/three/examples/jsm/loaders/STLLoader.js",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tsconfig.json",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/mocha.opts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/node_modules/three/examples/jsm/loaders/OBJLoader.js",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/node_modules/three/examples/jsm/loaders/OBJLoader.d.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/lib/OBJLoader.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/chess/ChessPieceMovementJudgeFactory.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/.gitignore",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/ChessMediator.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/tests/business/ChessMediator.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/PieceFactory.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/IBoardFactory.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/business/BoardFactory.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/README.md",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/built/src/models/Board.js",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/built/tests/models/Board.test.js",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/built/Board.js",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/CheckeredBoardGames.sublime-project",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/env.bat",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/.sublime-project.sublime-workspace",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/.sublime-project",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/tests/models/BoardCoordinate.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/tests/models/BoardTile.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/tests/models/Board.test.ts",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/src/models/BoardCoordinate.js",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/CheckeredBoardGames/tsconfig.json",
-		"/C/Users/Daniel/source/repos/CheckeredBoardGames/CheckeredBoardGames/src/models/BoardTile.js",
-		"/C/Users/Daniel/source/repos/Airistotal.github.io/pages/stock-ticker.html",
-		"/C/Users/Daniel/source/repos/Airistotal.github.io/js/links.js",
-		"/C/Users/Daniel/source/repos/Airistotal.github.io/pages/portfolio.html",
-		"/C/Users/Daniel/source/repos/Airistotal.github.io/js/stock-ticker.js",
-		"/C/Users/Daniel/source/repos/Airistotal.github.io/pages/ticker/ticker.html",
-		"/C/Users/Daniel/source/repos/Airistotal.github.io/pages/ticker/js/keyboard.js",
-		"/C/Users/Daniel/source/repos/Airistotal.github.io/web.config",
-		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/src/ticker.html",
-		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/src/js/stockselector.js",
-		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/fs_installer",
-		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/autostart",
-		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/src/js/keyboard.js",
-		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/src/css/keyboard.css",
-		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/src/css/ticker.css",
-		"/C/Users/Daniel/source/repos/IOT.StockTicker.Web/ticker.html",
-		"/C/Users/Daniel/Desktop/testing.html",
-		"/C/Users/Daniel/AppData/Roaming/.technic/modpacks/blightfall/config/InvTweaksRules.txt",
-		"/C/Users/Daniel/Downloads/stg24api.txt",
-		"/C/Users/Daniel/Desktop/2020065AzN-Artifacts/appsettings.Development.json",
-		"/C/Users/Daniel/AppData/Local/Temp/Temp1_Artifacts.zip/aws-windows-deployment-manifest.json",
-		"/C/Users/Daniel/Desktop/2020065AzN-Artifacts/aws-windows-deployment-manifest.json",
-		"/C/Users/Daniel/Desktop/2020065AzN-Artifacts/appsettings.json",
-		"/C/Users/Daniel/Desktop/2020065AzN-Artifacts/appsettings.Production.json",
-		"/C/Users/Daniel/Desktop/2020096vcn-Artifacts/appsettings.Development.json"
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/enums/BoardPieceType.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/enums/MovementJudgeType.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessMediator.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/enums/GameType.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/FluentMovementDataBuilder.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/MovementDataBuilder.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/MovementData.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/CheckMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/ChessMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/ChessMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/BishopMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/Board.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/MovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/Board.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/BoardCoordinate.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/CheckMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/BoardCoordinate.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/KnightMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/KingMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/BishopMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TargetedMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/PawnMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/QueenMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/RookMovementJudge.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessPieceBuilder.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/BoardPiece.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessPieceBuilder.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/GameMediator.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/GameStateProcessor.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/PawnMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/BoardTile.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/initialization/Bootstrapper.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessMediator.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestBoardBuilder.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestBoardPieceBuilder.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestStateProcessor.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessStateProcessor.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessStateProcessor.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/BoardPiece.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/enums/Team.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessBoardBuilder.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/chess/ChessBoardBuilder.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/chess/ChessMediator.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/chess/ChessStateProcessor.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/chess/movementJudges/ChessMovementJudge.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/chess/movementJudges/PawnMovementJudge.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/models/Board.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/models/BoardPiece.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/business/chess/ChessMediator.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/business/chess/ChessPieceBuilder.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/business/chess/ChessStateProcessor.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/business/chess/movementJudges/BishopMovementJudge.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/business/chess/movementJudges/ChessMovementJudge.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/business/chess/movementJudges/KingMovementJudge.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/business/chess/movementJudges/KnightMovementJudge.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/business/chess/movementJudges/PawnMovementJudge.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/business/chess/movementJudges/QueenMovementJudge.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/business/chess/movementJudges/RookMovementJudge.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/mocks/TestBoardBuilder.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/models/BoardTile.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/@jest/types/node_modules/color-name/index.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/@types/jquery/JQueryStatic.d.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/@types/jquery/JQuery.d.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/ansi-colors/package.json",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/color-name/index.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/expect/node_modules/color-name/index.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/jest-diff/node_modules/color-name/index.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/jest-matcher-utils/node_modules/color-name/index.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/jest-message-util/node_modules/color-name/index.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/log-symbols/node_modules/color-name/index.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/pretty-format/node_modules/color-name/index.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/three/examples/js/libs/opentype.min.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/three/examples/jsm/libs/opentype.module.min.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/require-directory/.jshintrc",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/node_modules/three/examples/js/libs/timeliner_gui.min.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/BoardPieceBuilder.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessPieceGeometryBuilder.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/initialization/Bootstrapper.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/chess/ChessPieceGeometryFactory.js.map",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/chess/ChessPieceGeometryFactory.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/chess/ChessPieceGeometryBuilder.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/initialization/IOCTypes.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/models/BoardPiece.test.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/mocks/TestBoardPieceGeometryFactory.js.map",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/tests/mocks/TestBoardPieceGeometryFactory.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/initialization/IOCTypes.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/chess/ChessPieceBuilder.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/BoardPieceGeometryFactory.js.map",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/business/BoardPieceGeometryFactory.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestBoardPieceGeometryFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/BoardPieceGeometryFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessBoardBuilder.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestBoardPieceFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessPieceGeometryFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/KingMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessPieceFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/QueenMovementJudge.ts",
+		"/C/Users/danie/AppData/Roaming/Sublime Merge/Packages/User/Preferences.sublime-settings",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessPieceMovementJudgeFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/MovementJudgeFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/MovementJudgeFactory.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation/SceneMediator.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessPieceFactory.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/GameMediatorFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/GameMediatorFactory.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/BoardBuilderFactory.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/BoardBuilderFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestMovementJudgeFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/AbstractBoardPieceGeometryFactory.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/AbstractBoardPieceGeometryFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessBoardFactory.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/BoardPieceFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestAbstractBoardPieceFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/IMovementJudgeFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/AbstractBoardPieceFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation/BoardGameScene.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/GameStateProcessorFactory.test.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/GameStateProcessorFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/IGameStateProcessorFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestBoardBuilderFactory.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/RookMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/KnightMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/presentation/BoardGameControls.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/package.json",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/webpack.config.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/Main.js",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/built/src/index.html"
 	],
 	"find":
 	{
-		"height": 28.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 101.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -578,8 +772,30 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"board",
-			"script"
+			"\"black\"",
+			"\"white\"",
+			"Team.White",
+			"team",
+			"ChessPieceGeometryFactory",
+			"BoardPieceGeometryFactory",
+			"ChessPieceFactory",
+			"AbstractBoardPieceFactory",
+			"BoardPieceFactory",
+			";\n",
+			"}\n",
+			"GameType",
+			"black",
+			");\n",
+			"GetPiece",
+			"setPiece",
+			"GetPiece",
+			"();\n",
+			"render(",
+			"three",
+			"\"],\n",
+			"2",
+			"void",
+			"queenMovementJudge"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -587,6 +803,16 @@
 		"regex": false,
 		"replace_history":
 		[
+			"Team.Black",
+			"Team.White",
+			"\"white\"",
+			"",
+			"ChessPieceGeometryBuilder",
+			"BoardPieceGeometryBuilder",
+			"getPiece",
+			"setPiece",
+			"getPiece",
+			"kingMovementJudge"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -597,53 +823,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "tests/business/chess/movementJudges/ChessMovementJudge.test.ts",
+					"file": "src/business/chess/movementJudges/CheckMovementJudge.ts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3421,
+						"buffer_size": 2983,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1793,
-								1793
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 342.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/business/chess/movementJudges/ChessMovementJudge.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2190,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1478,
-								1478
+								1514,
+								1514
 							]
 						],
 						"settings":
@@ -651,30 +848,36 @@
 							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": true,
+								"indentSize": 2,
+								"tabSize": 2
+							},
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 228.0,
+						"translation.y": 162.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 1,
 					"file": "tests/business/chess/movementJudges/CheckMovementJudge.test.ts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4473,
+						"buffer_size": 4918,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								4918,
+								4918
 							]
 						],
 						"settings":
@@ -682,13 +885,19 @@
 							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": true,
+								"indentSize": 2,
+								"tabSize": 2
+							},
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1674.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -696,11 +905,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 28.0
+		"height": 27.0
 	},
 	"input":
 	{
-		"height": 40.8
+		"height": 40.0
 	},
 	"layout":
 	{
@@ -731,7 +940,7 @@
 	},
 	"output.exec":
 	{
-		"height": 268.0
+		"height": 301.0
 	},
 	"output.find_results":
 	{
@@ -741,7 +950,7 @@
 	"project": "CheckeredBoardGames.sublime-project",
 	"replace":
 	{
-		"height": 52.0
+		"height": 50.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -761,7 +970,7 @@
 		[
 			[
 				"",
-				"C:\\Users\\Daniel\\source\\repos\\CheckeredBoardGames\\.sublime-project.sublime-workspace"
+				"C:\\Users\\danie\\Documents\\Repositories\\Airistotal.github.io\\Airistotal.github.io.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -783,7 +992,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 332.0,
+	"side_bar_width": 300.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

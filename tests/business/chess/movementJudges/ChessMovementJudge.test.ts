@@ -40,6 +40,8 @@ describe('ChessMovementJudge tests', async () => {
       .from(BoardCoordinate.at(5, 8))
       .to(BoardCoordinate.at(9, 9));
 
+    debugger;
+    
 		let moveSucces = chessMovementJudge.isLegalMove(mvDta);
 
 		expect(moveSucces).to.be.false;

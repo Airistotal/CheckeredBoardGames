@@ -8,23 +8,31 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-export class FluentMovementDataBuilder implements MovementDataBuilder {
+export class FluentMovementDataBuilder {
   public origin: BoardCoordinate = BoardCoordinate.at(0, 0);
   public destination: BoardCoordinate = BoardCoordinate.at(0, 0);
   public board: Board = new Board(0, 0);
   public movedPieces: Array<string> = new Array<string>();
-  public whiteKing: BoardCoordinate = BoardCoordinate.at(0, 0);
-  public whitePieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
-  public blackKing: BoardCoordinate = BoardCoordinate.at(0, 0);
-  public blackPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
+  public defendingKing: BoardCoordinate = BoardCoordinate.at(0, 0);
+  public attackingPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
 
   public static MovementData(): FluentMovementDataBuilder {
       return new FluentMovementDataBuilder();
   }
 
+  public shallowClone(orig: MovementData): FluentMovementDataBuilder {
+    this.origin = orig.origin;
+    this.destination = orig.destination;
+    this.board = orig.board;
+    this.movedPieces = orig.movedPieces;
+    this.defendingKing = orig.defendingKing;
+    this.attackingPieces = orig.attackingPieces;
+    return this;
+  }
+
   public from(origin: BoardCoordinate): FluentMovementDataBuilder {
-      this.origin = origin; 
-      return this; 
+      this.origin = origin;
+      return this;
   }
 
   public to(destination: BoardCoordinate): FluentMovementDataBuilder {
@@ -42,23 +50,13 @@ export class FluentMovementDataBuilder implements MovementDataBuilder {
     return this;
   }
 
-  public withWhiteKingOn(coord: BoardCoordinate): FluentMovementDataBuilder {
-    this.whiteKing = coord;
+  public withDefendingKingOn(coord: BoardCoordinate): FluentMovementDataBuilder {
+    this.defendingKing = coord;
     return this;
   }
 
-  public withWhitePiecesOn(coords: Array<BoardCoordinate>): FluentMovementDataBuilder {
-    this.whitePieces = coords;
-    return this;
-  }
-
-  public withBlackKingOn(coord: BoardCoordinate): FluentMovementDataBuilder {
-    this.blackKing = coord;
-    return this;
-  }
-
-  public withBlackPiecesOn(coords: Array<BoardCoordinate>): FluentMovementDataBuilder {
-    this.blackPieces = coords;
+  public withAttackingPiecesOn(coords: Array<BoardCoordinate>): FluentMovementDataBuilder {
+    this.attackingPieces = coords;
     return this;
   }
 
