@@ -1,4 +1,3 @@
-import { MovementDataBuilder } from './MovementDataBuilder';
 import { MovementData } from '../models/MovementData';
 import { BoardCoordinate } from '../models/BoardCoordinate';
 import { Board } from '../models/Board';

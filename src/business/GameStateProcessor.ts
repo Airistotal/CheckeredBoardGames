@@ -1,7 +1,5 @@
-import { Board } from '../models/Board';
-import { MovementData } from '../models/MovementData';
-import { Team } from '../models/enums/Team';
+import { AttackData } from '../models/AttackData';
 
 export interface GameStateProcessor {
-  isGameOverForTeam(board: Board, team: Team): boolean;
+  isGameOver(attackData: AttackData): boolean;
 }

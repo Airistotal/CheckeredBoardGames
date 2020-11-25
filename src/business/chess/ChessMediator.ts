@@ -23,10 +23,10 @@ import "reflect-metadata";
 export class ChessMediator implements GameMediator {
   private board!: Board;
   private readonly movedPieces: Array<string>;
-  private whitePieceCoords!: Array<BoardCoordinate>;
-  private blackPieceCoords!: Array<BoardCoordinate>;
-  private whiteKingCoord!: BoardCoordinate;
-  private blackKingCoord!: BoardCoordinate;
+  public whitePieceCoords!: Array<BoardCoordinate>;
+  public blackPieceCoords!: Array<BoardCoordinate>;
+  public whiteKingCoord!: BoardCoordinate;
+  public blackKingCoord!: BoardCoordinate;
   private currentTeamTurn: Team = Team.White;
   private enPassantGhost = new BoardPiece(Team.Ghost, BoardPieceType.Pawn, new Mesh());
   private enPassantGhostCoord: BoardCoordinate | undefined;

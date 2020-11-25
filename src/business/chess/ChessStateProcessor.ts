@@ -104,28 +104,4 @@ export class ChessStateProcessor implements GameStateProcessor {
 
     return movementJudge;
   }
-
-  public logMove(board: Board, mvDta: MovementData): void {
-    this.changePlayingTeam();
-  }
-
-  private changePlayingTeam() {
-    if (this.playingTeam === Team.White) {
-      this.playingTeam = Team.Black;
-    } else {
-      this.playingTeam = Team.White;
-    }
-  }
-
-  public getScore(): string {
-    return "-1";
-  }
-
-  public getMoveHistory(): string {
-    return "hist";
-  }
-
-  public whoseTurnIsIt(): Team {
-    return this.playingTeam;
-  }
 }

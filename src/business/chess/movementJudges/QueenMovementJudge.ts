@@ -3,6 +3,11 @@ import { BishopMovementJudge } from '../../chess/movementJudges/BishopMovementJu
 import { RookMovementJudge } from '../../chess/movementJudges/RookMovementJudge';
 import { MovementData } from '../../../models/MovementData';
 
+import { IOCTypes } from '../../initialization/IOCTypes';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+
+@injectable()
 export class QueenMovementJudge implements MovementJudge {
   private readonly bishopMovementJudge: BishopMovementJudge;
   private readonly rookMovementJudge: RookMovementJudge;

@@ -60,7 +60,7 @@ export class CheckMovementJudge implements MovementJudge {
           .to(movementData.defendingKing)
           .build();
 
-        check = movementJudge.isLegalMove(mvDta);
+        check = movementJudge.isLegalMove(mvDta) || check;
       }
     });
 

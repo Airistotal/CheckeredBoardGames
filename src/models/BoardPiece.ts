@@ -30,8 +30,6 @@ export class BoardPiece {
   }
 
   private setTeamSpecifics() {
-
-
     (<MeshPhongMaterial>(<Mesh>this.pieceMesh).material).color.set(this.getColorForTeam());
 
     if (this.type === BoardPieceType.Knight && this.team === Team.White) {

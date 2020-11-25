@@ -118,5 +118,26 @@ describe('ChessMediator tests', () => {
 			(type: GameType) => new TestStateProcessor());
 
 		await mediator.loadBoard();
+
+		debugger;
+
+		mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
+
+		let found = false;
+		mediator.whitePieceCoords.forEach((coord) => {
+			if (coord === BoardCoordinate.at(1, 3)) {
+				found = true;
+			}
+		});
+
+		let coordNotIn = true;
+		mediator.whitePieceCoords.forEach((coord) => {
+			if (coord === BoardCoordinate.at(1, 2)) {
+				coordNotIn = false;
+			}
+		});
+
+		expect(found).to.be.true;
+		expect(coordNotIn).to.be.true;
 	});
 });

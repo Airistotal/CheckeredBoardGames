@@ -4,6 +4,11 @@ import { Board } from '../../../models/Board';
 import { MovementData } from '../../../models/MovementData';
 import { Vector2 } from 'three';
 
+import { IOCTypes } from '../../initialization/IOCTypes';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+
+@injectable()
 export class BishopMovementJudge implements MovementJudge {
 	private static BishopMove = new Vector2(1, 1);
 

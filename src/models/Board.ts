@@ -72,9 +72,9 @@ export class Board {
 
   private static getTileColor(row: number, col: number) {
     if ((row + col) % 2 === 0) {
-      return new Color(Team.Black);
+      return new Color("black");
     } else {
-      return new Color(Team.White);
+      return new Color("white");
     }
   }
 }

@@ -8,6 +8,11 @@ import { Board } from '../../../models/Board';
 import { MovementData } from '../../../models/MovementData';
 import { Vector2 } from 'three';
 
+import { IOCTypes } from '../../initialization/IOCTypes';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+
+@injectable()
 export class PawnMovementJudge implements MovementJudge {
   private static PawnMove = new Vector2(0, 1);
   private static PawnInitialMove = new Vector2(0, 2);

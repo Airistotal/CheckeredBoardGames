@@ -11,7 +11,6 @@ import { GameMediator } from '../GameMediator';
 import { ChessPieceGeometryBuilder } from '../chess/ChessPieceGeometryBuilder';
 import { BoardPieceGeometryBuilder } from '../BoardPieceGeometryBuilder';
 import { MovementJudge } from '../MovementJudge';
-import { MovementDataBuilder } from '../MovementDataBuilder';
 import { FluentMovementDataBuilder } from '../FluentMovementDataBuilder';
 import { ChessMovementJudge } from '../chess/movementJudges/ChessMovementJudge';
 import { GameStateProcessor } from '../GameStateProcessor';
@@ -37,7 +36,6 @@ export class Bootstrapper {
     this.container = new Container();
 
     this.container.bind<BoardGameScene>(IOCTypes.BoardGameScene).to(BoardGameScene);
-    this.container.bind<MovementDataBuilder>(IOCTypes.MovementDataBuilder).to(FluentMovementDataBuilder);
 
     this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(ChessMovementJudge).whenTargetNamed(GameType.Chess);
     this.container.bind<interfaces.Factory<MovementJudge>>(IOCTypes.MovementJudgeFactory)
@@ -57,7 +55,7 @@ export class Bootstrapper {
     this.container.bind<interfaces.Factory<MovementJudge>>(IOCTypes.PieceMovementJudgeFactory)
                   .toFactory<MovementJudge>((context) => {
                     return (type: MovementJudgeType) => {
-                      return context.container.getNamed<MovementJudge>(IOCTypes.PieceMovementJudgeFactory, `${type}${GameType.Chess}`);
+                      return context.container.getNamed<MovementJudge>(IOCTypes.MovementJudge, `${type}${GameType.Chess}`);
                     };
                   })
                   .whenTargetNamed(GameType.Chess);

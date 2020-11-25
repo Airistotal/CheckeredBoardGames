@@ -5,6 +5,11 @@ import { MovementData } from '../../../models/MovementData';
 import { BoardPieceType } from '../../../models/enums/BoardPieceType';
 import { Vector2 } from 'three';
 
+import { IOCTypes } from '../../initialization/IOCTypes';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+
+@injectable()
 export class KingMovementJudge implements MovementJudge {
   private static KingMoves = [new Vector2(0, 1), new Vector2(1, 0), new Vector2(1, 1)];
   private static Castling = new Vector2(2,  0);

@@ -6,6 +6,11 @@ import { Board } from '../../../models/Board';
 import { MovementData } from '../../../models/MovementData';
 import { Vector2 } from 'three';
 
+import { IOCTypes } from '../../initialization/IOCTypes';
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+
+@injectable()
 export class KnightMovementJudge implements MovementJudge {
 	private static KnightMoves = [new Vector2(2, 1), new Vector2(1, 2)];
 
