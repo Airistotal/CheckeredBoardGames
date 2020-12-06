@@ -10,39 +10,53 @@ import "reflect-metadata";
 
 @injectable()
 export class BishopMovementJudge implements MovementJudge {
-	private static BishopMove = new Vector2(1, 1);
-
   public isLegalMove(movementData: MovementData): boolean {
-  	let originPiece = movementData.board.get(movementData.origin);
-  	if (originPiece === undefined) return false;
+    let possibleMoves = this.getPossibleMoves(movementData);
 
-  	let moveVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
-  	let destinationPiece = movementData.board.get(movementData.destination);
-
-    return BishopMovementJudge.BishopMove.equals(this.getAbsoluteVectorForBishop(moveVector)) &&
-    			 this.missOtherPieces(movementData.origin, movementData.destination, movementData.board) &&
-    			 (destinationPiece === undefined || originPiece.team !== destinationPiece.team);
+    return possibleMoves.includes(movementData.destination);
   }
 
-  private missOtherPieces(origin: BoardCoordinate, destination: BoardCoordinate, board: Board): boolean {
-    let moveVector = BoardCoordinate.getVector(origin, destination).clampScalar(-1, 1);
-    let originVector = BoardCoordinate.getVector(BoardCoordinate.at(0, 0), origin);
-    let destinationVector = BoardCoordinate.getVector(BoardCoordinate.at(0, 0), destination);
+  public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
+    let possibleMoves = new Array<BoardCoordinate>();
 
-    originVector = originVector.add(moveVector);
-    while (!originVector.equals(destinationVector)) {
-      let targetPiece = board.get(BoardCoordinate.at(originVector.x, originVector.y));
-      if (targetPiece !== undefined) {
-        return false;
+    possibleMoves.concat(
+      this.getCoords(movementData, (col: number) => col++, (row: number) =>row++));
+    possibleMoves.concat(
+      this.getCoords(movementData, (col: number) => col++, (row: number) =>row--));
+    possibleMoves.concat(
+      this.getCoords(movementData, (col: number) => col--, (row: number) =>row++));
+    possibleMoves.concat(
+      this.getCoords(movementData, (col: number) => col--, (row: number) =>row--));
+
+    return possibleMoves;
+  }
+
+  private getCoords(movementData: MovementData, incrementCol: Function, incrementRow: Function): Array<BoardCoordinate> {
+    let possibleMoves = new Array<BoardCoordinate>();
+    let originPiece = movementData.board.get(movementData.origin);
+    if (originPiece === undefined) return possibleMoves;
+
+    var currCol = incrementCol(movementData.origin.col);
+    var currRow = incrementRow(movementData.origin.row);
+
+    while (currCol < 9 && currRow < 9 && currCol > 0 && currRow > 0) {
+      let testCoord = BoardCoordinate.at(currCol, currRow);
+
+      let destinationPiece = movementData.board.get(testCoord)
+      if (destinationPiece !== undefined) {
+        if (destinationPiece.team !== originPiece.team) {
+          possibleMoves.push(testCoord);
+        }
+
+        break;
       }
 
-      originVector = originVector.add(moveVector);
+      possibleMoves.push(testCoord);
+
+      currCol = incrementCol(currCol);
+      currRow = incrementRow(currRow);
     }
 
-    return true;
-  }
-
-  private getAbsoluteVectorForBishop(moveVector: Vector2) {
-  	return new Vector2(Math.abs(moveVector.x / moveVector.x), Math.abs(moveVector.y / moveVector.x));
+    return possibleMoves;
   }
 }

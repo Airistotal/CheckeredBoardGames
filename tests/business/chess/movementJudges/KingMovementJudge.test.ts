@@ -171,4 +171,49 @@ describe('KingMovementJudge tests', () => {
     expect(kingMovementJudge.isLegalMove(mvDta)).to.be.true;
     expect(kingMovementJudge.isLegalMove(mvDtaMoved)).to.be.true;
   });
+
+  it(`King can move everywhere with attack, get possible moves`, () => {
+    let board = new Board(8, 8);
+    let king = new BoardPiece(Team.Black, BoardPieceType.King, pieceGeometry)
+    let mvDta = FluentMovementDataBuilder
+      .MovementData()
+      .on(board)
+      .from(BoardCoordinate.at(4, 4))
+      .withMovedPieces(new Array<string>(king.id));
+
+    board.set(mvDta.origin, king);
+    board.set(BoardCoordinate.at(4, 3), new BoardPiece(Team.White, BoardPieceType.Rook, pieceGeometry));
+
+    expect(kingMovementJudge.getPossibleMoves(mvDta).length).to.be.equal(8);
+  });
+
+  it(`King can move everywhere except one, get possible moves`, () => {
+    let board = new Board(8, 8);
+    let king = new BoardPiece(Team.Black, BoardPieceType.King, pieceGeometry)
+    let mvDta = FluentMovementDataBuilder
+      .MovementData()
+      .on(board)
+      .from(BoardCoordinate.at(4, 4))
+      .withMovedPieces(new Array<string>(king.id));
+
+    board.set(mvDta.origin, king);
+    board.set(BoardCoordinate.at(4, 3), new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
+
+    expect(kingMovementJudge.getPossibleMoves(mvDta).length).to.be.equal(7);
+  });
+
+  it(`King can move everywhere and castling, get possible moves`, () => {
+    let board = new Board(8, 8);
+    let king = new BoardPiece(Team.Black, BoardPieceType.King, pieceGeometry)
+    let mvDta = FluentMovementDataBuilder
+      .MovementData()
+      .on(board)
+      .from(BoardCoordinate.at(5, 4));
+
+    board.set(mvDta.origin, king);
+    board.set(BoardCoordinate.at(8, 4), new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
+    board.set(BoardCoordinate.at(1, 4), new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
+
+    expect(kingMovementJudge.getPossibleMoves(mvDta).length).to.be.equal(10);
+  });
 });

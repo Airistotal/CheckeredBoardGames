@@ -43,6 +43,16 @@ export class ChessMovementJudge implements MovementJudge {
     }
   }
 
+  public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
+    let possibleMoves = new Array<BoardCoordinate>();
+    let originPiece = movementData.board.get(movementData.origin);
+    if (originPiece === undefined) return possibleMoves;
+
+    let mvJudge = this.getMovementJudge(Utilities.getMovementJudgeTypeFor(originPiece.type));
+
+    return mvJudge.getPossibleMoves(movementData);
+  }
+
   private getMovementJudge(type: MovementJudgeType) {
     let movementJudge = this.movementJudges.get(type);
     if (movementJudge === undefined) {

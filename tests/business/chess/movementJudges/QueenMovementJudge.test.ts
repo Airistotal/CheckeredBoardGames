@@ -51,22 +51,14 @@ describe('QueenMovementJudge tests', () => {
   validQueenMoves.forEach((destination) => {
     it(`queen can move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
-      let queen = new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry);
       let mvDta = FluentMovementDataBuilder
         .MovementData()
         .on(board)
         .from(BoardCoordinate.at(4, 4))
         .to(destination);
-      let mvDtaMoved = FluentMovementDataBuilder
-        .MovementData()
-        .on(board)
-        .from(BoardCoordinate.at(4, 4))
-        .to(destination)
-        .withMovedPieces(new Array<string>(queen.id));
-      board.set(mvDta.origin, queen);
+      board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry));
 
       expect(queenMovementJudge.isLegalMove(mvDta)).to.be.true;
-      expect(queenMovementJudge.isLegalMove(mvDtaMoved)).to.be.true;
     })
   });
 
@@ -81,85 +73,83 @@ describe('QueenMovementJudge tests', () => {
   invalidQueenMoves.forEach((destination) => {
     it(`queen cannot move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
-      let queen = new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry);
       let mvDta = FluentMovementDataBuilder
         .MovementData()
         .on(board)
         .from(BoardCoordinate.at(4, 4))
         .to(destination);
-      let mvDtaMoved = FluentMovementDataBuilder
-        .MovementData()
-        .on(board)
-        .from(BoardCoordinate.at(4, 4))
-        .to(destination)
-        .withMovedPieces(new Array<string>(queen.id));
-      board.set(mvDta.origin, queen);
+      board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry));
 
       expect(queenMovementJudge.isLegalMove(mvDta)).to.be.false;
-      expect(queenMovementJudge.isLegalMove(mvDtaMoved)).to.be.false;
     })
   });
 
   it(`queen cannot move over other pieces`, () => {
     let board = new Board(8, 8);
-    let queen = new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry);
     let mvDta = FluentMovementDataBuilder
       .MovementData()
       .on(board)
       .from(BoardCoordinate.at(4, 4))
       .to(BoardCoordinate.at(1, 1));
-    let mvDtaMoved = FluentMovementDataBuilder
-      .MovementData()
-      .on(board)
-      .from(BoardCoordinate.at(4, 4))
-      .to(BoardCoordinate.at(1, 1))
-      .withMovedPieces(new Array<string>(queen.id));
-    board.set(mvDta.origin, queen);
+    board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry));
     board.set(BoardCoordinate.at(2, 2), new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
 
     expect(queenMovementJudge.isLegalMove(mvDta)).to.be.false;
-    expect(queenMovementJudge.isLegalMove(mvDtaMoved)).to.be.false;
   });
 
   it(`queen cannot capture piece on same team`, () => {
     let board = new Board(8, 8);
-    let queen = new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry);
     let mvDta = FluentMovementDataBuilder
       .MovementData()
       .on(board)
       .from(BoardCoordinate.at(4, 4))
       .to(BoardCoordinate.at(1, 1));
-    let mvDtaMoved = FluentMovementDataBuilder
-      .MovementData()
-      .on(board)
-      .from(BoardCoordinate.at(4, 4))
-      .to(BoardCoordinate.at(1, 1))
-      .withMovedPieces(new Array<string>(queen.id));
-    board.set(mvDta.origin, queen);
+
+    board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry));
     board.set(mvDta.destination, new BoardPiece(Team.Black, BoardPieceType.Bishop, pieceGeometry));
 
     expect(queenMovementJudge.isLegalMove(mvDta)).to.be.false;
-    expect(queenMovementJudge.isLegalMove(mvDtaMoved)).to.be.false;
   });
 
   it(`queen can capture piece on different team`, () => {
     let board = new Board(8, 8);
-    let queen = new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry);
     let mvDta = FluentMovementDataBuilder
       .MovementData()
       .on(board)
       .from(BoardCoordinate.at(4, 4))
       .to(BoardCoordinate.at(1, 1));
-    let mvDtaMoved = FluentMovementDataBuilder
-      .MovementData()
-      .on(board)
-      .from(BoardCoordinate.at(4, 4))
-      .to(BoardCoordinate.at(1, 1))
-      .withMovedPieces(new Array<string>(queen.id));
-    board.set(mvDta.origin, queen);
+
+    board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry));
     board.set(mvDta.destination, new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
 
     expect(queenMovementJudge.isLegalMove(mvDta)).to.be.true;
-    expect(queenMovementJudge.isLegalMove(mvDtaMoved)).to.be.true;
+  });
+
+  it(`queen can move everywhere with attack, returns possible moves`, () => {
+    let board = new Board(8, 8);
+    let mvDta = FluentMovementDataBuilder
+      .MovementData()
+      .on(board)
+      .from(BoardCoordinate.at(4, 4))
+      .to(BoardCoordinate.at(1, 1));
+
+    board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry));
+    board.set(mvDta.destination, new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
+
+    expect(queenMovementJudge.getPossibleMoves(mvDta).length).to.be.equal(26);
+  });
+
+  it(`queen can move everywhere but one, returns possible moves`, () => {
+    let board = new Board(8, 8);
+    let mvDta = FluentMovementDataBuilder
+      .MovementData()
+      .on(board)
+      .from(BoardCoordinate.at(4, 4))
+      .to(BoardCoordinate.at(2, 2));
+
+    board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry));
+    board.set(mvDta.destination, new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
+
+    expect(queenMovementJudge.getPossibleMoves(mvDta).length).to.be.equal(25);
   });
 });

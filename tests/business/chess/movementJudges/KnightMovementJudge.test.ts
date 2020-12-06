@@ -30,22 +30,15 @@ describe('KnightMovementJudge tests', () => {
   validKnightMoves.forEach((destination) => {
   	it(`knight can move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
-      let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
       let mvDta = FluentMovementDataBuilder
         .MovementData()
         .on(board)
         .from(BoardCoordinate.at(4, 4))
         .to(destination);
-      let mvDtaMoved = FluentMovementDataBuilder
-        .MovementData()
-        .on(board)
-        .from(BoardCoordinate.at(4, 4))
-        .to(destination)
-        .withMovedPieces(new Array<string>(knight.id));
-      board.set(mvDta.origin, knight);
+
+      board.set(mvDta.origin, new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry));
 
 	    expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.true;
-      expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.true;
   	})
   });
 
@@ -61,64 +54,57 @@ describe('KnightMovementJudge tests', () => {
   invalidKnightMoves.forEach((destination) => {
   	it(`knight cannot move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
-      let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
       let mvDta = FluentMovementDataBuilder
         .MovementData()
         .on(board)
         .from(BoardCoordinate.at(4, 4))
         .to(destination);
-      let mvDtaMoved = FluentMovementDataBuilder
-        .MovementData()
-        .on(board)
-        .from(BoardCoordinate.at(4, 4))
-        .to(destination)
-        .withMovedPieces(new Array<string>(knight.id));
-      board.set(mvDta.origin, knight);
+
+      board.set(mvDta.origin, new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry));
 
       expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.false;
-      expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
   	})
   });
 
   it('knight can capture opposite color piece', () => {
       let board = new Board(8, 8);
-      let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
       let mvDta = FluentMovementDataBuilder
         .MovementData()
         .on(board)
         .from(BoardCoordinate.at(4, 4))
         .to(BoardCoordinate.at(3, 2));
-      let mvDtaMoved = FluentMovementDataBuilder
-        .MovementData()
-        .on(board)
-        .from(BoardCoordinate.at(4, 4))
-        .to(BoardCoordinate.at(3, 2))
-        .withMovedPieces(new Array<string>(knight.id));
-      board.set(mvDta.origin, knight);
+
+      board.set(mvDta.origin, new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry));
       board.set(mvDta.destination, new BoardPiece(Team.Black, BoardPieceType.Bishop, pieceGeometry));
 
       expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.true;
-      expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.true;
   })
 
   it('knight cannot capture same color piece', () => {
       let board = new Board(8, 8);
-      let knight = new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry);
       let mvDta = FluentMovementDataBuilder
         .MovementData()
         .on(board)
         .from(BoardCoordinate.at(4, 4))
         .to(BoardCoordinate.at(3, 2));
-      let mvDtaMoved = FluentMovementDataBuilder
-        .MovementData()
-        .on(board)
-        .from(BoardCoordinate.at(4, 4))
-        .to(BoardCoordinate.at(3, 2))
-        .withMovedPieces(new Array<string>(knight.id));
-      board.set(mvDta.origin, knight);
+
+      board.set(mvDta.origin, new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry));
       board.set(mvDta.destination, new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
 
       expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.false;
-      expect(new KnightMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
+  })
+
+  it('knight cannot capture same color piece', () => {
+      let board = new Board(8, 8);
+      let mvDta = FluentMovementDataBuilder
+        .MovementData()
+        .on(board)
+        .from(BoardCoordinate.at(4, 4))
+        .to(BoardCoordinate.at(3, 2));
+
+      board.set(mvDta.origin, new BoardPiece(Team.White, BoardPieceType.Knight, pieceGeometry));
+      board.set(mvDta.destination, new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
+
+      expect(new KnightMovementJudge().isLegalMove(mvDta)).to.be.false;
   })
 });

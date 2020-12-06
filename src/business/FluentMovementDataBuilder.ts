@@ -59,7 +59,6 @@ export class FluentMovementDataBuilder {
     return this;
   }
 
-  // client doesn't get to instantiate Customer directly
   public build(): MovementData {
       return new MovementData(this);            
   }

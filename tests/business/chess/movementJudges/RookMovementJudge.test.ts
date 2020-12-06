@@ -36,22 +36,14 @@ describe('RookMovementJudge tests', () => {
   validRookMoves.forEach((destination) => {
     it(`rook can move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
-      let rook = new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry);
       let mvDta = FluentMovementDataBuilder
         .MovementData()
         .on(board)
         .from(BoardCoordinate.at(4, 4))
         .to(destination);
-      let mvDtaMoved = FluentMovementDataBuilder
-        .MovementData()
-        .on(board)
-        .from(BoardCoordinate.at(4, 4))
-        .to(destination)
-        .withMovedPieces(new Array<string>(rook.id));
-      board.set(mvDta.origin, rook);
+      board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
 
       expect(new RookMovementJudge().isLegalMove(mvDta)).to.be.true;
-      expect(new RookMovementJudge().isLegalMove(mvDtaMoved)).to.be.true;
     })
   });
 
@@ -66,85 +58,70 @@ describe('RookMovementJudge tests', () => {
   invalidRookMoves.forEach((destination) => {
     it(`rook cannot move from (4, 4) to destination ${destination.toString()}`, () => {
       let board = new Board(8, 8);
-      let rook = new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry);
       let mvDta = FluentMovementDataBuilder
         .MovementData()
         .on(board)
         .from(BoardCoordinate.at(4, 4))
         .to(destination);
-      let mvDtaMoved = FluentMovementDataBuilder
-        .MovementData()
-        .on(board)
-        .from(BoardCoordinate.at(4, 4))
-        .to(destination)
-        .withMovedPieces(new Array<string>(rook.id));
-      board.set(mvDta.origin, rook);
+      board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
 
       expect(new RookMovementJudge().isLegalMove(mvDta)).to.be.false;
-      expect(new RookMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
     })
   });
 
   it(`rook cannot move over other pieces`, () => {
     let board = new Board(8, 8);
-    let rook = new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry);
     let mvDta = FluentMovementDataBuilder
       .MovementData()
       .on(board)
       .from(BoardCoordinate.at(4, 4))
       .to(BoardCoordinate.at(4, 1));
-    let mvDtaMoved = FluentMovementDataBuilder
-      .MovementData()
-      .on(board)
-      .from(BoardCoordinate.at(4, 4))
-      .to(BoardCoordinate.at(4, 1))
-      .withMovedPieces(new Array<string>(rook.id));
-    board.set(mvDta.origin, rook);
+
+    board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
     board.set(BoardCoordinate.at(4, 3), new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
 
     expect(new RookMovementJudge().isLegalMove(mvDta)).to.be.false;
-    expect(new RookMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
   });
 
   it(`rook cannot capture piece on same team`, () => {
     let board = new Board(8, 8);
-    let rook = new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry);
     let mvDta = FluentMovementDataBuilder
       .MovementData()
       .on(board)
       .from(BoardCoordinate.at(4, 4))
       .to(BoardCoordinate.at(4, 1));
-    let mvDtaMoved = FluentMovementDataBuilder
-      .MovementData()
-      .on(board)
-      .from(BoardCoordinate.at(4, 4))
-      .to(BoardCoordinate.at(4, 1))
-      .withMovedPieces(new Array<string>(rook.id));
-    board.set(mvDta.origin, rook);
+
+    board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
     board.set(mvDta.destination, new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
 
     expect(new RookMovementJudge().isLegalMove(mvDta)).to.be.false;
-    expect(new RookMovementJudge().isLegalMove(mvDtaMoved)).to.be.false;
   });
 
-  it(`rook can capture piece on different team`, () => {
+  it(`Rook can move everywhere with attack, get possible moves`, () => {
     let board = new Board(8, 8);
-    let rook = new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry);
     let mvDta = FluentMovementDataBuilder
       .MovementData()
       .on(board)
       .from(BoardCoordinate.at(4, 4))
       .to(BoardCoordinate.at(4, 1));
-    let mvDtaMoved = FluentMovementDataBuilder
+
+    board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
+    board.set(mvDta.destination, new BoardPiece(Team.White, BoardPieceType.Rook, pieceGeometry));
+
+    expect(new RookMovementJudge().getPossibleMoves(mvDta).length).to.be.equal(14);
+  });
+
+  it(`Rook can move everywhere but one space, get possible moves`, () => {
+    let board = new Board(8, 8);
+    let mvDta = FluentMovementDataBuilder
       .MovementData()
       .on(board)
       .from(BoardCoordinate.at(4, 4))
-      .to(BoardCoordinate.at(4, 1))
-      .withMovedPieces(new Array<string>(rook.id));
-    board.set(mvDta.origin, rook);
+      .to(BoardCoordinate.at(4, 2));
+
+    board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Rook, pieceGeometry));
     board.set(mvDta.destination, new BoardPiece(Team.White, BoardPieceType.Rook, pieceGeometry));
 
-    expect(new RookMovementJudge().isLegalMove(mvDta)).to.be.true;
-    expect(new RookMovementJudge().isLegalMove(mvDtaMoved)).to.be.true;
+    expect(new RookMovementJudge().getPossibleMoves(mvDta).length).to.be.equal(13);
   });
 });

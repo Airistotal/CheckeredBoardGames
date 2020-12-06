@@ -11,16 +11,8 @@ import "reflect-metadata";
 
 @injectable()
 export class KingMovementJudge implements MovementJudge {
-  private static KingMoves = [new Vector2(0, 1), new Vector2(1, 0), new Vector2(1, 1)];
-  private static Castling = new Vector2(2,  0);
-
   public static isCaslting(movementData: MovementData): boolean {
-    let originPiece = movementData.board.get(movementData.origin)
-    if (originPiece === undefined ||
-        originPiece.type !== BoardPieceType.King ||
-        movementData.movedPieces.some((v) => originPiece !== undefined && v === originPiece.id)) return false;
-
-    return this.isLegalCastle(movementData);
+    return KingMovementJudge.getCastlingMoves(movementData).includes(movementData.destination);
   }
 
   public static getCasltingRookOrigin(movementData: MovementData): BoardCoordinate {
@@ -42,29 +34,64 @@ export class KingMovementJudge implements MovementJudge {
   }
 
   public isLegalMove(movementData: MovementData): boolean {
-    let originPiece = movementData.board.get(movementData.origin)
-    if (originPiece === undefined) return false;
-
-    let moveVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
-    let destinationPiece = movementData.board.get(movementData.destination);
-
-    let isLegalCastle = false;
-    if (!movementData.movedPieces.some((v) => originPiece !== undefined && v === originPiece.id)) {
-      isLegalCastle = KingMovementJudge.isLegalCastle(movementData);
-    }
-
-    return (KingMovementJudge.KingMoves.some((v) => v.equals(KingMovementJudge.getAbsoluteVectorForKing(moveVector))) &&
-           (destinationPiece === undefined || destinationPiece.team !== originPiece.team)) ||
-           isLegalCastle;
+    return this.getPossibleMoves(movementData).includes(movementData.destination);
   }
 
-  private static isLegalCastle(movementData: MovementData): boolean {
-    let moveVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
+  public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
+    let possibleMoves = new Array<BoardCoordinate>();
+    
+    possibleMoves.concat(this.getAllMovesAroundKing(movementData));
+    possibleMoves.concat(KingMovementJudge.getCastlingMoves(movementData));
 
-    return KingMovementJudge.Castling.equals(KingMovementJudge.getAbsoluteVectorForKing(moveVector)) &&
-           (moveVector.x < 0 ?
-           this.arePiecesInPlaceForQueensideCastle(movementData) :
-           this.arePiecesInPlaceForKingsideCastle(movementData));
+    return possibleMoves;
+  }
+
+  private getAllMovesAroundKing(movementData: MovementData) {
+    let possibleMoves = new Array<BoardCoordinate>();
+    let originPiece = movementData.board.get(movementData.origin);
+    if (originPiece === undefined || originPiece.type !== BoardPieceType.King) return possibleMoves;
+
+    for (var i = -1; i <= 1; i++) {
+      for (var j = -1; j <= 1; j++) {
+        if (i < 1 || i > 8 || j < 1 || j > 8) continue;
+        if (i === 0 && j === 0) continue;
+
+        let moveVector = new Vector2(i, j);
+        let destination = movementData.origin.addVector(moveVector);
+
+        let destinationPiece = movementData.board.get(destination);
+        if (destinationPiece !== undefined) {
+          if (destinationPiece.team !== originPiece.team) {
+            possibleMoves.push(destination);
+          }
+        } else {
+          possibleMoves.push(destination);
+        }
+      }
+    }
+
+    return possibleMoves;
+  }
+
+  private static getCastlingMoves(movementData: MovementData): Array<BoardCoordinate> {
+    let possibleMoves = new Array<BoardCoordinate>();
+    let originPiece = movementData.board.get(movementData.origin)
+    if (originPiece === undefined || 
+        originPiece.type !== BoardPieceType.King ||
+        movementData.movedPieces.includes(originPiece.id))
+    {
+      return possibleMoves;
+    }
+
+    if (this.arePiecesInPlaceForKingsideCastle(movementData)) {
+      possibleMoves.push(movementData.origin.addVector(new Vector2(2,  0)));
+    }
+
+    if (this.arePiecesInPlaceForQueensideCastle(movementData)) {
+      possibleMoves.push(movementData.origin.addVector(new Vector2(-2,  0)));
+    }
+
+    return possibleMoves;
   }
 
   private static arePiecesInPlaceForQueensideCastle(movementData: MovementData): boolean {
@@ -88,9 +115,5 @@ export class KingMovementJudge implements MovementJudge {
            board.get(BoardCoordinate.at(origin.col + 2, origin.row)) === undefined &&
            rook !== undefined && rook.type === BoardPieceType.Rook &&
            !movementData.movedPieces.some((v) => rook !== undefined && v === rook.id);
-  }
-
-  private static getAbsoluteVectorForKing(v: Vector2): Vector2 {
-    return new Vector2(Math.abs(v.x), Math.abs(v.y));
   }
 }

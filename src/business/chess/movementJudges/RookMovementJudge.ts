@@ -10,44 +10,49 @@ import "reflect-metadata";
 
 @injectable()
 export class RookMovementJudge implements MovementJudge {
-  private static RookMoves = [new Vector2(0, 1), new Vector2(1, 0)];
-
   public isLegalMove(movementData: MovementData): boolean {
-    let board = movementData.board;
-    let origin = movementData.origin;
-    let dest = movementData.destination;
-    let originPiece = board.get(origin);
-    if (originPiece === undefined) return false;
+    let possibleMoves = this.getPossibleMoves(movementData);
 
-    let moveVector = BoardCoordinate.getVector(origin, dest);
-    let destinationPiece = board.get(dest);
-
-    return RookMovementJudge.RookMoves.some((v) => v.equals(this.getAbsoluteVectorForRook(moveVector))) &&
-           this.missOtherPieces(origin, dest, board) &&
-           (destinationPiece === undefined || originPiece.team !== destinationPiece.team);
+    return possibleMoves.includes(movementData.destination);
   }
 
-  private missOtherPieces(origin: BoardCoordinate, destination: BoardCoordinate, board: Board): boolean {
-    let moveVector = BoardCoordinate.getVector(origin, destination).normalize();
-    let originVector = BoardCoordinate.getVector(BoardCoordinate.at(0, 0), origin);
-    let destinationVector = BoardCoordinate.getVector(BoardCoordinate.at(0, 0), destination);
+  public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
+    let possibleMoves = new Array<BoardCoordinate>();
 
-    originVector = originVector.add(moveVector);
-    while (!originVector.equals(destinationVector)) {
-      let targetPiece = board.get(BoardCoordinate.at(originVector.x, originVector.y));
-      if (targetPiece !== undefined) {
-        return false;
+    possibleMoves.concat(this.getCoords(movementData, (col: number) => col, (row: number) => row++));
+    possibleMoves.concat(this.getCoords(movementData, (col: number) => col++, (row: number) => row));
+    possibleMoves.concat(this.getCoords(movementData, (col: number) => col, (row: number) => row--));
+    possibleMoves.concat(this.getCoords(movementData, (col: number) => col--, (row: number) => row));
+
+    return possibleMoves;
+  }
+
+  private getCoords(movementData: MovementData, incrementCol: Function, incrementRow: Function): Array<BoardCoordinate> {
+    let possibleMoves = new Array<BoardCoordinate>();
+    let originPiece = movementData.board.get(movementData.origin);
+    if (originPiece === undefined) return possibleMoves;
+
+    var currCol = incrementCol(movementData.origin.col);
+    var currRow = incrementRow(movementData.origin.row);
+
+    while (currCol < 9 && currRow < 9 && currCol > 0 && currRow > 0) {
+      let testCoord = BoardCoordinate.at(currCol, currRow);
+
+      let destinationPiece = movementData.board.get(testCoord)
+      if (destinationPiece !== undefined) {
+        if (destinationPiece.team !== originPiece.team) {
+          possibleMoves.push(testCoord);
+        }
+
+        break;
       }
 
-      originVector = originVector.add(moveVector);
+      possibleMoves.push(testCoord);
+
+      currCol = incrementCol(currCol);
+      currRow = incrementRow(currRow);
     }
 
-    return true;
-  }
-
-  private getAbsoluteVectorForRook(moveVector: Vector2) {
-    let normVector = moveVector.normalize();
-
-    return new Vector2(Math.abs(normVector.x), Math.abs(normVector.y));
+    return possibleMoves;
   }
 }

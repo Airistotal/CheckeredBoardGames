@@ -1,12 +1,15 @@
 import { GameStateProcessor } from '../GameStateProcessor';
 import { MovementJudge } from '../MovementJudge';
 import { Board } from '../../models/Board';
+import { AttackData } from '../../models/AttackData';
 import { BoardCoordinate } from '../../models/BoardCoordinate';
 import { BoardPieceType } from '../../models/enums/BoardPieceType';
+import { MovementJudgeType } from '../../models/enums/MovementJudgeType';
 import { GameType } from '../../models/enums/GameType';
 import { MovementData } from '../../models/MovementData';
 import { Team } from '../../models/enums/Team';
 import { FluentMovementDataBuilder } from '../FluentMovementDataBuilder';
+import { Utilities } from '../Utilities';
 
 import { IOCTypes } from '../initialization/IOCTypes';
 import { injectable, inject } from "inversify";
@@ -14,8 +17,8 @@ import "reflect-metadata";
 
 @injectable()
 export class ChessStateProcessor implements GameStateProcessor {
-  private readonly pieceMovementJudgeFactory: (type: BoardPieceType) => MovementJudge;
-  private readonly pieceMovementJudges: Map<BoardPieceType, MovementJudge>;
+  private readonly pieceMovementJudgeFactory: (type: MovementJudgeType) => MovementJudge;
+  private readonly pieceMovementJudges: Map<MovementJudgeType, MovementJudge>;
 
   private playingTeam = Team.White;
 
@@ -25,81 +28,69 @@ export class ChessStateProcessor implements GameStateProcessor {
   private defendingPieceCoords = new Array<BoardCoordinate>();
   private defendingKingCoord: BoardCoordinate|undefined;
 
-  constructor(@inject(IOCTypes.AbstractPieceMovementJudgeFactory) abstractPieceMovementJudgeFactory: (type: GameType) => (type: BoardPieceType) => MovementJudge) {
+  constructor(@inject(IOCTypes.AbstractPieceMovementJudgeFactory) abstractPieceMovementJudgeFactory: (type: GameType) => (type: MovementJudgeType) => MovementJudge) {
     this.pieceMovementJudgeFactory = abstractPieceMovementJudgeFactory(GameType.Chess);
-    this.pieceMovementJudges = new Map<BoardPieceType, MovementJudge>();
+    this.pieceMovementJudges = new Map<MovementJudgeType, MovementJudge>();
   }
 
-  public isGameOverForTeam(board: Board, team: Team): boolean {
-    this.logicBoard = board.cloneBoardForLogic();
-    this.getPieceCoordinates(team);
-    let attackingPieces = this.getAttackingPieces();
+  public isGameOver(attackData: AttackData): boolean {
+    this.logicBoard = attackData.board.cloneBoardForLogic();
+    let directAttackingPieces = this.getDirectAttackingPieces(attackData);
 
-    if (attackingPieces.length > 1) {
-      return this.canKingMoveOutOfCheck();
-    } else if (attackingPieces.length === 1) {
-      return this.canKingMoveOutOfCheck() || this.canAnyPieceInterfereInAttack();
+    if (directAttackingPieces.length > 1) {
+      return this.canKingMoveOutOfCheck(attackData);
+    } else if (directAttackingPieces.length === 1) {
+      return this.canKingMoveOutOfCheck(attackData) || this.canAnyPieceInterfereInAttack();
     } else {
       return false;
     }
   }
 
-  private getPieceCoordinates(team: Team) {
-    this.logicBoard.boardmap.forEach((tile, coord) => {
-      let piece = tile.getPiece();
-      if (piece !== undefined) {
-        if (piece.team === team) {
-          if (piece.type === BoardPieceType.King) {
-            this.defendingKingCoord = coord;
-          } else {
-            this.defendingPieceCoords.push(coord);
-          }
-        } else if (piece.team !== team) {
-          if (piece.type !== BoardPieceType.King) {
-            this.opponentPieceCoords.push(coord);
-          }
-        }
-      }
-    });
-  }
+  private getDirectAttackingPieces(attackData: AttackData): BoardCoordinate[] {
+    let directAttackingPieces = new Array<BoardCoordinate>();
 
-  private getAttackingPieces(): Array<BoardCoordinate> {
-    let attackingPieces = new Array<BoardCoordinate>();
+    let self = this;
+    attackData.attackingPieces.forEach((coord) => {
+      let attackingPiece = attackData.board.get(coord);
+      if (attackingPiece !== undefined) {
+        let mvJudge = self.getMovementJudge(attackingPiece.type);
+        let mvDta = FluentMovementDataBuilder.MovementData()
+          .on(attackData.board)
+          .from(coord)
+          .to(attackData.defendingKing);
 
-    let chessStateProcessor = this;
-    this.opponentPieceCoords.forEach(function(pieceCoord) {
-      let originPiece = chessStateProcessor.logicBoard.get(pieceCoord);
-
-      if (originPiece !== undefined && chessStateProcessor.defendingKingCoord !== undefined) {
-        let movementJudge = chessStateProcessor.getMovementJudge(originPiece.type);
-        let mvDta = FluentMovementDataBuilder
-          .MovementData()
-          .from(pieceCoord)
-          .to(chessStateProcessor.defendingKingCoord)
-          .on(chessStateProcessor.logicBoard);
-
-        if (movementJudge.isLegalMove(mvDta)) {
-          attackingPieces.push(pieceCoord);
+        if (mvJudge.isLegalMove(mvDta)) {
+          directAttackingPieces.push(coord);
         }
       }
     });
 
-    return attackingPieces;
+    return directAttackingPieces;
   }
 
   private canAnyPieceInterfereInAttack(): boolean {
     return true;
   }
 
-  private canKingMoveOutOfCheck(): boolean {
-    return true;
+  private canKingMoveOutOfCheck(attackData: AttackData): boolean {
+    let chkJudge = this.getMovementJudgeByType(MovementJudgeType.Check);
+
+    let kingCanMove = false;
+    
+
+    return kingCanMove;
   }
 
   private getMovementJudge(pieceType: BoardPieceType) {
-    let movementJudge = this.pieceMovementJudges.get(pieceType);
+    let movementJudgeType = Utilities.getMovementJudgeTypeFor(pieceType);
+    return this.getMovementJudgeByType(movementJudgeType);
+  }
+
+  private getMovementJudgeByType(movementJudgeType: MovementJudgeType) {
+    let movementJudge = this.pieceMovementJudges.get(movementJudgeType);
     if (movementJudge === undefined) {
-      movementJudge = this.pieceMovementJudgeFactory(pieceType);
-      this.pieceMovementJudges.set(pieceType, movementJudge);
+      movementJudge = this.pieceMovementJudgeFactory(movementJudgeType);
+      this.pieceMovementJudges.set(movementJudgeType, movementJudge);
     }
 
     return movementJudge;
