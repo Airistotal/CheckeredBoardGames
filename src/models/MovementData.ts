@@ -8,7 +8,8 @@ export class MovementData {
   public board: Board = new Board(0, 0);
   public movedPieces: Array<string> = new Array<string>();
   public defendingKing: BoardCoordinate = BoardCoordinate.at(0, 0);
-  public attackingPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
+  public enemyPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
+  public allyPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
 
   constructor(builder: FluentMovementDataBuilder) {
   	this.origin = builder.origin;
@@ -16,6 +17,7 @@ export class MovementData {
   	this.board = builder.board;
   	this.movedPieces = builder.movedPieces;
   	this.defendingKing = builder.defendingKing;
-  	this.attackingPieces = builder.attackingPieces;
+  	this.enemyPieces = builder.enemyPieces;
+    this.allyPieces = builder.allyPieces;
   }
 }

@@ -43,13 +43,128 @@ export class CheckMovementJudge implements MovementJudge {
     return movementJudge;
   }
 
+  private executeMove(board: Board, movementData: MovementData) {
+    let originPiece = board.get(movementData.origin);
+    if (originPiece !== undefined) {  
+      if (originPiece.type === BoardPieceType.King) {
+        movementData.defendingKing = movementData.destination;
+      }
+
+      board.set(movementData.destination, originPiece);
+      board.set(movementData.origin, undefined);
+    }
+  }
+
+  public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
+    let attackingPieces = this.getAttackingPieces(movementData, movementData.defendingKing);
+    let interceptionCoords = new Array<BoardCoordinate>();
+
+    if (attackingPieces.length === 1) {
+      interceptionCoords = this.getPossibleInterceptions(attackingPieces, movementData);
+    }
+
+    let possibleKingMoves = this.getPossibleKingMoves(movementData);
+
+    return interceptionCoords.concat(possibleKingMoves);
+  }
+
+  private getAttackingPieces(movementData: MovementData, destination: BoardCoordinate): Array<BoardCoordinate> {
+    let attackingPieces = new Array<BoardCoordinate>();
+
+    let self = this;
+    movementData.enemyPieces.forEach((coord, index) => {
+      let origPiece = movementData.board.get(coord);
+      if (origPiece !== undefined) {
+        let movementJudge = self.getMovementJudge(Utilities.getMovementJudgeTypeFor(origPiece.type));
+        let mvDta = FluentMovementDataBuilder
+          .MovementData()
+          .on(movementData.board)
+          .from(coord)
+          .to(destination)
+          .build();
+
+        if (movementJudge.isLegalMove(mvDta)) {
+          attackingPieces.push(coord);
+        }
+      }
+    });
+
+    return attackingPieces;
+  }
+
+  private getPossibleInterceptions(attackingPieces: Array<BoardCoordinate>, movementData: MovementData): Array<BoardCoordinate> {
+    let interceptionCoords = this.getInterceptionCoords(attackingPieces, movementData);
+    let possibleInterceptionCoords = new Array<BoardCoordinate>();
+
+    let self = this;
+    movementData.allyPieces.forEach((from, index) => {
+      let origPiece = movementData.board.get(from);
+      if (origPiece !== undefined) {
+        let movementJudge = self.getMovementJudge(Utilities.getMovementJudgeTypeFor(origPiece.type));
+
+        interceptionCoords.forEach((to, index) => {
+          let mvDta = FluentMovementDataBuilder
+            .MovementData()
+            .on(movementData.board)
+            .from(from)
+            .to(to)
+            .build();
+
+          if (movementJudge.isLegalMove(movementData)) {
+            possibleInterceptionCoords.push(to);
+          }
+        });
+      }
+    });
+
+    return possibleInterceptionCoords;
+  }
+
+  private getInterceptionCoords(attackingPieces: Array<BoardCoordinate>, movementData: MovementData): Array<BoardCoordinate> {
+    let interceptionCoords = new Array<BoardCoordinate>();
+
+    attackingPieces.forEach((attackerCoord) => {
+      let pieceInterceptionCoords = this.getInterceptionCoordsForPiece(attackerCoord, movementData);
+
+      interceptionCoords = interceptionCoords.concat(pieceInterceptionCoords);
+    });
+
+    return interceptionCoords;
+  }
+
+  private getInterceptionCoordsForPiece(attackerCoord: BoardCoordinate, movementData: MovementData): Array<BoardCoordinate> {
+    return new Array<BoardCoordinate>();
+  }
+
+  private getPossibleKingMoves(movementData: MovementData): Array<BoardCoordinate> {
+    let kingMovementJudge = this.getMovementJudge(Utilities.getMovementJudgeTypeFor(BoardPieceType.King));
+
+    let kingMovementData = FluentMovementDataBuilder.MovementData()
+      .shallowClone(movementData)
+      .from(movementData.defendingKing)
+      .build();
+
+    let possibleKingMoves = kingMovementJudge.getPossibleMoves(kingMovementData);
+    let filteredPossibleKingMoves = new Array<BoardCoordinate>();
+
+    possibleKingMoves.forEach((kingDest, index) => {
+      let attackers = this.getAttackingPieces(movementData, kingDest);
+
+      if (attackers.length === 0) {
+        filteredPossibleKingMoves.push(kingDest);
+      }
+    });
+
+    return filteredPossibleKingMoves;
+  }
+
   private doOpponentPiecesAttackDefendingKing(movementData: MovementData): boolean {
     let check = false;
     let logicBoard = movementData.board.cloneBoardForLogic();
     this.executeMove(logicBoard, movementData);
     
     let self = this;
-    movementData.attackingPieces.forEach((coord, index) => {
+    movementData.enemyPieces.forEach((coord, index) => {
       let origPiece = logicBoard.get(coord);
       if (origPiece !== undefined) {
         let movementJudge = self.getMovementJudge(Utilities.getMovementJudgeTypeFor(origPiece.type));
@@ -65,17 +180,5 @@ export class CheckMovementJudge implements MovementJudge {
     });
 
     return check;
-  }
-
-  private executeMove(board: Board, movementData: MovementData) {
-    let originPiece = board.get(movementData.origin);
-    if (originPiece !== undefined) {  
-      if (originPiece.type === BoardPieceType.King) {
-        movementData.defendingKing = movementData.destination;
-      }
-
-      board.set(movementData.destination, originPiece);
-      board.set(movementData.origin, undefined);
-    }
   }
 }

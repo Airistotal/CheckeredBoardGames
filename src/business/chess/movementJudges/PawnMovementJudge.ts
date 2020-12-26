@@ -126,4 +126,76 @@ export class PawnMovementJudge implements MovementJudge {
   private static getAbsoluteVectorForPawn(moveVector: Vector2): Vector2 {
     return new Vector2(Math.abs(moveVector.x), Math.abs(moveVector.y));
   }
+
+  public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
+    let coords = new Array<BoardCoordinate>();
+    let originPiece = movementData.board.get(movementData.origin);
+
+    if(originPiece != undefined && originPiece.type === BoardPieceType.Pawn) {
+      let direction = this.getDirectionForTeam(originPiece.team);
+      let origin = movementData.origin;
+
+      let oneInFront = BoardCoordinate.at(origin.col, origin.row + direction);
+      if (this.isValidMove(oneInFront, movementData)) {
+        coords.push(oneInFront);
+
+        let twoInFront = BoardCoordinate.at(origin.col, origin.row + (2*direction));
+        if (!movementData.movedPieces.some((v) => originPiece !== undefined && v === originPiece.id) &&
+            this.isValidMove(twoInFront, movementData)) {
+          coords.push(twoInFront);
+        }
+      }
+
+      var leftAttackDest = BoardCoordinate.at(origin.col - 1, origin.row + direction);
+      if (this.isValidAttack(leftAttackDest, movementData)) {
+        coords.push(leftAttackDest);
+      }
+
+      var rightAttackDest = BoardCoordinate.at(origin.col + 1, origin.row + direction);
+      if (this.isValidAttack(rightAttackDest, movementData)) {
+        coords.push(leftAttackDest);
+      }
+    }
+
+    return coords;
+  }
+
+  private isValidMove(dest: BoardCoordinate, mvDta: MovementData): boolean {
+    if (dest.col > 0 && dest.col < 9 && dest.row > 0 && dest.row < 9) {
+      let originPiece = mvDta.board.get(mvDta.origin);
+      let destPiece = mvDta.board.get(dest);
+
+      if (destPiece === undefined && originPiece !== undefined) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private isValidAttack(dest: BoardCoordinate, mvDta: MovementData): boolean {
+    if (dest.col > 0 && dest.col < 9 && dest.row > 0 && dest.row < 9) {
+      let originPiece = mvDta.board.get(mvDta.origin);
+      let destPiece = mvDta.board.get(dest);
+
+      if (destPiece !== undefined && originPiece !== undefined &&
+          destPiece.team !== originPiece.team) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private getDirectionForTeam(team: Team): number {
+    if (team === Team.White) {
+      return 1;
+    }
+    else if (team === Team.Black) {
+      return -1;
+    }
+    else {
+      return 0;
+    }
+  }
 }

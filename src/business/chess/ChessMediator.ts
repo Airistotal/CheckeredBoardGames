@@ -93,13 +93,18 @@ export class ChessMediator implements GameMediator {
 
   public move(origin: BoardCoordinate, destination: BoardCoordinate): boolean {
     let defendingKing = this.currentTeamTurn === Team.White ? this.whiteKingCoord : this.blackKingCoord;
-    let opponentPieces = this.currentTeamTurn === Team.White ? this.blackPieceCoords : this.whitePieceCoords;
+    let opponentPieces = this.currentTeamTurn === Team.White 
+      ? this.blackPieceCoords.concat(this.blackKingCoord)
+      : this.whitePieceCoords.concat(this.whiteKingCoord);
+    let allyPieces = this.currentTeamTurn === Team.White ? this.whitePieceCoords : this.blackPieceCoords;
+
     let mvDta = FluentMovementDataBuilder
       .MovementData()
       .from(origin)
       .to(destination)
       .on(this.board)
-      .withAttackingPiecesOn(opponentPieces)
+      .withEnemyPiecesOn(opponentPieces)
+      .withAllyPiecesOn(allyPieces)
       .withDefendingKingOn(defendingKing)
       .build();
 

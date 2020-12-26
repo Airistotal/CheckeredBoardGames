@@ -14,18 +14,35 @@ import "reflect-metadata";
 @injectable()
 export class KnightMovementJudge implements MovementJudge {
   public isLegalMove(movementData: MovementData): boolean {
-    let originPiece = movementData.board.get(movementData.origin);
-
-    return originPiece !== undefined && 
-           originPiece.type === BoardPieceType.Knight &&
-           this.getPossibleMoves(movementData).includes(movementData.destination);
+    return this.getPossibleMoves(movementData).includes(movementData.destination);
   }
 
   public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
     let possibleMoves = new Array<BoardCoordinate>();
-    let origin = movementData.origin;
 
+    this.getRawMoveList(movementData.origin).forEach((coord) => {
+      if (this.isValidDestination(coord, movementData)) {
+        possibleMoves.push(coord);
+      }
+    });
+
+    return possibleMoves;
+  }
+
+  private isValidDestination(dest: BoardCoordinate, movementData: MovementData): boolean {
+    let originPiece = movementData.board.get(movementData.origin);
+    let destPiece = movementData.board.get(dest);
+
+    return originPiece !== undefined &&
+           originPiece.type === BoardPieceType.Knight &&
+           dest.col > 0 && dest.col < 9 &&
+           dest.row > 0 && dest.row < 9 &&
+           (destPiece === undefined || destPiece.team !== originPiece.team);
+  }
+
+  private getRawMoveList(origin: BoardCoordinate): Array<BoardCoordinate> {
     let unfilteredPossibleMoves = new Array<BoardCoordinate>();
+
     unfilteredPossibleMoves.push(BoardCoordinate.at(origin.col + 1, origin.row + 2));
     unfilteredPossibleMoves.push(BoardCoordinate.at(origin.col - 1, origin.row + 2));
     unfilteredPossibleMoves.push(BoardCoordinate.at(origin.col + 1, origin.row - 2));
@@ -35,13 +52,6 @@ export class KnightMovementJudge implements MovementJudge {
     unfilteredPossibleMoves.push(BoardCoordinate.at(origin.col + 2, origin.row - 1));
     unfilteredPossibleMoves.push(BoardCoordinate.at(origin.col - 2, origin.row - 1));
 
-    unfilteredPossibleMoves.forEach((coord) => {
-      if (coord.col > 0 && coord.col < 9 &&
-          coord.row > 0 && coord.row < 9) {
-        possibleMoves.push(coord);
-      }
-    });
-
-    return possibleMoves;
+    return unfilteredPossibleMoves;
   }
 }

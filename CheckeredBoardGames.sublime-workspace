@@ -4,15 +4,55 @@
 		"selected_items":
 		[
 			[
-				"wi",
-				"withMovedPieces\tmethod"
+				"BoardPiece",
+				"BoardPieceType\talias"
+			],
+			[
+				"getmovem",
+				"getMovementJudgeTypeFor\tmethod"
+			],
+			[
+				"movem",
+				"movementJudgeFactory\tproperty"
+			],
+			[
+				"Move",
+				"movementData"
 			],
 			[
 				"get",
-				"getPossibleMoves\tmethod"
+				"getPossibleKingMoves"
 			],
 			[
-				"origin",
+				"movement",
+				"movementData\tparameter"
+			],
+			[
+				"Movement",
+				"MovementData\talias"
+			],
+			[
+				"white",
+				"whiteKingCoord\tproperty"
+			],
+			[
+				"black",
+				"blackKingCoord\tproperty"
+			],
+			[
+				"or",
+				"originPiece"
+			],
+			[
+				"isva",
+				"isValidMove\tmethod"
+			],
+			[
+				"isVali",
+				"isValidMove"
+			],
+			[
+				"origi",
 				"originPiece\tlet"
 			],
 			[
@@ -20,8 +60,32 @@
 				"origin\tproperty"
 			],
 			[
-				"origi",
-				"origin\tlet"
+				"team",
+				"Team\talias"
+			],
+			[
+				"k",
+				"Knight\tenum member"
+			],
+			[
+				"BoardPie",
+				"BoardPieceType\talias"
+			],
+			[
+				"un",
+				"unfilteredPossibleMoves\tlet"
+			],
+			[
+				"incre",
+				"incrementRow\tparameter"
+			],
+			[
+				"wi",
+				"withMovedPieces\tmethod"
+			],
+			[
+				"origin",
+				"originPiece\tlet"
 			],
 			[
 				"Peice",
@@ -64,16 +128,8 @@
 				"getMovementJudgeByType\tmethod"
 			],
 			[
-				"Movement",
-				"MovementJudgeType\talias"
-			],
-			[
 				"attack",
 				"attackData\tparameter"
-			],
-			[
-				"Move",
-				"MovementJudgeType\tscript"
 			],
 			[
 				"attac",
@@ -82,10 +138,6 @@
 			[
 				"b",
 				"board\tproperty"
-			],
-			[
-				"BoardPiece",
-				"BoardPieceType"
 			],
 			[
 				"kING",
@@ -98,14 +150,6 @@
 			[
 				"Moveme",
 				"MovementJudgeType\talias"
-			],
-			[
-				"movem",
-				"movementData\tparameter"
-			],
-			[
-				"black",
-				"blackPieceCoords\tproperty"
 			],
 			[
 				"with",
@@ -134,10 +178,6 @@
 			[
 				"board",
 				"boardmap\tproperty"
-			],
-			[
-				"white",
-				"whitePieceCoords\tproperty"
 			],
 			[
 				"Board",
@@ -170,10 +210,6 @@
 			[
 				"ab",
 				"AbstractBoardPieceFactory\tproperty"
-			],
-			[
-				"movement",
-				"movementJudgeFactory\tparameter"
 			],
 			[
 				"BoardBuild",
@@ -478,47 +514,38 @@
 			[
 				"clam",
 				"clampScalar\tmethod"
-			],
-			[
-				"Paw",
-				"PawnMovementJudge\tscript"
-			],
-			[
-				"Pawn",
-				"PawnMovementJudge\talias"
-			],
-			[
-				"first",
-				"firstmove\tlet"
-			],
-			[
-				"Bo",
-				"BoardPiece\tscript"
-			],
-			[
-				"Movem",
-				"MovementJudgeAlwaysTrue\tclass"
-			],
-			[
-				"destina",
-				"destinationPiece\tlet"
-			],
-			[
-				"destination",
-				"destinationPiece\tparameter"
-			],
-			[
-				"norm",
-				"normalizeVectorForPiece"
-			],
-			[
-				"bard",
-				"BoardPiece\tscript"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "src/business/chess/movementJudges/CheckMovementJudge.ts",
+			"settings":
+			{
+				"buffer_size": 5598,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/business/chess/ChessMediator.ts",
+			"settings":
+			{
+				"buffer_size": 7601,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/business/FluentMovementDataBuilder.ts",
+			"settings":
+			{
+				"buffer_size": 2221,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "npm run build",
 	"build_system_choices":
@@ -596,31 +623,39 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames"
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/enums"
 	],
 	"file_history":
 	[
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/MovementData.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/FluentMovementDataBuilder.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/PawnMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/KnightMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/MovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/RookMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/BishopMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/BoardCoordinate.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/KnightMovementJudge.test.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/KnightMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/KingMovementJudge.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/KingMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/ChessMovementJudge.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/FluentMovementDataBuilder.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/GameStateProcessor.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/RookMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/BishopMovementJudge.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/QueenMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessStateProcessor.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/RookMovementJudge.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/QueenMovementJudge.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessStateProcessor.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/MovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/AttackData.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/FluentAttackDataBuilder.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/FluentAttackDataBuilder.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/initialization/Bootstrapper.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/MovementData.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/BoardPiece.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/CheckMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/enums/BoardPieceType.ts",
@@ -630,8 +665,6 @@
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessMediator.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/ChessMediator.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/Board.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/PawnMovementJudge.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/BishopMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/CheckMovementJudge.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/enums/MovementJudgeType.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/enums/GameType.ts",
@@ -798,8 +831,102 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/business/chess/movementJudges/CheckMovementJudge.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5598,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4364,
+								4364
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1755.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/business/chess/ChessMediator.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7601,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4260,
+								4260
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1512.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/business/FluentMovementDataBuilder.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2221,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2133,
+								2133
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 594.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
 			]
 		}
 	],

@@ -13,7 +13,8 @@ export class FluentMovementDataBuilder {
   public board: Board = new Board(0, 0);
   public movedPieces: Array<string> = new Array<string>();
   public defendingKing: BoardCoordinate = BoardCoordinate.at(0, 0);
-  public attackingPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
+  public enemyPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
+  public allyPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
 
   public static MovementData(): FluentMovementDataBuilder {
       return new FluentMovementDataBuilder();
@@ -25,7 +26,7 @@ export class FluentMovementDataBuilder {
     this.board = orig.board;
     this.movedPieces = orig.movedPieces;
     this.defendingKing = orig.defendingKing;
-    this.attackingPieces = orig.attackingPieces;
+    this.enemyPieces = orig.enemyPieces;
     return this;
   }
 
@@ -54,8 +55,13 @@ export class FluentMovementDataBuilder {
     return this;
   }
 
-  public withAttackingPiecesOn(coords: Array<BoardCoordinate>): FluentMovementDataBuilder {
-    this.attackingPieces = coords;
+  public withEnemyPiecesOn(coords: Array<BoardCoordinate>): FluentMovementDataBuilder {
+    this.enemyPieces = coords;
+    return this;
+  }
+
+  public withAllyPiecesOn(coords: Array<BoardCoordinate>): FluentMovementDataBuilder {
+    this.allyPieces = coords;
     return this;
   }
 
