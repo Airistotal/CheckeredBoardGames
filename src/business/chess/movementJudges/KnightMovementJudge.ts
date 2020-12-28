@@ -30,13 +30,15 @@ export class KnightMovementJudge implements MovementJudge {
   }
 
   private isValidDestination(dest: BoardCoordinate, movementData: MovementData): boolean {
+    if (dest.col < 1 || dest.col > 8 || dest.row < 1 || dest.row > 8) {
+      return false;
+    }
+
     let originPiece = movementData.board.get(movementData.origin);
     let destPiece = movementData.board.get(dest);
 
     return originPiece !== undefined &&
            originPiece.type === BoardPieceType.Knight &&
-           dest.col > 0 && dest.col < 9 &&
-           dest.row > 0 && dest.row < 9 &&
            (destPiece === undefined || destPiece.team !== originPiece.team);
   }
 

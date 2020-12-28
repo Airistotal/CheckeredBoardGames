@@ -157,12 +157,12 @@ describe('KingMovementJudge tests', () => {
     let mvDta = FluentMovementDataBuilder
       .MovementData()
       .on(board)
-      .from(BoardCoordinate.at(4, 4))
+      .from(BoardCoordinate.at(5, 4))
       .to(BoardCoordinate.at(4, 3));
     let mvDtaMoved = FluentMovementDataBuilder
       .MovementData()
       .on(board)
-      .from(BoardCoordinate.at(4, 4))
+      .from(BoardCoordinate.at(5, 4))
       .to(BoardCoordinate.at(4, 3))
       .withMovedPieces(new Array<string>(king.id));
     board.set(mvDta.origin, king);

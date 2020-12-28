@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"getInter",
+				"getInterceptionCoordsForPiece"
+			],
+			[
+				"get",
+				"getPossibleMoves\tmethod"
+			],
+			[
 				"BoardPiece",
 				"BoardPieceType\talias"
 			],
@@ -18,10 +26,6 @@
 			[
 				"Move",
 				"movementData"
-			],
-			[
-				"get",
-				"getPossibleKingMoves"
 			],
 			[
 				"movement",
@@ -510,10 +514,6 @@
 			[
 				"queen",
 				"QueenMovementJudge"
-			],
-			[
-				"clam",
-				"clampScalar\tmethod"
 			]
 		]
 	},
@@ -523,16 +523,7 @@
 			"file": "src/business/chess/movementJudges/CheckMovementJudge.ts",
 			"settings":
 			{
-				"buffer_size": 5598,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/business/chess/ChessMediator.ts",
-			"settings":
-			{
-				"buffer_size": 7601,
+				"buffer_size": 6635,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -542,6 +533,15 @@
 			"settings":
 			{
 				"buffer_size": 2221,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/business/chess/ChessMediator.ts",
+			"settings":
+			{
+				"buffer_size": 7601,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -840,15 +840,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5598,
+						"buffer_size": 6635,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4364,
-								4364
+								5720,
+								5756
 							]
 						],
 						"settings":
@@ -859,7 +859,7 @@
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1755.0,
+						"translation.y": 1818.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -867,37 +867,6 @@
 				},
 				{
 					"buffer": 1,
-					"file": "src/business/chess/ChessMediator.ts",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7601,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4260,
-								4260
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true,
-							"use_tab_stops": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1512.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "src/business/FluentMovementDataBuilder.ts",
 					"semi_transient": false,
 					"settings":
@@ -909,8 +878,8 @@
 						"selection":
 						[
 							[
-								2133,
-								2133
+								1555,
+								1555
 							]
 						],
 						"settings":
@@ -921,7 +890,50 @@
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 594.0,
+						"translation.y": 289.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "src/business/chess/ChessMediator.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7601,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4462,
+								4462
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": true,
+								"indentSize": 2,
+								"tabSize": 2
+							},
+							"use_tab_stops": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1242.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -947,11 +959,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.456127936598,
 			1.0
 		],
 		"rows":

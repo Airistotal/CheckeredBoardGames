@@ -12,7 +12,9 @@ import "reflect-metadata";
 @injectable()
 export class KingMovementJudge implements MovementJudge {
   public static isCaslting(movementData: MovementData): boolean {
-    return KingMovementJudge.getCastlingMoves(movementData).includes(movementData.destination);
+    let movementVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
+
+    return (movementVector.x === 2 || movementVector.x === -2) && movementVector.y === 0;
   }
 
   public static getCasltingRookOrigin(movementData: MovementData): BoardCoordinate {
@@ -40,8 +42,8 @@ export class KingMovementJudge implements MovementJudge {
   public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
     let possibleMoves = new Array<BoardCoordinate>();
     
-    possibleMoves.concat(this.getAllMovesAroundKing(movementData));
-    possibleMoves.concat(KingMovementJudge.getCastlingMoves(movementData));
+    possibleMoves = possibleMoves.concat(this.getAllMovesAroundKing(movementData));
+    possibleMoves = possibleMoves.concat(KingMovementJudge.getCastlingMoves(movementData));
 
     return possibleMoves;
   }
@@ -53,11 +55,13 @@ export class KingMovementJudge implements MovementJudge {
 
     for (var i = -1; i <= 1; i++) {
       for (var j = -1; j <= 1; j++) {
-        if (i < 1 || i > 8 || j < 1 || j > 8) continue;
         if (i === 0 && j === 0) continue;
 
         let moveVector = new Vector2(i, j);
         let destination = movementData.origin.addVector(moveVector);
+
+        if (destination.col < 1 || destination.col > 8 || 
+            destination.row < 1 || destination.row > 8) continue;
 
         let destinationPiece = movementData.board.get(destination);
         if (destinationPiece !== undefined) {
@@ -78,7 +82,8 @@ export class KingMovementJudge implements MovementJudge {
     let originPiece = movementData.board.get(movementData.origin)
     if (originPiece === undefined || 
         originPiece.type !== BoardPieceType.King ||
-        movementData.movedPieces.includes(originPiece.id))
+        movementData.movedPieces.includes(originPiece.id) ||
+        movementData.origin.col !== 5)
     {
       return possibleMoves;
     }
@@ -97,23 +102,31 @@ export class KingMovementJudge implements MovementJudge {
   private static arePiecesInPlaceForQueensideCastle(movementData: MovementData): boolean {
     let board = movementData.board;
     let origin = movementData.origin;
+    let king = movementData.board.get(movementData.origin);
     let rook = board.get(BoardCoordinate.at(origin.col - 4, origin.row));
 
     return board.get(BoardCoordinate.at(origin.col - 1, origin.row)) === undefined &&
            board.get(BoardCoordinate.at(origin.col - 2, origin.row)) === undefined &&
            board.get(BoardCoordinate.at(origin.col - 3, origin.row)) === undefined &&
-           rook !== undefined && rook.type === BoardPieceType.Rook &&
+           rook !== undefined &&
+           rook.type === BoardPieceType.Rook &&
+           king !== undefined &&
+           rook.team === king.team &&
            !movementData.movedPieces.some((v) => rook !== undefined && v === rook.id);
   }
 
   private static arePiecesInPlaceForKingsideCastle(movementData: MovementData): boolean {
     let board = movementData.board;
     let origin = movementData.origin;
+    let king = movementData.board.get(movementData.origin);
     let rook = board.get(BoardCoordinate.at(origin.col + 3, origin.row));
 
     return board.get(BoardCoordinate.at(origin.col + 1, origin.row)) === undefined &&
            board.get(BoardCoordinate.at(origin.col + 2, origin.row)) === undefined &&
-           rook !== undefined && rook.type === BoardPieceType.Rook &&
+           rook !== undefined && 
+           rook.type === BoardPieceType.Rook &&
+           king !== undefined &&
+           rook.team === king.team &&
            !movementData.movedPieces.some((v) => rook !== undefined && v === rook.id);
   }
 }

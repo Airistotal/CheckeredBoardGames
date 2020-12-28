@@ -34,56 +34,21 @@ export class ChessStateProcessor implements GameStateProcessor {
   }
 
   public isGameOver(attackData: AttackData): boolean {
-    this.logicBoard = attackData.board.cloneBoardForLogic();
-    let directAttackingPieces = this.getDirectAttackingPieces(attackData);
+    let checkMovementJudge = this.getMovementJudgeByType(MovementJudgeType.Check);
+    let mvDta = FluentMovementDataBuilder.MovementData()
+      .on(attackData.board)
+      .withAllyPiecesOn(attackData.allyPieces)
+      .withEnemyPiecesOn(attackData.enemyPieces)
+      .withDefendingKingOn(attackData.defendingKing)
+      .build();
 
-    if (directAttackingPieces.length > 1) {
-      return this.canKingMoveOutOfCheck(attackData);
-    } else if (directAttackingPieces.length === 1) {
-      return this.canKingMoveOutOfCheck(attackData) || this.canAnyPieceInterfereInAttack();
+    let possibleMoves = checkMovementJudge.getPossibleMoves(mvDta);
+
+    if (possibleMoves.length === 0) {
+      return true;
     } else {
       return false;
     }
-  }
-
-  private getDirectAttackingPieces(attackData: AttackData): BoardCoordinate[] {
-    let directAttackingPieces = new Array<BoardCoordinate>();
-
-    let self = this;
-    attackData.attackingPieces.forEach((coord) => {
-      let attackingPiece = attackData.board.get(coord);
-      if (attackingPiece !== undefined) {
-        let mvJudge = self.getMovementJudge(attackingPiece.type);
-        let mvDta = FluentMovementDataBuilder.MovementData()
-          .on(attackData.board)
-          .from(coord)
-          .to(attackData.defendingKing);
-
-        if (mvJudge.isLegalMove(mvDta)) {
-          directAttackingPieces.push(coord);
-        }
-      }
-    });
-
-    return directAttackingPieces;
-  }
-
-  private canAnyPieceInterfereInAttack(): boolean {
-    return true;
-  }
-
-  private canKingMoveOutOfCheck(attackData: AttackData): boolean {
-    let chkJudge = this.getMovementJudgeByType(MovementJudgeType.Check);
-
-    let kingCanMove = false;
-    
-
-    return kingCanMove;
-  }
-
-  private getMovementJudge(pieceType: BoardPieceType) {
-    let movementJudgeType = Utilities.getMovementJudgeTypeFor(pieceType);
-    return this.getMovementJudgeByType(movementJudgeType);
   }
 
   private getMovementJudgeByType(movementJudgeType: MovementJudgeType) {

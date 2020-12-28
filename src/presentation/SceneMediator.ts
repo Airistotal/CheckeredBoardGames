@@ -74,6 +74,11 @@ export class SceneMediator {
     } else {
       let moveResult = self.gameMediator.move(self.lastClicked, clicked);
       !moveResult ? self.lastClicked = clicked : self.lastClicked = null;
+      let winner = self.gameMediator.getTeamThatWon();
+
+      if (winner !== undefined) {
+        alert(`Game Over! Congrats ${winner.toString()}!`);
+      }
     }
   }
 }

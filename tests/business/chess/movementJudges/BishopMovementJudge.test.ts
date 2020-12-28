@@ -112,7 +112,7 @@ describe('BishopMovementJudge tests', () => {
     board.set(mvDta.origin, new BoardPiece(Team.White, BoardPieceType.Bishop, new Mesh()));
     board.set(mvDta.destination, new BoardPiece(Team.Black, BoardPieceType.Bishop, new Mesh()));
 
-    expect(new BishopMovementJudge().getPossibleMoves(mvDta)).to.be.equal(12);
+    expect(new BishopMovementJudge().getPossibleMoves(mvDta).length).to.be.equal(13);
   });
 
   it(`bishop can move everywhere but one, returns all possible moves`, () => {
@@ -125,6 +125,6 @@ describe('BishopMovementJudge tests', () => {
     board.set(mvDta.origin, new BoardPiece(Team.White, BoardPieceType.Bishop, new Mesh()));
     board.set(mvDta.destination, new BoardPiece(Team.Black, BoardPieceType.Bishop, new Mesh()));
 
-    expect(new BishopMovementJudge().getPossibleMoves(mvDta)).to.be.equal(11);
+    expect(new BishopMovementJudge().getPossibleMoves(mvDta).length).to.be.equal(12);
   });
 });

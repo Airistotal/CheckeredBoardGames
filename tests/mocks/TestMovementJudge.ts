@@ -25,4 +25,12 @@ export class TestMovementJudge implements MovementJudge {
       return  this.isLegalMoveValue;
     }
   }
+
+  getPossibleMoves(mvDta: MovementData) {
+    let possibleMoves = new Array<BoardCoordinate>();
+
+    possibleMoves.push(mvDta.destination);
+
+    return possibleMoves;
+  }
 }

@@ -5,8 +5,6 @@ export class BoardCoordinate {
   public readonly row: number;
 
   private constructor(col: number, row: number) {
-    BoardCoordinate.validate(col, row);
-
     this.col = col;
     this.row = row;
   }
@@ -49,29 +47,5 @@ export class BoardCoordinate {
 
     return this.col === other.col &&
            this.row === other.row;
-  }
-
-  private static validate(col: number, row: number) {
-    let errorMsg = 'Invalid ';
-    let throwErr = false;
-
-    if(col < 0) {
-      throwErr = true;
-      errorMsg += 'column <' + col + '>';
-
-      if(row < 0) {
-        errorMsg += ' and ';
-      }
-    }
-
-    if(row < 0) {
-      throwErr = true;
-
-      errorMsg += 'row <' + row + '>';
-    }
-
-    if (throwErr) {
-      throw new Error(errorMsg);
-    }
   }
 }

@@ -11,45 +11,6 @@ describe('BoardCoordinate tests', () => {
     expect(BoardCoordinate.at(1, 1).toString()).to.be.equal("(1, 1)");
   });
 
-  it('column must be 0 or more', () => {
-    var err = new Error();
-
-    try {
-      BoardCoordinate.at(-1, 1);
-    }
-    catch(e) {
-      err = e;
-    }
-
-    expect(err.message).to.be.equal('Invalid column <-1>');
-  });
-
-  it('row must be 0 or more', () => {
-    var err = new Error();
-
-    try {
-      BoardCoordinate.at(1, -1);
-    }
-    catch(e) {
-      err = e;
-    }
-
-    expect(err.message).to.be.equal('Invalid row <-1>');
-  });
-
-  it('row and column must be 0 or more', () => {
-    var err = new Error();
-
-    try {
-      BoardCoordinate.at(-1, -1);
-    }
-    catch(e) {
-      err = e;
-    }
-
-    expect(err.message).to.be.equal('Invalid column <-1> and row <-1>');
-  });
-
   it('get vector from coordinates', () => {
     let v = BoardCoordinate.getVector(BoardCoordinate.at(1, 1), BoardCoordinate.at(1, 2));
 

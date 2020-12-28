@@ -49,7 +49,7 @@ describe('CheckMovementJudge tests', async () => {
       .from(BoardCoordinate.at(1, 1))
       .to(BoardCoordinate.at(2, 1))
       .withDefendingKingOn(BoardCoordinate.at(1, 2))
-      .withAttackingPiecesOn(new Array<BoardCoordinate>(BoardCoordinate.at(2, 3)))
+      .withEnemyPiecesOn(new Array<BoardCoordinate>(BoardCoordinate.at(2, 3)))
       .build();
 
     let moveSucces = checkMovementJudge.isLegalMove(mvDta);
@@ -69,7 +69,7 @@ describe('CheckMovementJudge tests', async () => {
       .from(BoardCoordinate.at(1, 1))
       .to(BoardCoordinate.at(2, 1))
       .withDefendingKingOn(BoardCoordinate.at(1, 2))
-      .withAttackingPiecesOn(new Array<BoardCoordinate>(BoardCoordinate.at(3, 2)))
+      .withEnemyPiecesOn(new Array<BoardCoordinate>(BoardCoordinate.at(3, 2)))
       .build();
 
     let moveSucces = checkMovementJudge.isLegalMove(mvDta);
@@ -89,7 +89,7 @@ describe('CheckMovementJudge tests', async () => {
       .from(BoardCoordinate.at(1, 1))
       .to(BoardCoordinate.at(1, 2))
       .withDefendingKingOn(BoardCoordinate.at(1, 2))
-      .withAttackingPiecesOn(new Array<BoardCoordinate>(BoardCoordinate.at(3, 2)))
+      .withEnemyPiecesOn(new Array<BoardCoordinate>(BoardCoordinate.at(3, 2)))
       .build();
     let moveSucces = checkMovementJudge.isLegalMove(mvDta);
 
@@ -110,7 +110,7 @@ describe('CheckMovementJudge tests', async () => {
       .from(BoardCoordinate.at(1, 2))
       .to(BoardCoordinate.at(2, 3))
       .withDefendingKingOn(BoardCoordinate.at(1, 2))
-      .withAttackingPiecesOn(new Array<BoardCoordinate>(BoardCoordinate.at(3, 2)))
+      .withEnemyPiecesOn(new Array<BoardCoordinate>(BoardCoordinate.at(3, 2)))
       .build();
 
     let moveSucces = checkMovementJudge.isLegalMove(mvDta);

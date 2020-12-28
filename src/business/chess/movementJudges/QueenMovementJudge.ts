@@ -26,8 +26,8 @@ export class QueenMovementJudge implements MovementJudge {
   public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
     let possibleMoves = new Array<BoardCoordinate>();
 
-    possibleMoves.concat(this.rookMovementJudge.getPossibleMoves(movementData));
-    possibleMoves.concat(this.bishopMovementJudge.getPossibleMoves(movementData));
+    possibleMoves = possibleMoves.concat(this.rookMovementJudge.getPossibleMoves(movementData));
+    possibleMoves = possibleMoves.concat(this.bishopMovementJudge.getPossibleMoves(movementData));
 
     return possibleMoves;
   }

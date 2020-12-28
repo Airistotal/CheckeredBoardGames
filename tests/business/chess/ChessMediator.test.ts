@@ -72,6 +72,8 @@ describe('ChessMediator tests', () => {
 	});
 
 	it('when castling moves king and rook', async () => {
+		debugger;
+		
 		let mediator = new ChessMediator(
 			(type: GameType) => new TestBoardBuilder(new Map<BoardCoordinate, BoardPiece>([
 				[BoardCoordinate.at(5, 1), new BoardPiece(Team.White, BoardPieceType.King, new Mesh())],
@@ -86,8 +88,8 @@ describe('ChessMediator tests', () => {
 		let kingDest = mediator.lookAtBoard().get(BoardCoordinate.at(7, 1));
 		let rookDest = mediator.lookAtBoard().get(BoardCoordinate.at(6, 1));
 
-		expect(rookDest).to.not.be.undefined;
 		expect(kingDest).to.not.be.undefined;
+		expect(rookDest).to.not.be.undefined;
 		expect(castleResult).to.be.true;
 	});
 
@@ -118,8 +120,6 @@ describe('ChessMediator tests', () => {
 			(type: GameType) => new TestStateProcessor());
 
 		await mediator.loadBoard();
-
-		debugger;
 
 		mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
 

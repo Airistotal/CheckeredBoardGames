@@ -19,19 +19,15 @@ export class BishopMovementJudge implements MovementJudge {
   public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
     let possibleMoves = new Array<BoardCoordinate>();
 
-    possibleMoves.concat(
-      this.getCoords(movementData, (col: number) => col++, (row: number) =>row++));
-    possibleMoves.concat(
-      this.getCoords(movementData, (col: number) => col++, (row: number) =>row--));
-    possibleMoves.concat(
-      this.getCoords(movementData, (col: number) => col--, (row: number) =>row++));
-    possibleMoves.concat(
-      this.getCoords(movementData, (col: number) => col--, (row: number) =>row--));
+    possibleMoves = possibleMoves.concat(this.getCoords(movementData, (col) => col + 1, (row) => row + 1));
+    possibleMoves = possibleMoves.concat(this.getCoords(movementData, (col) => col + 1, (row) => row - 1));
+    possibleMoves = possibleMoves.concat(this.getCoords(movementData, (col) => col - 1, (row) =>row + 1));
+    possibleMoves = possibleMoves.concat(this.getCoords(movementData, (col) => col - 1, (row) =>row - 1));
 
     return possibleMoves;
   }
 
-  private getCoords(movementData: MovementData, incrementCol: Function, incrementRow: Function): Array<BoardCoordinate> {
+  private getCoords(movementData: MovementData, incrementCol: (col: number) => number, incrementRow: (row: number) => number): Array<BoardCoordinate> {
     let possibleMoves = new Array<BoardCoordinate>();
     let originPiece = movementData.board.get(movementData.origin);
     if (originPiece === undefined) return possibleMoves;

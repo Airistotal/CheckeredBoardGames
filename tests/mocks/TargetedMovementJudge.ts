@@ -10,12 +10,16 @@ export class TargetedMovementJudge implements MovementJudge {
     this.targets = targets;
   }
 
-  isLegalMove(mvDta: MovementData) : boolean{
+  isLegalMove(mvDta: MovementData): boolean{
     let origPiece = mvDta.board.get(mvDta.origin);
     if (origPiece === undefined) {
       return false;
     }
 
    return this.targets.some((v) => v.Equals(mvDta.destination));
+  }
+
+  getPossibleMoves(mvDta: MovementData): Array<BoardCoordinate> {
+    return this.targets;
   }
 }

@@ -136,7 +136,7 @@ describe('QueenMovementJudge tests', () => {
     board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry));
     board.set(mvDta.destination, new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
 
-    expect(queenMovementJudge.getPossibleMoves(mvDta).length).to.be.equal(26);
+    expect(queenMovementJudge.getPossibleMoves(mvDta).length).to.be.equal(27);
   });
 
   it(`queen can move everywhere but one, returns possible moves`, () => {
@@ -150,6 +150,6 @@ describe('QueenMovementJudge tests', () => {
     board.set(mvDta.origin, new BoardPiece(Team.Black, BoardPieceType.Queen, pieceGeometry));
     board.set(mvDta.destination, new BoardPiece(Team.White, BoardPieceType.Bishop, pieceGeometry));
 
-    expect(queenMovementJudge.getPossibleMoves(mvDta).length).to.be.equal(25);
+    expect(queenMovementJudge.getPossibleMoves(mvDta).length).to.be.equal(26);
   });
 });

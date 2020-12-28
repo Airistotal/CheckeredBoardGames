@@ -10,8 +10,8 @@ import "reflect-metadata";
 export class FluentAttackDataBuilder {
   public board: Board = new Board(0, 0);
   public defendingKing: BoardCoordinate = BoardCoordinate.at(0, 0);
-  public defendingPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
-  public attackingPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
+  public allyPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
+  public enemyPieces: Array<BoardCoordinate> = new Array<BoardCoordinate>();
 
   public static AttackData(): FluentAttackDataBuilder {
       return new FluentAttackDataBuilder();
@@ -27,13 +27,13 @@ export class FluentAttackDataBuilder {
     return this;
   }
 
-  public withDefendingPiecesOn(coords: Array<BoardCoordinate>): FluentAttackDataBuilder {
-    this.defendingPieces = coords;
+  public withAllyPiecesOn(coords: Array<BoardCoordinate>): FluentAttackDataBuilder {
+    this.allyPieces = coords;
     return this;
   }
 
-  public withAttackingPiecesOn(coords: Array<BoardCoordinate>): FluentAttackDataBuilder {
-    this.attackingPieces = coords;
+  public withEnemyPiecesOn(coords: Array<BoardCoordinate>): FluentAttackDataBuilder {
+    this.enemyPieces = coords;
     return this;
   }
 

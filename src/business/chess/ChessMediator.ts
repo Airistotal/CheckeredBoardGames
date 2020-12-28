@@ -12,6 +12,7 @@ import { MovementJudge } from '../MovementJudge';
 import { KingMovementJudge } from '../chess/movementJudges/KingMovementJudge';
 import { PawnMovementJudge } from '../chess/movementJudges/PawnMovementJudge';
 import { FluentMovementDataBuilder } from '../FluentMovementDataBuilder';
+import { FluentAttackDataBuilder } from '../FluentAttackDataBuilder';
 
 import { Group, Mesh } from 'three';
 
@@ -84,7 +85,18 @@ export class ChessMediator implements GameMediator {
   }
 
   public getTeamThatWon(): Team | undefined {
-    if (this.gameStateProcessor.isGameOverForTeam(this.board, this.currentTeamTurn)) {
+    let team = this.currentTeamTurn;
+
+    let attackData = FluentAttackDataBuilder.AttackData()
+      .on(this.board)
+      .withDefendingKingOn(team === Team.White ? this.whiteKingCoord : this.blackKingCoord)
+      .withEnemyPiecesOn(team === Team.White 
+        ? this.blackPieceCoords.concat(this.blackKingCoord) 
+        : this.whitePieceCoords.concat(this.whiteKingCoord))
+      .withAllyPiecesOn(team === Team.White ? this.whitePieceCoords : this.blackPieceCoords)
+      .build();
+
+    if (this.gameStateProcessor.isGameOver(attackData)) {
       return this.currentTeamTurn;
     } else {
       return undefined;

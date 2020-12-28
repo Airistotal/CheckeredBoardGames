@@ -57,15 +57,18 @@ export class CheckMovementJudge implements MovementJudge {
 
   public getPossibleMoves(movementData: MovementData): Array<BoardCoordinate> {
     let attackingPieces = this.getAttackingPieces(movementData, movementData.defendingKing);
-    let interceptionCoords = new Array<BoardCoordinate>();
+    let possibleMoves = new Array<BoardCoordinate>();
 
     if (attackingPieces.length === 1) {
-      interceptionCoords = this.getPossibleInterceptions(attackingPieces, movementData);
+      possibleMoves = possibleMoves.concat(this.getPossibleInterceptions(attackingPieces, movementData));
+    } else if (attackingPieces.length === 0) {
+      // No attackers, make sure this returns something
+      possibleMoves.push(BoardCoordinate.at(0, 0))
     }
 
-    let possibleKingMoves = this.getPossibleKingMoves(movementData);
+    possibleMoves = possibleMoves.concat(this.getPossibleKingMoves(movementData));
 
-    return interceptionCoords.concat(possibleKingMoves);
+    return possibleMoves;
   }
 
   private getAttackingPieces(movementData: MovementData, destination: BoardCoordinate): Array<BoardCoordinate> {
@@ -110,7 +113,8 @@ export class CheckMovementJudge implements MovementJudge {
             .to(to)
             .build();
 
-          if (movementJudge.isLegalMove(movementData)) {
+          if (movementJudge.isLegalMove(movementData) && 
+              !this.doOpponentPiecesAttackDefendingKing(mvDta)) {
             possibleInterceptionCoords.push(to);
           }
         });
@@ -133,7 +137,36 @@ export class CheckMovementJudge implements MovementJudge {
   }
 
   private getInterceptionCoordsForPiece(attackerCoord: BoardCoordinate, movementData: MovementData): Array<BoardCoordinate> {
-    return new Array<BoardCoordinate>();
+    let attackerPiece = movementData.board.get(attackerCoord);
+    let interceptionCoords = new Array<BoardCoordinate>();
+
+    if (attackerPiece !== undefined) {
+      let type = attackerPiece.type;
+
+      if (type === BoardPieceType.Bishop ||
+          type === BoardPieceType.Rook ||
+          type === BoardPieceType.Queen)
+      {
+        let deltaX = movementData.defendingKing.col - attackerCoord.col;
+        let deltaY = movementData.defendingKing.row - attackerCoord.row;
+
+        let movementVector = new Vector2(deltaX/Math.abs(deltaX), deltaY/Math.abs(deltaY));
+
+        let inBetweenSquare = attackerCoord.addVector(movementVector);
+        let i = 0;
+
+        while (inBetweenSquare !== movementData.defendingKing && i < 8) {
+          interceptionCoords.push(inBetweenSquare);
+
+          inBetweenSquare = inBetweenSquare.addVector(movementVector);
+          i++;
+        }
+      }
+
+      interceptionCoords.push(attackerCoord);
+    }
+
+    return interceptionCoords;
   }
 
   private getPossibleKingMoves(movementData: MovementData): Array<BoardCoordinate> {
