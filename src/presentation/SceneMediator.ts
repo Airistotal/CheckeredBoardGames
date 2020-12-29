@@ -3,6 +3,7 @@ import { BoardGameControls } from './BoardGameControls';
 import { Scene, WebGLRenderer, Raycaster } from 'three';
 import { GameMediator } from '../business/GameMediator';
 import { GameType } from '../models/enums/GameType';
+import { Team } from '../models/enums/Team';
 import { BoardCoordinate } from '../models/BoardCoordinate';
 import { Board } from '../models/Board';
 import { Bootstrapper } from '../business/initialization/Bootstrapper';
@@ -77,7 +78,7 @@ export class SceneMediator {
       let winner = self.gameMediator.getTeamThatWon();
 
       if (winner !== undefined) {
-        alert(`Game Over! Congrats ${winner.toString()}!`);
+        alert(`Game Over! Congrats ${winner === Team.White ? 'White' : 'Black'}!`);
       }
     }
   }

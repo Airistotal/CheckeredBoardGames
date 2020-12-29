@@ -25,12 +25,31 @@ export class CheckMovementJudge implements MovementJudge {
   }
 
   public isLegalMove(movementData: MovementData) : boolean {
-    try {
       return !this.doOpponentPiecesAttackDefendingKing(movementData);
-    } catch(e) {
-      console.log(e);
-      return false;
-    }
+  }
+
+  private doOpponentPiecesAttackDefendingKing(movementData: MovementData): boolean {
+    let check = false;
+    let logicBoard = movementData.board.cloneBoardForLogic();
+    this.executeMove(logicBoard, movementData);
+    
+    let self = this;
+    movementData.enemyPieces.forEach((coord, index) => {
+      let origPiece = logicBoard.get(coord);
+      if (origPiece !== undefined) {
+        let movementJudge = self.getMovementJudge(Utilities.getMovementJudgeTypeFor(origPiece.type));
+        let mvDta = FluentMovementDataBuilder
+          .MovementData()
+          .on(logicBoard)
+          .from(coord)
+          .to(movementData.defendingKing)
+          .build();
+
+        check = movementJudge.isLegalMove(mvDta) || check;
+      }
+    });
+
+    return check;
   }
 
   private getMovementJudge(type: MovementJudgeType) {
@@ -108,12 +127,13 @@ export class CheckMovementJudge implements MovementJudge {
         interceptionCoords.forEach((to, index) => {
           let mvDta = FluentMovementDataBuilder
             .MovementData()
+            .shallowClone(movementData)
             .on(movementData.board)
             .from(from)
             .to(to)
             .build();
 
-          if (movementJudge.isLegalMove(movementData) && 
+          if (movementJudge.isLegalMove(mvDta) && 
               !this.doOpponentPiecesAttackDefendingKing(mvDta)) {
             possibleInterceptionCoords.push(to);
           }
@@ -189,29 +209,5 @@ export class CheckMovementJudge implements MovementJudge {
     });
 
     return filteredPossibleKingMoves;
-  }
-
-  private doOpponentPiecesAttackDefendingKing(movementData: MovementData): boolean {
-    let check = false;
-    let logicBoard = movementData.board.cloneBoardForLogic();
-    this.executeMove(logicBoard, movementData);
-    
-    let self = this;
-    movementData.enemyPieces.forEach((coord, index) => {
-      let origPiece = logicBoard.get(coord);
-      if (origPiece !== undefined) {
-        let movementJudge = self.getMovementJudge(Utilities.getMovementJudgeTypeFor(origPiece.type));
-        let mvDta = FluentMovementDataBuilder
-          .MovementData()
-          .on(logicBoard)
-          .from(coord)
-          .to(movementData.defendingKing)
-          .build();
-
-        check = movementJudge.isLegalMove(mvDta) || check;
-      }
-    });
-
-    return check;
   }
 }

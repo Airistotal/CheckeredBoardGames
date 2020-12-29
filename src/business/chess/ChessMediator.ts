@@ -97,28 +97,14 @@ export class ChessMediator implements GameMediator {
       .build();
 
     if (this.gameStateProcessor.isGameOver(attackData)) {
-      return this.currentTeamTurn;
+      return this.currentTeamTurn === Team.Black ? Team.White : Team.Black;
     } else {
       return undefined;
     }
   }
 
   public move(origin: BoardCoordinate, destination: BoardCoordinate): boolean {
-    let defendingKing = this.currentTeamTurn === Team.White ? this.whiteKingCoord : this.blackKingCoord;
-    let opponentPieces = this.currentTeamTurn === Team.White 
-      ? this.blackPieceCoords.concat(this.blackKingCoord)
-      : this.whitePieceCoords.concat(this.whiteKingCoord);
-    let allyPieces = this.currentTeamTurn === Team.White ? this.whitePieceCoords : this.blackPieceCoords;
-
-    let mvDta = FluentMovementDataBuilder
-      .MovementData()
-      .from(origin)
-      .to(destination)
-      .on(this.board)
-      .withEnemyPiecesOn(opponentPieces)
-      .withAllyPiecesOn(allyPieces)
-      .withDefendingKingOn(defendingKing)
-      .build();
+    let mvDta = this.getMovementData(origin, destination);
 
     if (this.isLegalMove(mvDta)) {
       this.processCastling(mvDta);
@@ -130,6 +116,24 @@ export class ChessMediator implements GameMediator {
     }
 
     return false;
+  }
+
+  private getMovementData(origin: BoardCoordinate, destination: BoardCoordinate): MovementData {
+    let defendingKing = this.currentTeamTurn === Team.White ? this.whiteKingCoord : this.blackKingCoord;
+    let opponentPieces = this.currentTeamTurn === Team.White 
+      ? this.blackPieceCoords.concat(this.blackKingCoord)
+      : this.whitePieceCoords.concat(this.whiteKingCoord);
+    let allyPieces = this.currentTeamTurn === Team.White ? this.whitePieceCoords : this.blackPieceCoords;
+
+    return FluentMovementDataBuilder
+      .MovementData()
+      .from(origin)
+      .to(destination)
+      .on(this.board)
+      .withEnemyPiecesOn(opponentPieces)
+      .withAllyPiecesOn(allyPieces)
+      .withDefendingKingOn(defendingKing)
+      .build();
   }
 
   private processCastling(mvDta: MovementData): void {
