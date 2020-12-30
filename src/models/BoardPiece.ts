@@ -42,10 +42,10 @@ export class BoardPiece {
   }
 
   private getColorForTeam(): Color {
-    if (Team.White) {
-      return new Color("white");
+    if (this.team === Team.White) {
+      return new Color(0xffffff);
     } else {
-      return new Color("black");
+      return new Color(0x262626);
     }
   }
 }

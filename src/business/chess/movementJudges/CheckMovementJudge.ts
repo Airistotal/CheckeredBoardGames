@@ -170,7 +170,9 @@ export class CheckMovementJudge implements MovementJudge {
         let deltaX = movementData.defendingKing.col - attackerCoord.col;
         let deltaY = movementData.defendingKing.row - attackerCoord.row;
 
-        let movementVector = new Vector2(deltaX/Math.abs(deltaX), deltaY/Math.abs(deltaY));
+        let movementVector = new Vector2(
+          deltaX === 0 ? 0 : deltaX/Math.abs(deltaX),
+          deltaY === 0 ? 0 : deltaY/Math.abs(deltaY));
 
         let inBetweenSquare = attackerCoord.addVector(movementVector);
         let i = 0;

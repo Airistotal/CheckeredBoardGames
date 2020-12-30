@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"posi",
+				"possibleMoves\tlet"
+			],
+			[
 				"moveme",
 				"movementVector\tlet"
 			],
@@ -510,10 +514,6 @@
 			[
 				"Rook",
 				"RookMovementJudge\talias"
-			],
-			[
-				"Bishop",
-				"BishopMovementJudge\talias"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "src/presentation/SceneMediator.ts",
 			"settings":
 			{
-				"buffer_size": 3290,
+				"buffer_size": 3359,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -532,7 +532,8 @@
 			"file": "src/business/chess/ChessMediator.ts",
 			"settings":
 			{
-				"buffer_size": 8130,
+				"buffer_size": 8327,
+				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -540,7 +541,7 @@
 			"file": "src/business/chess/movementJudges/CheckMovementJudge.ts",
 			"settings":
 			{
-				"buffer_size": 7792,
+				"buffer_size": 7750,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -633,6 +634,9 @@
 	],
 	"file_history":
 	[
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/PawnMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/CheckMovementJudge.ts",
+		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/FluentMovementDataBuilder.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/models/BoardCoordinate.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/BoardCoordinate.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/KnightMovementJudge.ts",
@@ -654,12 +658,9 @@
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestStateProcessor.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/mocks/TestMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/ChessMediator.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/CheckMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/FluentAttackDataBuilder.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/FluentMovementDataBuilder.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/AttackData.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/models/MovementData.ts",
-		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/PawnMovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/MovementJudge.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/tests/business/chess/movementJudges/KnightMovementJudge.test.ts",
 		"/C/Users/danie/Documents/Repositories/CheckeredBoardGames/src/business/chess/movementJudges/ChessMovementJudge.ts",
@@ -764,7 +765,7 @@
 	],
 	"find":
 	{
-		"height": 39.0
+		"height": 27.0
 	},
 	"find_in_files":
 	{
@@ -831,7 +832,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -840,15 +841,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3290,
+						"buffer_size": 3359,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3284,
-								3284
+								3004,
+								3004
 							]
 						],
 						"settings":
@@ -865,7 +866,7 @@
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1044.0,
+						"translation.y": 945.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -877,15 +878,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8130,
+						"buffer_size": 8327,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1069,
-								1069
+								4083,
+								4083
 							]
 						],
 						"settings":
@@ -893,13 +894,19 @@
 							"syntax": "Packages/TypeScript/TypeScript.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true,
+							"typescript_plugin_format_options":
+							{
+								"convertTabsToSpaces": true,
+								"indentSize": 2,
+								"tabSize": 2
+							},
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1350.0,
+						"translation.y": 1323.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -908,15 +915,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7792,
+						"buffer_size": 7750,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2868,
-								2868
+								5048,
+								5048
 							]
 						],
 						"settings":
@@ -927,10 +934,10 @@
 							"use_tab_stops": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 738.0,
+						"translation.y": 1944.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -969,7 +976,7 @@
 		"cols":
 		[
 			0.0,
-			0.653658800796,
+			0.756745220549,
 			1.0
 		],
 		"rows":

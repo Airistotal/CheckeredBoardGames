@@ -12,8 +12,10 @@ import "reflect-metadata";
 @injectable()
 export class KingMovementJudge implements MovementJudge {
   public static isCaslting(movementData: MovementData): boolean {
-    let movementVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
+    let originPiece = movementData.board.get(movementData.origin);
+    if (originPiece === undefined || originPiece.type !== BoardPieceType.King) return false;
 
+    let movementVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
     return (movementVector.x === 2 || movementVector.x === -2) && movementVector.y === 0;
   }
 

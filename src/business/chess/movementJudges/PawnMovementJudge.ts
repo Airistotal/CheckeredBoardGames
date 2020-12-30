@@ -49,13 +49,12 @@ export class PawnMovementJudge implements MovementJudge {
   }
 
   public static getEnPassantGhostCoordinate(movementData: MovementData): BoardCoordinate {
-    let mvVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
-    mvVector.normalize();
+    let originPiece = movementData.board.get(movementData.origin);
+    if (originPiece === undefined) throw new Error('Unable to get en passant ghost coordinate for empty origin piece');
 
-    let enPassantGhostCoord = movementData.origin;
-    enPassantGhostCoord.addVector(mvVector);
+    let mvVector = new Vector2(0, 1 * this.getDirectionForTeam(originPiece.team));
 
-    return enPassantGhostCoord;
+    return movementData.origin.addVector(mvVector);
   }
 
   public isLegalMove(movementData: MovementData) : boolean {
