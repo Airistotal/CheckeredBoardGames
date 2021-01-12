@@ -17,11 +17,23 @@ import { Mesh } from 'three';
 import { expect } from 'chai';
 import 'mocha';
 
+let kingMvJudgeFactory = (type: GameType) => (type: MovementJudgeType): MovementJudge => {
+  switch (type) {
+     case MovementJudgeType.Rook:
+      return new RookMovementJudge();
+      break;
+    
+    default:
+      return new TestMovementJudge(true, true);
+      break;
+  }
+}
+
 
 let mvJudgeFactory = (type: GameType) => (type: MovementJudgeType): MovementJudge => {
   switch (type) {
     case MovementJudgeType.King:
-      return new KingMovementJudge();
+      return new KingMovementJudge(kingMvJudgeFactory);
       break;
 
      case MovementJudgeType.Rook:

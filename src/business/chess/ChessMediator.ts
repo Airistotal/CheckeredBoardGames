@@ -13,6 +13,7 @@ import { KingMovementJudge } from '../chess/movementJudges/KingMovementJudge';
 import { PawnMovementJudge } from '../chess/movementJudges/PawnMovementJudge';
 import { FluentMovementDataBuilder } from '../FluentMovementDataBuilder';
 import { FluentAttackDataBuilder } from '../FluentAttackDataBuilder';
+import { PromotionBoxBuilder } from '../PromotionBoxBuilder';
 
 import { Group, Mesh } from 'three';
 
@@ -22,6 +23,7 @@ import "reflect-metadata";
 
 @injectable()
 export class ChessMediator implements GameMediator {
+  private chessGame: Group = new Group();
   private board!: Board;
   private readonly movedPieces: Array<string>;
   public whitePieceCoords!: Array<BoardCoordinate>;
@@ -29,19 +31,24 @@ export class ChessMediator implements GameMediator {
   public whiteKingCoord!: BoardCoordinate;
   public blackKingCoord!: BoardCoordinate;
   private currentTeamTurn: Team = Team.White;
+  private pawnNeedsPromoting: boolean = false;
+  private promotionSquare: BoardCoordinate | undefined;
   private enPassantGhost = new BoardPiece(Team.Ghost, BoardPieceType.Pawn, new Mesh());
   private enPassantGhostCoord: BoardCoordinate | undefined;
   
   private readonly boardBuilder: BoardBuilder;
   private readonly movementJudge: MovementJudge;
   private readonly gameStateProcessor: GameStateProcessor;
+  private readonly promotionBoxBuilder: PromotionBoxBuilder;
 
 	constructor(@inject(IOCTypes.BoardBuilderFactory) boardBuilderFactory: (type: GameType) => BoardBuilder,
               @inject(IOCTypes.MovementJudgeFactory) movementJudgeFactory: (type: GameType) => MovementJudge,
-              @inject(IOCTypes.GameStateProcessorFactory) gameStateProcessorFactory: (type: GameType) => GameStateProcessor) {
+              @inject(IOCTypes.GameStateProcessorFactory) gameStateProcessorFactory: (type: GameType) => GameStateProcessor,
+              @inject(IOCTypes.PromotionBoxBuilderFactory) promotionBoxBuilderFactory: (type: GameType) => PromotionBoxBuilder) {
     this.boardBuilder = boardBuilderFactory(GameType.Chess);
     this.movementJudge = movementJudgeFactory(GameType.Chess);
     this.gameStateProcessor = gameStateProcessorFactory(GameType.Chess);
+    this.promotionBoxBuilder = promotionBoxBuilderFactory(GameType.Chess);
     this.movedPieces = new Array<string>();
 	}
 
@@ -73,15 +80,24 @@ export class ChessMediator implements GameMediator {
     return this.board;
   }
 
-  public loadBoard(): Promise<Board> {
-    let self = this;
-    let boardPromise = this.boardBuilder.createBoard();
-    boardPromise.then((board: Board) => {
-      self.board = board;
-      self.setPieceCoords();
-    });
+  public async loadGame(): Promise<Group> {
+    await this.promotionBoxBuilder.loadPromotionBoxes();
 
-    return boardPromise;
+    let self = this;
+    let board = await this.boardBuilder.createBoard();
+
+    this.board = board;
+    this.setPieceCoords();
+
+    this.chessGame.add(this.board.getRenderableBoard());
+
+    return this.chessGame;
+  }
+
+  public getPromotionBox(): Group | undefined {
+    return this.pawnNeedsPromoting 
+      ? this.promotionBoxBuilder.getPromotionBoxes(this.getOppositeTeam(this.currentTeamTurn))
+      : undefined;
   }
 
   public getTeamThatWon(): Team | undefined {
@@ -110,6 +126,7 @@ export class ChessMediator implements GameMediator {
       this.processCastling(mvDta);
       this.processEnPassant(mvDta);
       this.executeMove(origin, destination);
+      this.processPawnPromotion(mvDta);
       this.rotateTeam();
 
       return true;
@@ -134,6 +151,13 @@ export class ChessMediator implements GameMediator {
       .withAllyPiecesOn(allyPieces)
       .withDefendingKingOn(defendingKing)
       .build();
+  }
+
+  private isLegalMove(mvDta: MovementData): boolean {
+    let originPiece = this.board.get(mvDta.origin);
+    if (originPiece === undefined || originPiece.team !== this.currentTeamTurn) return false;
+
+    return this.movementJudge.isLegalMove(mvDta);
   }
 
   private processCastling(mvDta: MovementData): void {
@@ -212,14 +236,21 @@ export class ChessMediator implements GameMediator {
     }
   }
 
-  private isLegalMove(mvDta: MovementData): boolean {
-    let originPiece = this.board.get(mvDta.origin);
-    if (originPiece === undefined || originPiece.team !== this.currentTeamTurn) return false;
+  private processPawnPromotion(mvDta: MovementData): void {
+    let destinationPiece = mvDta.board.get(mvDta.destination);
 
-    return this.movementJudge.isLegalMove(mvDta);
+    if (destinationPiece !== undefined &&
+        PawnMovementJudge.pawnIsPromoting(mvDta.destination, destinationPiece)) {
+      this.pawnNeedsPromoting = true;
+      this.promotionSquare = mvDta.destination;
+    }
   }
 
   private rotateTeam(): void {
     this.currentTeamTurn = this.currentTeamTurn === Team.White ? Team.Black : Team.White;
+  }
+
+  private getOppositeTeam(team: Team): Team {
+    return team === Team.White ? Team.Black : Team.White;
   }
 }

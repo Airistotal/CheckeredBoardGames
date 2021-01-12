@@ -6,9 +6,11 @@ import { BoardCoordinate } from '../../models/BoardCoordinate';
 import { BoardPieceType } from '../../models/enums/BoardPieceType';
 import { MovementJudgeType } from '../../models/enums/MovementJudgeType';
 import { GameType } from '../../models/enums/GameType';
+import { GameState } from '../../models/enums/GameState';
 import { MovementData } from '../../models/MovementData';
 import { Team } from '../../models/enums/Team';
 import { FluentMovementDataBuilder } from '../FluentMovementDataBuilder';
+import { ChessMovementJudgeClient } from './ChessMovementJudgeClient';
 import { Utilities } from '../Utilities';
 
 import { IOCTypes } from '../initialization/IOCTypes';
@@ -16,10 +18,7 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-export class ChessStateProcessor implements GameStateProcessor {
-  private readonly pieceMovementJudgeFactory: (type: MovementJudgeType) => MovementJudge;
-  private readonly pieceMovementJudges: Map<MovementJudgeType, MovementJudge>;
-
+export class ChessStateProcessor extends ChessMovementJudgeClient implements GameStateProcessor {
   private playingTeam = Team.White;
 
   private logicBoard: Board = new Board(0, 0);
@@ -28,13 +27,12 @@ export class ChessStateProcessor implements GameStateProcessor {
   private defendingPieceCoords = new Array<BoardCoordinate>();
   private defendingKingCoord: BoardCoordinate|undefined;
 
-  constructor(@inject(IOCTypes.AbstractPieceMovementJudgeFactory) abstractPieceMovementJudgeFactory: (type: GameType) => (type: MovementJudgeType) => MovementJudge) {
-    this.pieceMovementJudgeFactory = abstractPieceMovementJudgeFactory(GameType.Chess);
-    this.pieceMovementJudges = new Map<MovementJudgeType, MovementJudge>();
+  constructor(@inject(IOCTypes.AbstractPieceMovementJudgeFactory) movementJudgeFactory: (type: GameType) => (type: MovementJudgeType) => MovementJudge) {
+    super(movementJudgeFactory);
   }
 
   public isGameOver(attackData: AttackData): boolean {
-    let checkMovementJudge = this.getMovementJudgeByType(MovementJudgeType.Check);
+    let checkMovementJudge = this.getMovementJudge(MovementJudgeType.Check);
     let mvDta = FluentMovementDataBuilder.MovementData()
       .on(attackData.board)
       .withAllyPiecesOn(attackData.allyPieces)
@@ -49,15 +47,5 @@ export class ChessStateProcessor implements GameStateProcessor {
     } else {
       return false;
     }
-  }
-
-  private getMovementJudgeByType(movementJudgeType: MovementJudgeType) {
-    let movementJudge = this.pieceMovementJudges.get(movementJudgeType);
-    if (movementJudge === undefined) {
-      movementJudge = this.pieceMovementJudgeFactory(movementJudgeType);
-      this.pieceMovementJudges.set(movementJudgeType, movementJudge);
-    }
-
-    return movementJudge;
   }
 }

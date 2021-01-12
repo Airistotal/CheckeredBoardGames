@@ -9,19 +9,17 @@ import { MovementJudgeType } from '../../../models/enums/MovementJudgeType';
 import { BoardPieceType } from '../../../models/enums/BoardPieceType';
 import { Vector2 } from 'three';
 import { FluentMovementDataBuilder } from '../../FluentMovementDataBuilder';
+import { ChessMovementJudgeClient } from '../ChessMovementJudgeClient';
+import { KingMovementJudge } from './KingMovementJudge';
 
 import { IOCTypes } from '../../initialization/IOCTypes';
 import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-export class CheckMovementJudge implements MovementJudge {
-  private readonly movementJudgeFactory: (type: MovementJudgeType) => MovementJudge;
-  private readonly movementJudges: Map<MovementJudgeType, MovementJudge>;
-
+export class CheckMovementJudge extends ChessMovementJudgeClient implements MovementJudge {
   constructor(@inject(IOCTypes.AbstractPieceMovementJudgeFactory) movementJudgeFactory: (type: GameType) => (type: MovementJudgeType) => MovementJudge) {
-    this.movementJudgeFactory = movementJudgeFactory(GameType.Chess);
-    this.movementJudges = new Map<MovementJudgeType, MovementJudge>();
+    super(movementJudgeFactory);
   }
 
   public isLegalMove(movementData: MovementData) : boolean {
@@ -52,16 +50,6 @@ export class CheckMovementJudge implements MovementJudge {
     return check;
   }
 
-  private getMovementJudge(type: MovementJudgeType) {
-    let movementJudge = this.movementJudges.get(type);
-    if (movementJudge === undefined) {
-      movementJudge = this.movementJudgeFactory(type);
-      this.movementJudges.set(type, movementJudge);
-    }
-
-    return movementJudge;
-  }
-
   private executeMove(board: Board, movementData: MovementData) {
     let originPiece = board.get(movementData.origin);
     if (originPiece !== undefined) {  
@@ -78,29 +66,34 @@ export class CheckMovementJudge implements MovementJudge {
     let attackingPieces = this.getAttackingPieces(movementData, movementData.defendingKing);
     let possibleMoves = new Array<BoardCoordinate>();
 
-    if (attackingPieces.length === 1) {
-      possibleMoves = possibleMoves.concat(this.getPossibleInterceptions(attackingPieces, movementData));
-    } else if (attackingPieces.length === 0) {
+    if (attackingPieces.length >= 1) {
+      possibleMoves = possibleMoves.concat(this.getPossibleKingMoves(movementData));
+
+      if (attackingPieces.length === 1) {
+        possibleMoves = possibleMoves.concat(this.getPossibleInterceptions(attackingPieces, movementData));
+      }
+    }
+    else if (attackingPieces.length === 0) {
       // No attackers, make sure this returns something
       possibleMoves.push(BoardCoordinate.at(0, 0))
     }
-
-    possibleMoves = possibleMoves.concat(this.getPossibleKingMoves(movementData));
 
     return possibleMoves;
   }
 
   private getAttackingPieces(movementData: MovementData, destination: BoardCoordinate): Array<BoardCoordinate> {
     let attackingPieces = new Array<BoardCoordinate>();
+    let logicBoard = movementData.board.cloneBoardForLogic();
+    logicBoard.set(destination, undefined);
 
     let self = this;
     movementData.enemyPieces.forEach((coord, index) => {
-      let origPiece = movementData.board.get(coord);
+      let origPiece = logicBoard.get(coord);
       if (origPiece !== undefined) {
         let movementJudge = self.getMovementJudge(Utilities.getMovementJudgeTypeFor(origPiece.type));
         let mvDta = FluentMovementDataBuilder
           .MovementData()
-          .on(movementData.board)
+          .on(logicBoard)
           .from(coord)
           .to(destination)
           .build();
@@ -203,9 +196,13 @@ export class CheckMovementJudge implements MovementJudge {
     let filteredPossibleKingMoves = new Array<BoardCoordinate>();
 
     possibleKingMoves.forEach((kingDest, index) => {
-      let attackers = this.getAttackingPieces(movementData, kingDest);
+      let possibleMoveData = FluentMovementDataBuilder.MovementData()
+      .shallowClone(kingMovementData)
+      .to(kingDest)
+      .build();
 
-      if (attackers.length === 0) {
+      if (!this.doOpponentPiecesAttackDefendingKing(possibleMoveData) &&
+          !KingMovementJudge.isCaslting(possibleMoveData)) {
         filteredPossibleKingMoves.push(kingDest);
       }
     });

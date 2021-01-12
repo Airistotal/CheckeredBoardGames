@@ -1,10 +1,14 @@
 import { KingMovementJudge } from '../../../../src/business/chess/movementJudges/KingMovementJudge';
+import { MovementJudge } from '../../../../src/business/MovementJudge';
 import { BoardCoordinate } from '../../../../src/models/BoardCoordinate';
 import { BoardPiece } from '../../../../src/models/BoardPiece';
 import { BoardPieceType } from '../../../../src/models/enums/BoardPieceType';
+import { GameType } from '../../../../src/models/enums/GameType';
+import { MovementJudgeType } from '../../../../src/models/enums/MovementJudgeType';
 import { Board } from '../../../../src/models/Board';
 import { MovementData } from '../../../../src/models/MovementData';
 import { TestBoardPieceGeometryBuilder } from '../../../mocks/TestBoardPieceGeometryBuilder';
+import { TestMovementJudge } from '../../../mocks/TestMovementJudge';
 import { Team } from '../../../../src/models/enums/Team';
 import { FluentMovementDataBuilder } from '../../../../src/business/FluentMovementDataBuilder';
 
@@ -13,9 +17,17 @@ import { expect } from 'chai';
 import 'mocha';
 
 describe('KingMovementJudge tests', () => {
+  let kingMvJudgeFactory = (type: GameType) => (type: MovementJudgeType): MovementJudge => {
+    switch (type) {
+      default:
+        return new TestMovementJudge(true, true);
+        break;
+    }
+  }
+
   let testBoardPieceGeometryBuilder = new TestBoardPieceGeometryBuilder();
   let pieceGeometry = new Mesh();
-  let kingMovementJudge = new KingMovementJudge();
+  let kingMovementJudge = new KingMovementJudge(kingMvJudgeFactory);
 
   const validKingMoves = [
     BoardCoordinate.at(3, 3),

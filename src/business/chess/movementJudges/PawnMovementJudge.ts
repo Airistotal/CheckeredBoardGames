@@ -18,6 +18,22 @@ export class PawnMovementJudge implements MovementJudge {
   private static PawnInitialMove = new Vector2(0, 2);
   private static PawnAttack = new Vector2(1, 1);
 
+  public static pawnIsPromoting(coord: BoardCoordinate, piece: BoardPiece): boolean
+  {
+    if (piece.type !== BoardPieceType.Pawn) return false;
+
+    let direction = this.getDirectionForTeam(piece.team);
+    let row = coord.row;
+
+    if (direction === 1) {
+      return row === 8;
+    } else if (direction === -1) {
+      return row === 1;
+    } else {
+      return false;
+    }
+  }
+
   public static isMoveTwoForward(movementData: MovementData): boolean {
     let mvVector = BoardCoordinate.getVector(movementData.origin, movementData.destination);
     let originPiece = movementData.board.get(movementData.origin);

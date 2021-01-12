@@ -6,6 +6,7 @@ import { GameType } from '../../../src/models/enums/GameType';
 import { TestBoardBuilder } from '../../mocks/TestBoardBuilder';
 import { TestMovementJudge } from '../../mocks/TestMovementJudge';
 import { TestStateProcessor } from '../../mocks/TestStateProcessor';
+import { TestPromotionBoxBuilder } from '../../mocks/TestPromotionBoxBuilder';
 import { Team } from '../../../src/models/enums/Team';
 
 import { Group, Mesh } from 'three'
@@ -19,9 +20,10 @@ describe('ChessMediator tests', () => {
 				[BoardCoordinate.at(1, 2), new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
-			(type: GameType) => new TestStateProcessor());
+			(type: GameType) => new TestStateProcessor(),
+			(type: GameType) => new TestPromotionBoxBuilder());
 
-		await mediator.loadBoard();
+		await mediator.loadGame();
 
 		let piece = mediator.lookAtBoard().get(BoardCoordinate.at(1, 2));
 		mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
@@ -40,9 +42,10 @@ describe('ChessMediator tests', () => {
 				[BoardCoordinate.at(1, 2), new BoardPiece(Team.White, BoardPieceType.Pawn, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(false, true),
-			(type: GameType) => new TestStateProcessor());
+			(type: GameType) => new TestStateProcessor(),
+			(type: GameType) => new TestPromotionBoxBuilder());
 
-		await mediator.loadBoard();
+		await mediator.loadGame();
 
 		let firstmove = mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
 		let secondmove = mediator.move(BoardCoordinate.at(1, 3), BoardCoordinate.at(1, 4));
@@ -58,9 +61,10 @@ describe('ChessMediator tests', () => {
 				[BoardCoordinate.at(2, 2), new BoardPiece(Team.Black, BoardPieceType.Pawn, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
-			(type: GameType) => new TestStateProcessor());
+			(type: GameType) => new TestStateProcessor(),
+			(type: GameType) => new TestPromotionBoxBuilder());
 
-		await mediator.loadBoard()
+		await mediator.loadGame()
 
 		let firstmove = mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
 		let secondmove = mediator.move(BoardCoordinate.at(2, 2), BoardCoordinate.at(2, 3));
@@ -80,9 +84,10 @@ describe('ChessMediator tests', () => {
 				[BoardCoordinate.at(8, 1), new BoardPiece(Team.Black, BoardPieceType.Rook, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
-			(type: GameType) => new TestStateProcessor());
+			(type: GameType) => new TestStateProcessor(),
+			(type: GameType) => new TestPromotionBoxBuilder());
 
-		await mediator.loadBoard();
+		await mediator.loadGame();
 
 		let castleResult = mediator.move(BoardCoordinate.at(5, 1), BoardCoordinate.at(7, 1));
 		let kingDest = mediator.lookAtBoard().get(BoardCoordinate.at(7, 1));
@@ -100,9 +105,10 @@ describe('ChessMediator tests', () => {
 				[BoardCoordinate.at(2, 4), new BoardPiece(Team.Black, BoardPieceType.Pawn, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
-			(type: GameType) => new TestStateProcessor());
+			(type: GameType) => new TestStateProcessor(),
+			(type: GameType) => new TestPromotionBoxBuilder());
 
-		await mediator.loadBoard();
+		await mediator.loadGame();
 		
 		mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 4));
 		let enpassantResult = mediator.move(BoardCoordinate.at(2, 4), BoardCoordinate.at(1, 3));
@@ -117,9 +123,10 @@ describe('ChessMediator tests', () => {
 				[BoardCoordinate.at(2, 4), new BoardPiece(Team.Black, BoardPieceType.Pawn, new Mesh())]
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
-			(type: GameType) => new TestStateProcessor());
+			(type: GameType) => new TestStateProcessor(),
+			(type: GameType) => new TestPromotionBoxBuilder());
 
-		await mediator.loadBoard();
+		await mediator.loadGame();
 
 		mediator.move(BoardCoordinate.at(1, 2), BoardCoordinate.at(1, 3));
 

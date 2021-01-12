@@ -1,7 +1,7 @@
 import { BoardCoordinate } from '../models/BoardCoordinate';
 
 import * as $ from 'jquery';
-import { Vector2, Raycaster, PerspectiveCamera, Scene } from 'three';
+import { Vector2, Raycaster, PerspectiveCamera, Scene, Intersection } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 export class BoardGameControls {
@@ -10,7 +10,7 @@ export class BoardGameControls {
   private camera!: PerspectiveCamera;
   private scene!: Scene;
   private orbitControls!: OrbitControls;
-  private onClickCallback!: (x: BoardCoordinate) => void;
+  private onClickCallback!: (x: Intersection[]) => void;
 
   private constructor() {
     this.raycaster = new Raycaster();
@@ -36,7 +36,7 @@ export class BoardGameControls {
     $('body').on('click', this.onMouseClick);
   }
 
-  public setOnClickCallback(callback: (x: BoardCoordinate) => void) {
+  public setOnClickCallback(callback: (x: Intersection[]) => void) {
     this.onClickCallback = callback;
   }
 
@@ -49,19 +49,6 @@ export class BoardGameControls {
 
     ctrls.raycaster.setFromCamera({x, y}, ctrls.camera);
 
-    ctrls.getRaycasterIntersects();
-  }
-
-  private getRaycasterIntersects(): void {
-    let intersects = this.raycaster.intersectObjects(this.scene.children, true);
-
-    if (intersects !== undefined && intersects[0] !== undefined) {
-      let tile = intersects[0].object;
-      if (tile === null || tile.parent === null) { return; }
-
-      let coordinate = <BoardCoordinate>tile.parent.userData;
-
-      this.onClickCallback(coordinate);
-    }
+    this.onClickCallback(this.raycaster.intersectObjects(this.scene.children, true));
   }
 }

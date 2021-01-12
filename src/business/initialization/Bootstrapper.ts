@@ -9,6 +9,8 @@ import { BoardPieceType } from '../../models/enums/BoardPieceType';
 import { MovementJudgeType } from '../../models/enums/MovementJudgeType';
 import { GameMediator } from '../GameMediator';
 import { ChessPieceGeometryBuilder } from '../chess/ChessPieceGeometryBuilder';
+import { ChessPromotionBoxBuilder } from '../chess/ChessPromotionBoxBuilder';
+import { PromotionBoxBuilder } from '../PromotionBoxBuilder';
 import { BoardPieceGeometryBuilder } from '../BoardPieceGeometryBuilder';
 import { MovementJudge } from '../MovementJudge';
 import { FluentMovementDataBuilder } from '../FluentMovementDataBuilder';
@@ -104,6 +106,14 @@ export class Bootstrapper {
                     return (type: GameType) => {
                       return context.container.getNamed<GameStateProcessor>(IOCTypes.GameStateProcessor, type);
                     };
+                  });
+
+    this.container.bind<PromotionBoxBuilder>(IOCTypes.PromotionBoxBuilder).to(ChessPromotionBoxBuilder).whenTargetNamed(GameType.Chess);
+    this.container.bind<interfaces.Factory<PromotionBoxBuilder>>(IOCTypes.PromotionBoxBuilderFactory)
+                  .toFactory<PromotionBoxBuilder>((context) => {
+                    return (type: GameType) => {
+                      return context.container.getNamed<PromotionBoxBuilder>(IOCTypes.PromotionBoxBuilder, type);
+                    }
                   });
   }
 

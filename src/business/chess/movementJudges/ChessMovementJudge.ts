@@ -8,6 +8,7 @@ import { MovementData } from '../../../models/MovementData';
 import { BoardPieceType } from '../../../models/enums/BoardPieceType';
 import { MovementJudgeType } from '../../../models/enums/MovementJudgeType';
 import { FluentMovementDataBuilder } from '../../FluentMovementDataBuilder';
+import { ChessMovementJudgeClient } from '../ChessMovementJudgeClient';
 import { Utilities } from '../../Utilities';
 
 import { Vector2 } from 'three';
@@ -17,13 +18,9 @@ import { injectable, inject } from "inversify";
 import "reflect-metadata";
 
 @injectable()
-export class ChessMovementJudge implements MovementJudge {
-  private readonly movementJudgeFactory: (type: MovementJudgeType) => MovementJudge;
-  private readonly movementJudges: Map<MovementJudgeType, MovementJudge>;
-
+export class ChessMovementJudge extends ChessMovementJudgeClient implements MovementJudge {
   constructor(@inject(IOCTypes.AbstractPieceMovementJudgeFactory) movementJudgeFactory: (type: GameType) => (type: MovementJudgeType) => MovementJudge) {
-    this.movementJudgeFactory = movementJudgeFactory(GameType.Chess);
-    this.movementJudges = new Map<MovementJudgeType, MovementJudge>();
+    super(movementJudgeFactory);
   }
 
   public isLegalMove(movementData: MovementData) : boolean {
@@ -51,16 +48,6 @@ export class ChessMovementJudge implements MovementJudge {
     let mvJudge = this.getMovementJudge(Utilities.getMovementJudgeTypeFor(originPiece.type));
 
     return mvJudge.getPossibleMoves(movementData);
-  }
-
-  private getMovementJudge(type: MovementJudgeType) {
-    let movementJudge = this.movementJudges.get(type);
-    if (movementJudge === undefined) {
-      movementJudge = this.movementJudgeFactory(type);
-      this.movementJudges.set(type, movementJudge);
-    }
-
-    return movementJudge;
   }
 
   private destinationHasNoPieceOrHasOpponent(movementData: MovementData) {

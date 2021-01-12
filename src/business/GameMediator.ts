@@ -6,7 +6,8 @@ import { Group } from 'three';
 
 export interface GameMediator {
   move(origin: BoardCoordinate, destination: BoardCoordinate): boolean;
-  loadBoard(): Promise<Board>;
+  loadGame(): Promise<Group>;
   lookAtBoard(): Board;
   getTeamThatWon(): Team | undefined;
+  getPromotionBox(): Group | undefined
 }
