@@ -4,6 +4,7 @@ import { MovementData } from '../../models/MovementData';
 import { BoardPieceType } from '../../models/enums/BoardPieceType';
 import { BoardBuilder } from '../BoardBuilder';
 import { BoardPiece } from '../../models/BoardPiece';
+import { SelectedPromotion } from '../../models/SelectedPromotion';
 import { GameType } from '../../models/enums/GameType';
 import { Team } from '../../models/enums/Team';
 import { GameMediator } from '../GameMediator';
@@ -14,6 +15,7 @@ import { PawnMovementJudge } from '../chess/movementJudges/PawnMovementJudge';
 import { FluentMovementDataBuilder } from '../FluentMovementDataBuilder';
 import { FluentAttackDataBuilder } from '../FluentAttackDataBuilder';
 import { PromotionBoxBuilder } from '../PromotionBoxBuilder';
+import { BoardPieceBuilder } from '../BoardPieceBuilder';
 
 import { Group, Mesh } from 'three';
 
@@ -40,15 +42,18 @@ export class ChessMediator implements GameMediator {
   private readonly movementJudge: MovementJudge;
   private readonly gameStateProcessor: GameStateProcessor;
   private readonly promotionBoxBuilder: PromotionBoxBuilder;
+  private readonly boardPieceBuilder: BoardPieceBuilder;
 
 	constructor(@inject(IOCTypes.BoardBuilderFactory) boardBuilderFactory: (type: GameType) => BoardBuilder,
               @inject(IOCTypes.MovementJudgeFactory) movementJudgeFactory: (type: GameType) => MovementJudge,
               @inject(IOCTypes.GameStateProcessorFactory) gameStateProcessorFactory: (type: GameType) => GameStateProcessor,
-              @inject(IOCTypes.PromotionBoxBuilderFactory) promotionBoxBuilderFactory: (type: GameType) => PromotionBoxBuilder) {
+              @inject(IOCTypes.PromotionBoxBuilderFactory) promotionBoxBuilderFactory: (type: GameType) => PromotionBoxBuilder,
+              @inject(IOCTypes.BoardPieceBuilderFactory) boardPieceBuilderFactory: (type:GameType) => BoardPieceBuilder) {
     this.boardBuilder = boardBuilderFactory(GameType.Chess);
     this.movementJudge = movementJudgeFactory(GameType.Chess);
     this.gameStateProcessor = gameStateProcessorFactory(GameType.Chess);
     this.promotionBoxBuilder = promotionBoxBuilderFactory(GameType.Chess);
+    this.boardPieceBuilder = boardPieceBuilderFactory(GameType.Chess);
     this.movedPieces = new Array<string>();
 	}
 
@@ -92,6 +97,23 @@ export class ChessMediator implements GameMediator {
     this.chessGame.add(this.board.getRenderableBoard());
 
     return this.chessGame;
+  }
+
+  public async promote(choice: SelectedPromotion): Promise<boolean> {
+    if (this.pawnNeedsPromoting && this.promotionSquare !== undefined) {
+      let originPiece = this.board.get(this.promotionSquare);
+      if (originPiece === undefined) return false;
+
+      let newPiece = await this.boardPieceBuilder.createBoardPiece(originPiece.team, choice.selectedPieceType);
+      this.board.set(this.promotionSquare, newPiece);
+
+      this.pawnNeedsPromoting = false;
+      this.promotionSquare = undefined;
+
+      return true;
+    }
+
+    return false;
   }
 
   public getPromotionBox(): Group | undefined {
@@ -147,6 +169,7 @@ export class ChessMediator implements GameMediator {
       .from(origin)
       .to(destination)
       .on(this.board)
+      .withMovedPieces(this.movedPieces)
       .withEnemyPiecesOn(opponentPieces)
       .withAllyPiecesOn(allyPieces)
       .withDefendingKingOn(defendingKing)

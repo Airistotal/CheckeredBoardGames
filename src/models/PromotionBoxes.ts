@@ -1,8 +1,9 @@
 import { Utilities } from '../business/Utilities';
 import { BoardPieceType } from './enums/BoardPieceType';
+import { SceneLayer } from './enums/SceneLayer';
 import { SelectedPromotion } from './SelectedPromotion';
 
-import { Object3D, BoxGeometry, Group, MeshBasicMaterial, Mesh, BackSide } from 'three';
+import { Object3D, BoxGeometry, Group, MeshPhongMaterial, Mesh, BackSide } from 'three';
 
 import { IOCTypes } from '../business/initialization/IOCTypes';
 import { injectable, inject } from "inversify";
@@ -15,15 +16,19 @@ export class PromotionBoxes {
 
   public addPromotionBox(promotionItem: Object3D, type: BoardPieceType) {
     var geometry = new BoxGeometry(1,1,1);
-    var material = new MeshBasicMaterial({color: 0xff4444, wireframe: false});
+    var material = new MeshPhongMaterial({color: "grey", wireframe: false});
     material.side = BackSide;
     var cube = new Mesh(geometry, material);
+    cube.layers.enable(SceneLayer.PromotionBoxes);
+    cube.userData = new SelectedPromotion(type);
 
     let promotionItemWrapper = new Group();
     promotionItemWrapper.add(promotionItem);
     promotionItemWrapper.scale.set(0.5, 0.5, 0.5);
     promotionItemWrapper.translateZ(-0.5);
-    promotionItem.userData = new SelectedPromotion(type);
+    promotionItemWrapper.translateY(-0.5);
+    promotionItemWrapper.rotateZ(Utilities.degreesToRadians(-90));
+    promotionItemWrapper.rotateY(Utilities.degreesToRadians(-90));
 
     let boxGroup = new Group();
     boxGroup.add(cube);

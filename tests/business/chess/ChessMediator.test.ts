@@ -7,6 +7,7 @@ import { TestBoardBuilder } from '../../mocks/TestBoardBuilder';
 import { TestMovementJudge } from '../../mocks/TestMovementJudge';
 import { TestStateProcessor } from '../../mocks/TestStateProcessor';
 import { TestPromotionBoxBuilder } from '../../mocks/TestPromotionBoxBuilder';
+import { TestBoardPieceBuilder } from '../../mocks/TestBoardPieceBuilder';
 import { Team } from '../../../src/models/enums/Team';
 
 import { Group, Mesh } from 'three'
@@ -21,7 +22,8 @@ describe('ChessMediator tests', () => {
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
 			(type: GameType) => new TestStateProcessor(),
-			(type: GameType) => new TestPromotionBoxBuilder());
+			(type: GameType) => new TestPromotionBoxBuilder(),
+			(type: GameType) => new TestBoardPieceBuilder());
 
 		await mediator.loadGame();
 
@@ -43,7 +45,8 @@ describe('ChessMediator tests', () => {
 			])),
 			(type: GameType) => new TestMovementJudge(false, true),
 			(type: GameType) => new TestStateProcessor(),
-			(type: GameType) => new TestPromotionBoxBuilder());
+			(type: GameType) => new TestPromotionBoxBuilder(),
+			(type: GameType) => new TestBoardPieceBuilder());
 
 		await mediator.loadGame();
 
@@ -62,7 +65,8 @@ describe('ChessMediator tests', () => {
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
 			(type: GameType) => new TestStateProcessor(),
-			(type: GameType) => new TestPromotionBoxBuilder());
+			(type: GameType) => new TestPromotionBoxBuilder(),
+			(type: GameType) => new TestBoardPieceBuilder());
 
 		await mediator.loadGame()
 
@@ -85,7 +89,8 @@ describe('ChessMediator tests', () => {
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
 			(type: GameType) => new TestStateProcessor(),
-			(type: GameType) => new TestPromotionBoxBuilder());
+			(type: GameType) => new TestPromotionBoxBuilder(),
+			(type: GameType) => new TestBoardPieceBuilder());
 
 		await mediator.loadGame();
 
@@ -106,7 +111,8 @@ describe('ChessMediator tests', () => {
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
 			(type: GameType) => new TestStateProcessor(),
-			(type: GameType) => new TestPromotionBoxBuilder());
+			(type: GameType) => new TestPromotionBoxBuilder(),
+			(type: GameType) => new TestBoardPieceBuilder());
 
 		await mediator.loadGame();
 		
@@ -124,7 +130,8 @@ describe('ChessMediator tests', () => {
 			])),
 			(type: GameType) => new TestMovementJudge(true, true),
 			(type: GameType) => new TestStateProcessor(),
-			(type: GameType) => new TestPromotionBoxBuilder());
+			(type: GameType) => new TestPromotionBoxBuilder(),
+			(type: GameType) => new TestBoardPieceBuilder());
 
 		await mediator.loadGame();
 

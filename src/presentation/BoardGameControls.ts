@@ -1,4 +1,5 @@
 import { BoardCoordinate } from '../models/BoardCoordinate';
+import { SceneLayer } from '../models/enums/SceneLayer';
 
 import * as $ from 'jquery';
 import { Vector2, Raycaster, PerspectiveCamera, Scene, Intersection } from 'three';
@@ -40,6 +41,10 @@ export class BoardGameControls {
     this.onClickCallback = callback;
   }
 
+  public setClickLayer(layer: SceneLayer) {
+    this.raycaster.layers.set(layer);
+  }
+
   private onMouseClick(event: any): void {
     event.preventDefault();
 
@@ -49,6 +54,6 @@ export class BoardGameControls {
 
     ctrls.raycaster.setFromCamera({x, y}, ctrls.camera);
 
-    this.onClickCallback(this.raycaster.intersectObjects(this.scene.children, true));
+    ctrls.onClickCallback(ctrls.raycaster.intersectObjects(ctrls.scene.children, true));
   }
 }

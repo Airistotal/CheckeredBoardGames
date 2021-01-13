@@ -5,8 +5,10 @@ import { GameMediator } from '../business/GameMediator';
 import { GameType } from '../models/enums/GameType';
 import { GameState } from '../models/enums/GameState';
 import { Team } from '../models/enums/Team';
+import { SceneLayer } from '../models/enums/SceneLayer';
 import { BoardCoordinate } from '../models/BoardCoordinate';
 import { Board } from '../models/Board';
+import { SelectedPromotion } from '../models/SelectedPromotion';
 import { Bootstrapper } from '../business/initialization/Bootstrapper';
 import { Utilities } from '../business/Utilities';
 
@@ -71,27 +73,38 @@ export class SceneMediator {
   public static sendCommand(clicked: Intersection[]): void {
     if (clicked === undefined || clicked[0] === undefined) return;
 
+    let clickedObject = clicked[0].object;
+    if (clickedObject === null || clickedObject.parent === null) { return; }
+
     let self = SceneMediator.getInstance();
 
     switch (self.gameState) {
       case GameState.Movement:
-        let tile = clicked[0].object;
-        if (tile === null || tile.parent === null) { return; }
-
-        let coordinate = <BoardCoordinate>tile.parent.userData;
+        let coordinate = <BoardCoordinate>clickedObject.parent.userData;
 
         self.sendMoveCommand(coordinate);
+        self.changeStateIfRequired();
         break;
 
       case GameState.Promotion:
-        self.sendPromotionCommand();
+        let choice = <SelectedPromotion>clickedObject.userData;
+
+        if (clickedObject.parent === null || 
+            clickedObject.parent.parent === null) { return; }
+
+        self.boardGameScene.camera.remove(clickedObject.parent.parent);
+        self.renderer.render(self.boardGameScene.scene, self.boardGameScene.camera);
+
+        let promotePromise = self.sendPromotionCommand(choice);
+        promotePromise.then(() => {
+          self.changeStateIfRequired();
+        });
         break;
       
       default:
         break;
     }
 
-    self.changeStateIfRequired();
   }
 
   public sendMoveCommand(clicked: BoardCoordinate): void {
@@ -105,8 +118,11 @@ export class SceneMediator {
     }
   }
 
-  public sendPromotionCommand(): void {
+  public async sendPromotionCommand(choice: SelectedPromotion): Promise<void> {
     this.gameState = GameState.Movement;
+    BoardGameControls.getInstance().setClickLayer(SceneLayer.BoardTile);
+
+    await this.gameMediator.promote(choice);
   }
 
   public changeStateIfRequired() {
@@ -120,12 +136,13 @@ export class SceneMediator {
     let promotionBox = this.gameMediator.getPromotionBox();
     if (promotionBox !== undefined) {
       this.gameState = GameState.Promotion;
+      BoardGameControls.getInstance().setClickLayer(SceneLayer.PromotionBoxes);
 
       promotionBox.position.x = -1.5;
       promotionBox.position.y = -1;
       promotionBox.position.z = -4.5;
       promotionBox.renderOrder = 9999;
-      promotionBox.rotateX(Utilities.degreesToRadians(270));
+      //promotionBox.rotateX(Utilities.degreesToRadians(270));
 
       this.boardGameScene.camera.add(promotionBox);
     }

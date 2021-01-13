@@ -1,4 +1,5 @@
 import { BoardPiece } from './BoardPiece';
+import { SceneLayer } from './enums/SceneLayer';
 import { Color, Mesh, MeshPhongMaterial, BoxGeometry, Group, Layers } from 'three';
 
 export class BoardTile {
@@ -17,7 +18,7 @@ export class BoardTile {
     let geometry = new BoxGeometry(1, 1, 0.25);
     let material = new MeshPhongMaterial({color: this.color});
     this.tileMesh = new Mesh(geometry, material);
-    this.tileMesh.layers.enable(1);
+    this.tileMesh.layers.enable(SceneLayer.BoardTile);
     this.tileMeshGroup.add(this.tileMesh);
 
     this.updateMeshGroupWithPiece(this.piece);
