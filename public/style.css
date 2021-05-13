@@ -40,3 +40,19 @@ body {
 #attribution a {
   color: lightblue!important;
 }
+
+#restartPrompt {
+  display:block;
+  position:relative;
+  margin:auto;
+  width:fit-content;
+  background-color: gainsboro;
+  border: solid;
+  margin-top: 15px;
+  padding: 15px;
+}
+
+.flexContainer { 
+  display: flex;
+  justify-content: space-around;
+}

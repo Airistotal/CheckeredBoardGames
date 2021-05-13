@@ -11,5 +11,5 @@ export interface GameMediator {
   loadGame(): Promise<Group>;
   lookAtBoard(): Board;
   getTeamThatWon(): Team | undefined;
-  getPromotionBox(): Group | undefined
+  getPromotionBox(): Group | undefined;
 }

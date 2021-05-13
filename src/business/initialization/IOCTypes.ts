@@ -18,7 +18,8 @@ const IOCTypes = {
   MovementDataBuilder: Symbol.for("MovementDataBuilder"),
   ChessPromotionBoxBuilder: Symbol.for("ChessPromotionBoxBuilder"),
   PromotionBoxBuilder: Symbol.for("PromotionBoxBuilder"),
-  PromotionBoxBuilderFactory: Symbol.for("PromotionBoxBuilderFactory")
+  PromotionBoxBuilderFactory: Symbol.for("PromotionBoxBuilderFactory"),
+  UiController: Symbol.for("UiController")
 };
 
 export { IOCTypes };

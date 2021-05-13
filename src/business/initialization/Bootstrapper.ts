@@ -24,6 +24,7 @@ import { QueenMovementJudge } from '../chess/movementJudges/QueenMovementJudge';
 import { RookMovementJudge } from '../chess/movementJudges/RookMovementJudge';
 import { PawnMovementJudge } from '../chess/movementJudges/PawnMovementJudge';
 import { CheckMovementJudge } from '../chess/movementJudges/CheckMovementJudge';
+import { UiController } from '../../presentation/UiController';
 
 import { Container } from "inversify";
 import { IOCTypes } from "./IOCTypes";
@@ -38,6 +39,7 @@ export class Bootstrapper {
     this.container = new Container();
 
     this.container.bind<BoardGameScene>(IOCTypes.BoardGameScene).to(BoardGameScene);
+    this.container.bind<UiController>(IOCTypes.UiController).to(UiController);
 
     this.container.bind<MovementJudge>(IOCTypes.MovementJudge).to(ChessMovementJudge).whenTargetNamed(GameType.Chess);
     this.container.bind<interfaces.Factory<MovementJudge>>(IOCTypes.MovementJudgeFactory)

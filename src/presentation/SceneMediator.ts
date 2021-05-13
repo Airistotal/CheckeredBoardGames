@@ -1,4 +1,5 @@
 import { BoardGameScene } from './BoardGameScene';
+import { UiController } from './UiController';
 import { BoardGameControls } from './BoardGameControls';
 import { Scene, WebGLRenderer, Raycaster } from 'three';
 import { GameMediator } from '../business/GameMediator';
@@ -22,16 +23,20 @@ import "reflect-metadata";
 export class SceneMediator {
   private static instance: SceneMediator | null = null;
   private boardGameScene: BoardGameScene;
+  private uiController: UiController;
   private renderer: WebGLRenderer = new WebGLRenderer({antialias: true});
   private gameMediator!: GameMediator;
   private gameState: GameState = GameState.Movement;
   private lastClicked: BoardCoordinate | null = null;
 
-  private constructor(@inject(IOCTypes.BoardGameScene) boardGameScene: BoardGameScene,
-                      @inject(IOCTypes.GameMediatorFactory) gameMediatorFactory: (type: GameType) => GameMediator) {
+  private constructor(type: GameType,
+                      @inject(IOCTypes.BoardGameScene) boardGameScene: BoardGameScene,
+                      @inject(IOCTypes.GameMediatorFactory) gameMediatorFactory: (type: GameType) => GameMediator,
+                      @inject(IOCTypes.UiController) uiController: UiController) {
     this.boardGameScene = boardGameScene;
 
-    this.gameMediator = gameMediatorFactory(GameType.Chess);
+    this.uiController = uiController;
+    this.gameMediator = gameMediatorFactory(type);
     let gameLoadPromise = this.gameMediator.loadGame();
     gameLoadPromise.then((game: Group) =>{
       this.boardGameScene.addGroup(game);
@@ -50,8 +55,9 @@ export class SceneMediator {
     if(SceneMediator.instance === null) {
       const boardGameScene = Bootstrapper.getContainer().get<BoardGameScene>(IOCTypes.BoardGameScene);
       const gameMediatorFactory = Bootstrapper.getContainer().get<(type: GameType) => GameMediator>(IOCTypes.GameMediatorFactory);
+      const uiController = Bootstrapper.getContainer().get<UiController>(IOCTypes.UiController);
 
-      SceneMediator.instance = new SceneMediator(boardGameScene, gameMediatorFactory);
+      SceneMediator.instance = new SceneMediator(GameType.Chess, boardGameScene, gameMediatorFactory, uiController);
     }
 
     return SceneMediator.instance;
@@ -104,7 +110,6 @@ export class SceneMediator {
       default:
         break;
     }
-
   }
 
   public sendMoveCommand(clicked: BoardCoordinate): void {
@@ -129,7 +134,7 @@ export class SceneMediator {
     let winner = this.gameMediator.getTeamThatWon();
 
     if (winner !== undefined) {
-      alert(`Game Over! Congrats ${winner === Team.White ? 'White' : 'Black'}!`);
+      this.uiController.showRestartPrompt(true);
       this.gameState = GameState.GameOver;
     }
 
@@ -142,7 +147,6 @@ export class SceneMediator {
       promotionBox.position.y = -1;
       promotionBox.position.z = -4.5;
       promotionBox.renderOrder = 9999;
-      //promotionBox.rotateX(Utilities.degreesToRadians(270));
 
       this.boardGameScene.camera.add(promotionBox);
     }
