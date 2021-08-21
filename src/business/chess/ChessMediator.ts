@@ -116,12 +116,6 @@ export class ChessMediator implements GameMediator {
     return false;
   }
 
-  public getPromotionBox(): Group | undefined {
-    return this.pawnNeedsPromoting 
-      ? this.promotionBoxBuilder.getPromotionBoxes(this.getOppositeTeam(this.currentTeamTurn))
-      : undefined;
-  }
-
   public getTeamThatWon(): Team | undefined {
     let team = this.currentTeamTurn;
 
@@ -139,6 +133,24 @@ export class ChessMediator implements GameMediator {
     } else {
       return undefined;
     }
+  }
+
+  public getPromotionBox(): Group | undefined {
+    return this.pawnNeedsPromoting 
+      ? this.promotionBoxBuilder.getPromotionBoxes(this.getOppositeTeam(this.currentTeamTurn))
+      : undefined;
+  }
+
+  public async reset(): Promise<boolean> {
+    for( var i = this.chessGame.children.length - 1; i >= 0; i--) { 
+      let obj = this.chessGame.children[i];
+      this.chessGame.remove(obj);
+    }
+
+    await this.loadGame();
+    this.currentTeamTurn = Team.White;
+
+    return true;
   }
 
   public move(origin: BoardCoordinate, destination: BoardCoordinate): boolean {

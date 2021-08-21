@@ -1,7 +1,6 @@
 import { BoardGameScene } from './BoardGameScene';
 import { UiController } from './UiController';
 import { BoardGameControls } from './BoardGameControls';
-import { Scene, WebGLRenderer, Raycaster } from 'three';
 import { GameMediator } from '../business/GameMediator';
 import { GameType } from '../models/enums/GameType';
 import { GameState } from '../models/enums/GameState';
@@ -12,8 +11,10 @@ import { Board } from '../models/Board';
 import { SelectedPromotion } from '../models/SelectedPromotion';
 import { Bootstrapper } from '../business/initialization/Bootstrapper';
 import { Utilities } from '../business/Utilities';
+import { EventDispatcher } from '../business/eventsystem/EventDispatcher';
+import { RestartEvent } from '../business/eventsystem/events/RestartEvent';
 
-import { Color, Group, Object3D, Intersection } from 'three';
+import { Color, Group, Object3D, Intersection, Scene, WebGLRenderer, Raycaster } from 'three';
 
 import { IOCTypes } from '../business/initialization/IOCTypes';
 import { injectable, inject } from "inversify";
@@ -44,7 +45,6 @@ export class SceneMediator {
 
     BoardGameControls.getInstance().addRaycasterMouseControl(this.boardGameScene.camera, this.boardGameScene.scene);
     BoardGameControls.getInstance().setOnClickCallback(SceneMediator.sendCommand);
-    //BoardGameControls.getInstance().addOrbitControls(this.boardGameScene.camera, this.renderer.domElement);
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setClearColor(new Color().setHex(0xb3b3b3));
@@ -150,5 +150,11 @@ export class SceneMediator {
 
       this.boardGameScene.camera.add(promotionBox);
     }
+  }
+
+  @EventDispatcher.register(new RestartEvent())
+  public async handleRestart(event: RestartEvent): Promise<void> {
+      await SceneMediator.getInstance().gameMediator.reset();
+      SceneMediator.getInstance().gameState = GameState.Movement;
   }
 }

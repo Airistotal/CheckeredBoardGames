@@ -52,7 +52,22 @@ body {
   padding: 15px;
 }
 
+#uiController {
+  position: absolute;
+  height:100%;
+  width:100%;
+}
+
+#restartPrompt {
+  display: none;
+} 
+
 .flexContainer { 
   display: flex;
   justify-content: space-around;
+}
+
+
+.promptButton {
+  margin-top: 15px;
 }
