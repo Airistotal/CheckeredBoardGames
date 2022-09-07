@@ -1,7 +1,7 @@
 import { SceneMediator } from './presentation/SceneMediator';
 
 class Main {
-  public static Run() {
+  public static run() {
     const renderer = SceneMediator.getInstance();
 
     renderer.render(Date.now());
@@ -10,4 +10,4 @@ class Main {
   }
 }
 
-Main.Run();
+Main.run();
